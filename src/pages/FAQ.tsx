@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { IconQuestionMark, IconSearch, IconPlus, IconMinus } from '@tabler/icons-react';
 import { useState } from 'react';
+import WhyChooseUs from '../components/WhyChooseUs';
 
 // Define types for our data structures
 interface FAQItem {
@@ -223,6 +224,9 @@ const FAQ = () => {
           </div>
         </motion.div>
       </Container>
+      
+      {/* Why Choose Us Section */}
+      <WhyChooseUs />
       
       {/* Still Need Help */}
       <div className="bg-gray-100 py-16">

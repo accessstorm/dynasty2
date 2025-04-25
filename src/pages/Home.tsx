@@ -3,6 +3,8 @@ import FeaturedProducts from '../components/FeaturedProducts';
 import Newsletter from '../components/Newsletter';
 import NewsletterPopup from '../components/NewsletterPopup';
 import OurStory from '../components/OurStory';
+import BestSellers from '../components/BestSellers';
+import HomeWhyChooseUs from '../components/HomeWhyChooseUs';
 
 const Home = () => {
   return (
@@ -12,8 +14,10 @@ const Home = () => {
       transition={{ duration: 0.6 }}
     >
       <FeaturedProducts />
-      <Newsletter />
+      <BestSellers />
       <OurStory />
+      <HomeWhyChooseUs />
+      <Newsletter />
       <NewsletterPopup />
     </motion.main>
   );

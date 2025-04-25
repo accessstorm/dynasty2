@@ -389,21 +389,6 @@ const FeaturedProducts = () => {
       
       <CategoricalCollection />
 
-      {/* Neckties Section */}
-      {renderCategorySection(
-        "Neckties Collection",
-        "Discover our handpicked selection of the finest ties, crafted for the modern gentleman.",
-        necktieProducts,
-        "/neckties"
-      )}
-      
-      {/* Pocket Squares Section */}
-      {renderCategorySection(
-        "Gift Sets Collection",
-        "Add the perfect finishing touch to your outfit with our elegant pocket squares.",
-        pocketSquareProducts,
-        "/gift-sets"
-      )}
       
     </>
   );
