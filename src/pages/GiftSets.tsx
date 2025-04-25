@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Container, Text, Button } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IconFilter } from '@tabler/icons-react';
-import { useMediaQuery } from '@mantine/hooks';
 import FilterSidebar from '../components/FilterSidebar';
 import ProductGrid from '../components/ProductGrid';
 import { ProductCardProps } from '../components/ProductCard';
 import StaticProductService from '../services/StaticProductService';
+import { IconFilter } from '@tabler/icons-react';
+import { useMediaQuery } from '@mantine/hooks';
 
-const Women = () => {
+const GiftSets = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductCardProps[]>([]);
@@ -19,24 +19,23 @@ const Women = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
   
-  // Color filters with counts for women's products
+  // Color filters with counts for neckties
   const colorFilters = [
-    { color: 'pink', label: 'Pink', count: 17, colorCode: '#f472b6' },
-    { color: 'red', label: 'Red', count: 15, colorCode: '#b91c1c' },
-    { color: 'white', label: 'White', count: 12, colorCode: '#ffffff' },
-    { color: 'black', label: 'Black', count: 10, colorCode: '#000000' },
-    { color: 'blue', label: 'Blue', count: 8, colorCode: '#1e3a8a' },
-    { color: 'purple', label: 'Purple', count: 7, colorCode: '#4a148c' },
-    { color: 'beige', label: 'Beige', count: 6, colorCode: '#f5f5dc' },
-    { color: 'burgundy', label: 'Burgundy', count: 5, colorCode: '#800020' },
-    { color: 'green', label: 'Green', count: 4, colorCode: '#166534' },
-    { color: 'grey', label: 'Grey', count: 3, colorCode: '#6b7280' },
+    { color: 'blue', label: 'Blue', count: 10, colorCode: '#1e3a8a' },
+    { color: 'black', label: 'Black', count: 8, colorCode: '#000000' },
+    { color: 'grey', label: 'Grey', count: 7, colorCode: '#6b7280' },
+    { color: 'green', label: 'Green', count: 6, colorCode: '#166534' },
+    { color: 'burgundy', label: 'Burgundy', count: 4, colorCode: '#800020' },
+    { color: 'navy', label: 'Navy Blue', count: 4, colorCode: '#172554' },
+    { color: 'red', label: 'Red', count: 3, colorCode: '#b91c1c' },
+    { color: 'white', label: 'White', count: 3, colorCode: '#ffffff' },
+    { color: 'brown', label: 'Brown', count: 2, colorCode: '#8b4513' },
   ];
   
   useEffect(() => {
     // Get products from static service
-    const { women } = StaticProductService.getStaticProducts();
-    setProducts(women);
+    const { neckties } = StaticProductService.getStaticProducts();
+    setProducts(neckties);
     
     // Parse URL parameters
     const searchParams = new URLSearchParams(location.search);
@@ -58,7 +57,7 @@ const Women = () => {
     setSortOption(initialSort);
     
     // Apply initial filters
-    applyFilters(initialPriceRange, initialColors, initialSort, women);
+    applyFilters(initialPriceRange, initialColors, initialSort, neckties);
   }, [location.search]);
   
   // Update URL with current filter state
@@ -154,9 +153,9 @@ const Women = () => {
     <div className="py-8">
       {/* Page Title */}
       <Container size="xl" className="mb-6 px-6 md:px-8">
-        <Text component="h1" className="text-3xl font-serif text-center mb-2">Women's Collection</Text>
+        <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
         <Text className="text-center text-gray-600 mb-8">
-          Elegant accessories for the modern woman
+          Discover our exquisite collection of handcrafted neckties, made from the finest materials
         </Text>
         
         {/* Results Header */}
@@ -213,4 +212,4 @@ const Women = () => {
   );
 };
 
-export default Women; 
+export default GiftSets; 

@@ -9,17 +9,15 @@ import ChatbotButton from './components/ChatbotButton';
 // Pages
 import Home from './pages/Home';
 import Neckties from './pages/Neckties';
-import BowTies from './pages/BowTies';
 import PocketSquares from './pages/PocketSquares';
-import Men from './pages/Men';
-import Women from './pages/Women';
-import Combos from './pages/Combos';
-import OversizedTees from './pages/OversizedTees';
-import Wedding from './pages/Wedding';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductDetails from './pages/ProductDetails';
 import Cufflinks from './pages/Cufflinks';
+import GiftSets from './pages/GiftSets';
+import BulkOrders from './pages/BulkOrders';
+import Help from './pages/Help';
+import FAQ from './pages/FAQ';
 
 function App() {
   return (
@@ -31,17 +29,15 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/neckties" element={<Neckties />} />
-              <Route path="/bow-ties" element={<BowTies />} />
               <Route path="/pocket-squares" element={<PocketSquares />} />
               <Route path="/cufflinks" element={<Cufflinks />} />
-              <Route path="/men" element={<Men />} />
-              <Route path="/women" element={<Women />} />
-              <Route path="/combos" element={<Combos />} />
-              <Route path="/oversized-tees" element={<OversizedTees />} />
-              <Route path="/wedding" element={<Wedding />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
+              <Route path="/gift-sets" element={<GiftSets />} />
+              <Route path="/bulk-orders" element={<BulkOrders />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/faq" element={<FAQ />} />
             </Routes>
           </div>
           <Footer />

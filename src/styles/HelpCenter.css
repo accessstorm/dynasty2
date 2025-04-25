@@ -1,0 +1,264 @@
+/* Help Center Styles */
+.help-center-container {
+  padding: 4rem 0;
+  background-color: #fcfcfc;
+}
+
+.help-center-title {
+  font-size: 2.4rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.help-center-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 2rem auto 4rem;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem 1rem 3rem;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  height: 100%;
+  border: 1px solid #efefef;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.topic-card:hover {
+  transform: translateY(-5px);
+  border-color: #ccc;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.topic-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
+  margin-bottom: 1.5rem;
+  border: 1px solid #f0f0f0;
+}
+
+.topic-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.topic-description {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.faq-container {
+  background-color: #fff;
+  border: 1px solid #efefef;
+  padding: 2.5rem;
+}
+
+.faq-title {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.faq-item {
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1rem;
+}
+
+.faq-question {
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 1rem 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+}
+
+.faq-answer {
+  padding: 0 0 1.5rem;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.contact-container {
+  background-color: #fff;
+  border: 1px solid #efefef;
+  border-top: 3px solid #000;
+  padding: 2.5rem;
+  height: 100%;
+}
+
+.contact-icon-container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.contact-title {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.contact-info-item {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info-icon {
+  margin-right: 1rem;
+  color: #666;
+  margin-top: 0.2rem;
+}
+
+.contact-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  color: #333;
+}
+
+.contact-value {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.contact-hours {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.contact-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #333;
+}
+
+.tools-container {
+  background-color: #f9f9f9;
+  border: 1px solid #efefef;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.tools-title {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.tools-description {
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.tool-button {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  color: #333;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.tool-button:hover {
+  background-color: #fff;
+  border-color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .faq-container, 
+  .contact-container {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .help-center-container {
+    padding: 3rem 1rem;
+  }
+  
+  .search-container {
+    margin: 2rem auto 3rem;
+  }
+  
+  .faq-container, 
+  .contact-container,
+  .tools-container {
+    padding: 1.5rem;
+  }
+} 

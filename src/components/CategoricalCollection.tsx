@@ -1,37 +1,42 @@
 import { useState } from 'react';
-import { Card, Text, Button } from '@mantine/core';
+import { Text, Button } from '@mantine/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
 
 const CategoricalCollection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   
-  // Using the existing necktie images from public/images
-  const products: Product[] = [
-    { id: 1, name: 'Classic Silk Tie', price: 1999, image: '/images/necktie.jpg' },
-    { id: 2, name: 'Striped Pattern Tie', price: 2199, image: '/images/necktie1.jpg' },
-    { id: 3, name: 'Geometric Design Tie', price: 2299, image: '/images/necktie2.jpg' },
-    { id: 4, name: 'Floral Pattern Tie', price: 2399, image: '/images/necktie3.jpg' },
-    { id: 5, name: 'Solid Color Tie', price: 2499, image: '/images/necktie4.jpg' },
-    { id: 6, name: 'Paisley Pattern Tie', price: 2599, image: '/images/necktie5.jpg' },
-    { id: 7, name: 'Dotted Pattern Tie', price: 2699, image: '/images/necktie6.jpg' },
-    { id: 8, name: 'Bow Tie Classic', price: 1899, image: '/images/bowtie.jpg' },
-    { id: 9, name: 'Bow Tie Pattern', price: 2099, image: '/images/bowtie1.jpg' },
-    { id: 10, name: 'Bow Tie Solid', price: 2199, image: '/images/bowtie2.jpg' },
-    { id: 11, name: 'Pocket Square Classic', price: 999, image: '/images/pocketsquares.jpg' },
-    { id: 12, name: 'Pocket Square Pattern', price: 1199, image: '/images/pocketsquares1.jpg' }
+  // Categories based on the navigation links
+  const categories = [
+    { 
+      id: 1, 
+      name: 'NECKTIES', 
+      href: '/neckties',
+      image: '/images/necktie.jpg',
+      status: 'available' 
+    },
+    { 
+      id: 2, 
+      name: 'GIFT SETS', 
+      href: '/gift-sets',
+      image: '/images/giftsets1.jpg',
+      status: 'available'
+    },
+    { 
+      id: 3, 
+      name: 'POCKET SQUARES', 
+      href: '/pocket-squares',
+      image: '/images/pocketsquares.jpg',
+      status: 'coming-soon'
+    },
+    { 
+      id: 4, 
+      name: 'CUFFLINKS', 
+      href: '/cufflinks',
+      image: '/images/cufflinks.jpg',
+      status: 'coming-soon'
+    }
   ];
-
-  // Function to format price in Indian Rupees
-  const formatINR = (amount: number) =>
-    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -43,38 +48,39 @@ const CategoricalCollection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Text className="text-4xl font-serif mb-3">Categorical Collection</Text>
+          <Text className="text-4xl font-serif mb-3">Our Premium Collections</Text>
           <Text className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explore our curated selection of premium ties, each crafted with precision and elegance.
+            Explore our curated selection of premium accessories, each crafted with precision and elegance.
           </Text>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((category) => (
             <motion.div
-              key={product.id}
+              key={category.id}
               className="relative overflow-hidden"
-              onHoverStart={() => setHoveredCard(product.id)}
+              onHoverStart={() => setHoveredCard(category.id)}
               onHoverEnd={() => setHoveredCard(null)}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
             >
-              <Card 
-                shadow="sm" 
-                padding="0"
-                radius="sm"
-                className="overflow-hidden border border-gray-200"
-              >
+              <div className="relative overflow-hidden border border-gray-200">
                 <div className="relative h-80">
                   <img
-                    src={product.image}
-                    alt={product.name}
+                    src={category.image}
+                    alt={category.name}
                     className="w-full h-full object-cover"
                   />
                   
-                  {/* Curtain Animation Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-4">
+                    <h3 className="text-lg font-medium bg-white inline-block px-4 py-1">
+                      {category.name}
+                    </h3>
+                  </div>
+                  
+                  {/* Hover overlay */}
                   <AnimatePresence>
-                    {hoveredCard === product.id && (
+                    {hoveredCard === category.id && (
                       <motion.div
                         initial={{ opacity: 0, y: '100%' }}
                         animate={{ opacity: 0.7, y: 0 }}
@@ -85,9 +91,9 @@ const CategoricalCollection = () => {
                     )}
                   </AnimatePresence>
 
-                  {/* Centered Button */}
+                  {/* Centered Content on Hover */}
                   <AnimatePresence>
-                    {hoveredCard === product.id && (
+                    {hoveredCard === category.id && (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -95,25 +101,27 @@ const CategoricalCollection = () => {
                         transition={{ duration: 0.3 }}
                         className="absolute inset-0 flex items-center justify-center"
                       >
-                        <Button
-                          component={Link}
-                          to={`/product/${product.id}`}
-                          variant="outline"
-                          radius="0"
-                          className="border-white text-white hover:bg-white hover:text-black transition-all px-8 py-2 tracking-widest text-sm uppercase"
-                        >
-                          View Details
-                        </Button>
+                        {category.status === 'available' ? (
+                          <Button
+                            component={Link}
+                            to={category.href}
+                            variant="outline"
+                            radius="0"
+                            className="border-white text-white hover:bg-white hover:text-black transition-all px-8 py-2 tracking-widest text-sm uppercase"
+                          >
+                            View Details
+                          </Button>
+                        ) : (
+                          <div className="text-white text-center">
+                            <h3 className="text-xl font-serif mb-2">Coming Soon</h3>
+                            <p className="text-sm opacity-80">This collection will be available shortly</p>
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
-
-                <div className="p-4">
-                  <Text fw={500} className="mb-1">{product.name}</Text>
-                  <Text fz="sm" c="dimmed">{formatINR(product.price)}</Text>
-                </div>
-              </Card>
+              </div>
             </motion.div>
           ))}
         </div>

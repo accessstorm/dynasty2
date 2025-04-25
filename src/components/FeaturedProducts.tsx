@@ -70,11 +70,34 @@ const FeaturedProducts = () => {
   // Slideshow state
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    '/images/yes1.jpg',
-    '/images/yes2.jpg',
-    '/images/yes3.jpg',
-    '/images/yes4.jpg',
-    '/images/yes5.jpg'
+    {
+      image: '/images/yes1.jpg',
+      title: 'NEW ARRIVALS',
+      subtitle: 'UNITY THROUGH DIVERSITY',
+      buttonText: 'Shop Now',
+      buttonLink: '#products'
+    },
+    {
+      image: '/images/yes2.jpg',
+      title: 'OUR STORY',
+      subtitle: 'CRAFTING EXCELLENCE SINCE 2023',
+      buttonText: 'Learn More',
+      buttonLink: '/about'
+    },
+    {
+      image: '/images/yes3.jpg',
+      title: 'OUR SERVICES',
+      subtitle: 'PERSONALIZED STYLING & CUSTOM DESIGNS',
+      buttonText: 'Explore Services',
+      buttonLink: '/services'
+    },
+    {
+      image: '/images/yes4.jpg',
+      title: 'CORPORATE ORDERS',
+      subtitle: 'PREMIUM BULK SOLUTIONS FOR BUSINESSES',
+      buttonText: 'Get a Quote',
+      buttonLink: '/bulk-orders'
+    }
   ];
 
   // Handle slideshow
@@ -283,7 +306,7 @@ const FeaturedProducts = () => {
 
   return (
     <>
-      {/* Hero Section with New Arrivals - Slideshow */}
+      {/* Hero Section with Slideshow */}
       <motion.section 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         variants={heroVariants}
@@ -300,7 +323,7 @@ const FeaturedProducts = () => {
             transition={{ duration: 1 }} // 1 second fade transition
             className="absolute inset-0 w-full h-full"
             style={{
-              backgroundImage: `url('${slides[currentSlide]}')`,
+              backgroundImage: `url('${slides[currentSlide].image}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               zIndex: 1
@@ -318,7 +341,7 @@ const FeaturedProducts = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            NEW ARRIVALS
+            {slides[currentSlide].title}
           </motion.h1>
           
           <motion.p
@@ -327,7 +350,7 @@ const FeaturedProducts = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            UNITY THROUGH DIVERSITY
+            {slides[currentSlide].subtitle}
           </motion.p>
           
           <motion.div
@@ -337,7 +360,7 @@ const FeaturedProducts = () => {
           >
             <Button
               component={Link}
-              to="#products"
+              to={slides[currentSlide].buttonLink}
               variant="outline"
               color="white"
               radius="0"
@@ -345,7 +368,7 @@ const FeaturedProducts = () => {
                 root: 'border-white text-white hover:bg-white hover:text-black transition-all px-8 py-2 tracking-widest text-sm font-light uppercase'
               }}
             >
-              Shop Now
+              {slides[currentSlide].buttonText}
             </Button>
           </motion.div>
 
@@ -376,19 +399,12 @@ const FeaturedProducts = () => {
       
       {/* Pocket Squares Section */}
       {renderCategorySection(
-        "Pocket Squares Collection",
+        "Gift Sets Collection",
         "Add the perfect finishing touch to your outfit with our elegant pocket squares.",
         pocketSquareProducts,
-        "/pocket-squares"
+        "/gift-sets"
       )}
       
-      {/* Cufflinks Section */}
-      {renderCategorySection(
-        "Cufflinks Collection",
-        "Elevate your formal attire with our selection of premium cufflinks, crafted for distinction.",
-        cufflinkProducts,
-        "/cufflinks"
-      )}
     </>
   );
 };

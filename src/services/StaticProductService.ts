@@ -66,16 +66,7 @@ export const getStaticProducts = (): CategoryProducts => {
     createProduct(3, "Midnight Blue Twill", "Deep navy tie with subtle texture", 5999, "navy", true),
     createProduct(4, "Burgundy Classic", "Rich burgundy tone for a sophisticated look", 7499, "burgundy", true),
     createProduct(5, "Geometric Gold", "Intricate gold pattern on black background", 9999, "black", false),
-    createProduct(6, "Silver Anniversary", "Elegant silver tie for special occasions", 8499, "grey", true),
-    createProduct(7, "Forest Green Jacquard", "Lush green with subtle pattern", 6799, "green", false),
-    createProduct(8, "Azure Diamond", "Vibrant blue with diamond texture", 7299, "blue", true),
-    createProduct(9, "Platinum Stripe", "Modern stripe pattern in grey and silver", 8999, "grey", true),
-    createProduct(10, "Obsidian Black", "Pure black tie with subtle sheen", 7999, "black", false),
-    createProduct(11, "Crimson Paisley", "Bold paisley pattern in rich red", 9499, "red", true),
-    createProduct(12, "Ivory Silk", "Luxurious ivory tie for weddings", 10999, "white", true),
-    createProduct(13, "Sapphire Royal", "Deep blue with royal pattern", 8599, "blue", false),
-    createProduct(14, "Emerald Texture", "Rich emerald green with tactile surface", 7599, "green", true),
-    createProduct(15, "Amber Heritage", "Warm amber tones with classic design", 6999, "brown", true)
+    createProduct(6, "Silver Anniversary", "Elegant silver tie for special occasions", 8499, "grey", true)
   ];
 
   const bowTies: ProductCardProps[] = [
@@ -144,13 +135,7 @@ export const getStaticProducts = (): CategoryProducts => {
     createProduct(66, "Grey Business Set", "Tie, pocket square, and cufflinks", 12999, "grey", true),
     createProduct(67, "Wedding Ivory", "Complete wedding accessory set", 15999, "white", true),
     createProduct(68, "Power Meeting", "Red tie and gold cufflinks", 9499, "red", false),
-    createProduct(69, "Blue Harmony", "Coordinated blue accessories", 10999, "blue", true),
-    createProduct(70, "Gentleman's Collection", "Complete set for the modern man", 14999, "black", true),
-    createProduct(71, "Evening Black", "Black tie event essentials", 11999, "black", false),
-    createProduct(72, "Green Coordination", "Forest green tie and pocket square", 8799, "green", true),
-    createProduct(73, "Silver Celebration", "Silver tie and matching accessories", 13499, "grey", true),
-    createProduct(74, "Heritage Collection", "Traditional patterns in modern set", 12499, "brown", false),
-    createProduct(75, "Executive Package", "Complete professional accessory set", 16999, "navy", true)
+    createProduct(69, "Blue Harmony", "Coordinated blue accessories", 10999, "blue", true)
   ];
 
   const oversizedTees: ProductCardProps[] = [

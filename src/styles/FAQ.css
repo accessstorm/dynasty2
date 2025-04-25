@@ -1,0 +1,333 @@
+/* FAQ Page Styles */
+.faq-page-container {
+  padding: 4rem 0;
+  background-color: #fcfcfc;
+}
+
+.faq-page-title {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.faq-page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: #D4AF37;
+}
+
+.faq-page-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #666;
+  max-width: 600px;
+  margin: 1.5rem auto 3rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.faq-search-container {
+  max-width: 600px;
+  margin: 2rem auto 4rem;
+  position: relative;
+}
+
+.faq-search-input {
+  width: 100%;
+  padding: 1rem 1.5rem 1rem 3rem;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.faq-search-input:focus {
+  outline: none;
+  border-color: #D4AF37;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.faq-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.faq-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  gap: 0.5rem;
+}
+
+.faq-category-tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.faq-category-tab:hover {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.faq-category-tab.active {
+  background-color: #fff;
+  border-color: #D4AF37;
+  color: #D4AF37;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+}
+
+.faq-section {
+  margin-bottom: 3rem;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, #D4AF37, #B8860B);
+}
+
+.faq-section-title {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #222;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eaeaea;
+  font-weight: 500;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.faq-accordion-item {
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 0.5rem;
+}
+
+.faq-accordion-button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 1.25rem 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.faq-accordion-button:hover {
+  color: #D4AF37;
+  background-color: rgba(212, 175, 55, 0.03);
+}
+
+.faq-accordion-content {
+  padding: 0 0.75rem 1.5rem;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.faq-contact-container {
+  background: linear-gradient(to right, #1c1c1c, #2a2a2a);
+  color: #fff;
+  padding: 2.5rem;
+  text-align: center;
+  margin-top: 2rem;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.faq-contact-title {
+  font-size: 1.75rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.faq-contact-text {
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.faq-button-primary {
+  background-color: #D4AF37;
+  color: #222;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+.faq-button-primary:hover {
+  background-color: #c19f2e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.faq-button-secondary {
+  background-color: transparent;
+  border: 1px solid #aaa;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.faq-button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* Product Category Card Styles */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.category-card-image {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.5s ease;
+}
+
+.category-card:hover .category-card-image {
+  transform: scale(1.05);
+}
+
+.category-card-title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover .category-card-title {
+  background-color: #D4AF37;
+  color: #fff;
+}
+
+.category-card-action {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.category-card:hover .category-card-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faq-page-container {
+    padding: 3rem 1rem;
+  }
+  
+  .faq-category-tabs {
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .faq-category-tab {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .faq-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+  }
+  
+  .faq-contact-container {
+    padding: 1.5rem;
+  }
+  
+  .faq-button-primary,
+  .faq-button-secondary {
+    display: block;
+    width: 100%;
+    margin: 0 0 1rem 0;
+  }
+  
+  .faq-page-title {
+    font-size: 2rem;
+  }
+} 

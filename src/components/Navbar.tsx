@@ -9,13 +9,16 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   
-  // Main nav links
+  // Main nav links - Updated with the requested items in the exact order
   const navLinks = [
     { name: 'HOME', href: '/' },
     { name: 'NECKTIES', href: '/neckties' },
+    { name: 'GIFT SETS', href: '/gift-sets' },
     { name: 'POCKET SQUARES', href: '/pocket-squares' },
     { name: 'CUFFLINKS', href: '/cufflinks' },
-    { name: 'MORE', href: '/about' }
+    { name: 'BULK ORDERS', href: '/bulk-orders' },
+    { name: 'HELP', href: '/help' },
+    { name: 'FAQ', href: '/faq' }
   ];
 
   // Close mobile menu when clicking outside
