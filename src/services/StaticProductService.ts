@@ -33,6 +33,29 @@ export const getStaticProducts = (): CategoryProducts => {
     } else if (id >= 88 && id <= 99) {
       // Wedding products use the base category image
       imagePath = '/images/wedding.jpg';
+    } else if (id <= 16) {
+      // Neckties use box images as primary
+      // Map neckties to specific color variants in the image folder
+      const colorMap: {[key: string]: string} = {
+        'blue': 'navyblue',
+        'grey': 'blackpurple',
+        'navy': 'navyblue',
+        'burgundy': 'red',
+        'black': 'blackpink',
+        'teal': 'teal',
+        'orange': 'orange',
+        'purple': 'purple',
+        'pink': 'pinkd',
+        'yellow': 'yellow',
+        'cyan': 'cyan',
+        'choco': 'choco',
+        'blackpink': 'blackpink',
+        'darkpurple': 'darkpurple',
+        'orangewhite': 'orangewhite'
+      };
+      
+      const colorKey = colorMap[color.toLowerCase()] || 'navyblue';
+      imagePath = `/images/Aproducts/1Necktie/box/box${colorKey}.jpg?v=${new Date().getTime()}`;
     } else {
       // Other products use numbered images
       let category = "necktie";
@@ -63,10 +86,20 @@ export const getStaticProducts = (): CategoryProducts => {
   const neckties: ProductCardProps[] = [
     createProduct(1, "Royal Duchess Silk", "Handcrafted from the finest Mulberry silk", 8999, "blue", true),
     createProduct(2, "Charcoal Herringbone", "Timeless pattern with a modern twist", 6499, "grey", false),
-    createProduct(3, "Midnight Blue Twill", "Deep navy tie with subtle texture", 5999, "navy", true),
+    createProduct(3, "Midnight Blue Twill", "Deep navy tone with subtle texture", 5999, "navy", true),
     createProduct(4, "Burgundy Classic", "Rich burgundy tone for a sophisticated look", 7499, "burgundy", true),
     createProduct(5, "Geometric Gold", "Intricate gold pattern on black background", 9999, "black", false),
-    createProduct(6, "Silver Anniversary", "Elegant silver tie for special occasions", 8499, "grey", true)
+    createProduct(6, "Silver Anniversary", "Elegant silver tie for special occasions", 8499, "grey", true),
+    createProduct(7, "Teal Elegance", "Vibrant teal with modern geometric pattern", 7999, "teal", true),
+    createProduct(8, "Orange Distinction", "Bold orange necktie for a statement look", 6999, "orange", false),
+    createProduct(9, "Purple Royalty", "Deep purple with subtle pattern", 8299, "purple", true),
+    createProduct(10, "Pink Diamond", "Luxurious pink with diamond texture", 7699, "pink", false),
+    createProduct(11, "Yellow Sunlight", "Bright yellow for a sunny disposition", 6799, "yellow", true),
+    createProduct(12, "Cyan Executive", "Professional cyan blue for business attire", 7599, "cyan", false),
+    createProduct(13, "Chocolate Sophistication", "Rich chocolate brown with elegant finish", 8199, "choco", true),
+    createProduct(14, "Black Pink Contrast", "Striking black with pink accents", 8999, "blackpink", false),
+    createProduct(15, "Dark Purple Intensity", "Deep, intense purple for evening events", 9299, "darkpurple", true),
+    createProduct(16, "Orange White Stripe", "Classic orange and white striped pattern", 7299, "orangewhite", false)
   ];
 
   const bowTies: ProductCardProps[] = [
@@ -181,17 +214,18 @@ export const getStaticProducts = (): CategoryProducts => {
         } else if (product.id >= 88 && product.id <= 99) {
           // Wedding products use the base category image
           imagePath = '/images/wedding.jpg';
+        } else if (product.id >= 16 && product.id <= 27) {
+          let category = "bowtie";
+          let imageIndex = ((product.id - 16) % 6) + 1;
+          imagePath = `/images/${category}${imageIndex}.jpg`;
+        } else if (product.id >= 28 && product.id <= 39) {
+          let category = "pocketsquares";
+          let imageIndex = ((product.id - 28) % 6) + 1;
+          imagePath = `/images/${category}${imageIndex}.jpg`;
         } else {
           // Other products use numbered images
           let category = "necktie";
-          let imageIndex = ((product.id - 1) % 6) + 1;
-          
-          if (product.id >= 16 && product.id <= 27) {
-            category = "bowtie";
-          } else if (product.id >= 28 && product.id <= 39) {
-            category = "pocketsquares";
-          }
-          
+          let imageIndex = ((product.id - 1) % 6) + 1; 
           imagePath = `/images/${category}${imageIndex}.jpg`;
         }
         
@@ -281,13 +315,13 @@ export const getStaticProducts = (): CategoryProducts => {
   // Home page features a mix of products from all categories
   // Ensure we have enough products for the home page
   const home: ProductCardProps[] = [
-    // First row - neckties and bow ties
-    { ...necktiesWithImages[0], image: '/images/necktie1.jpg' },
-    { ...necktiesWithImages[1], image: '/images/necktie2.jpg' },
-    { ...necktiesWithImages[2], image: '/images/necktie3.jpg' },
-    { ...necktiesWithImages[3], image: '/images/necktie4.jpg' },
+    // First row - neckties with box images
+    { ...necktiesWithImages[0], image: `/images/Aproducts/1Necktie/box/boxnavyblue.jpg?v=${new Date().getTime()}` },
+    { ...necktiesWithImages[1], image: `/images/Aproducts/1Necktie/box/boxblackpurple.jpg?v=${new Date().getTime()}` },
+    { ...necktiesWithImages[2], image: `/images/Aproducts/1Necktie/box/boxnavyblue.jpg?v=${new Date().getTime()}` },
+    { ...necktiesWithImages[3], image: `/images/Aproducts/1Necktie/box/boxred.jpg?v=${new Date().getTime()}` },
     
-    // Second row - bow ties and pocket squares
+    // Second row - bow ties
     { ...bowTiesWithImages[0], image: '/images/bowtie1.jpg' },
     { ...bowTiesWithImages[1], image: '/images/bowtie2.jpg' },
     { ...bowTiesWithImages[2], image: '/images/bowtie3.jpg' },
@@ -302,8 +336,8 @@ export const getStaticProducts = (): CategoryProducts => {
     // Fourth row - mix of categories
     { ...oversizedTeesWithImages[0], image: '/images/oversizedtees.jpg' },
     { ...weddingWithImages[0], image: '/images/wedding.jpg' },
-    { ...necktiesWithImages[4], image: '/images/necktie5.jpg' },
-    { ...necktiesWithImages[5], image: '/images/necktie6.jpg' }
+    { ...necktiesWithImages[4], image: `/images/Aproducts/1Necktie/box/boxblackpink.jpg?v=${new Date().getTime()}` },
+    { ...necktiesWithImages[5], image: `/images/Aproducts/1Necktie/box/boxblackpurple.jpg?v=${new Date().getTime()}` }
   ];
 
   return {

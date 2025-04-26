@@ -14,6 +14,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState<ProductCardProps | null>(null);
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
+  const [category, setCategory] = useState('necktie'); // Default category
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -43,6 +44,14 @@ const ProductDetails = () => {
           else if (allProducts.oversizedTees.some(p => p.id === foundProduct.id)) category = "oversizedtees";
           else if (allProducts.wedding.some(p => p.id === foundProduct.id)) category = "wedding";
           
+          // Ensure necktie products use the new image structure
+          if (category === "necktie" || foundProduct.id <= 16) {
+            category = "necktie"; // Override category if ID matches necktie range
+          }
+          
+          // Store the category in state
+          setCategory(category);
+          
           // Generate product images based on category
           const images = generateProductImages(category, foundProduct.id);
           setProductImages(images);
@@ -70,6 +79,42 @@ const ProductDetails = () => {
   const generateProductImages = (category: string, id: number): string[] => {
     const images: string[] = [];
     
+    // For neckties, use the folder structure with box, frontback, and roll images
+    if (category === "necktie" && id <= 16) {
+      // Map ID to color names
+      const colorMap: {[key: number]: string} = {
+        1: 'navyblue',   // Royal Duchess Silk (blue)
+        2: 'blackpurple', // Charcoal Herringbone (grey)
+        3: 'navyblue',   // Midnight Blue Twill (navy)
+        4: 'red',        // Burgundy Classic (burgundy)
+        5: 'blackpink',  // Geometric Gold (black)
+        6: 'blackpurple', // Silver Anniversary (grey)
+        7: 'teal',       // Teal Elegance
+        8: 'orange',     // Orange Distinction
+        9: 'purple',     // Purple Royalty
+        10: 'pinkd',     // Pink Diamond
+        11: 'yellow',    // Yellow Sunlight
+        12: 'cyan',      // Cyan Executive
+        13: 'choco',     // Chocolate Sophistication
+        14: 'blackpink', // Black Pink Contrast
+        15: 'darkpurple', // Dark Purple Intensity
+        16: 'orangewhite' // Orange White Stripe
+      };
+      
+      const colorKey = colorMap[id] || 'navyblue';
+      
+      // Add box image first with cache busting
+      images.push(`/images/Aproducts/1Necktie/box/box${colorKey}.jpg?v=${new Date().getTime()}`);
+      
+      // Add frontback image with cache busting
+      images.push(`/images/Aproducts/1Necktie/frontback/${colorKey}.jpg?v=${new Date().getTime()}`);
+      
+      // Add roll image with cache busting
+      images.push(`/images/Aproducts/1Necktie/roll/${colorKey}.jpg?v=${new Date().getTime()}`);
+      
+      return images;
+    }
+    
     // Map product ID to image index (1-6)
     const imageIndex = ((id - 1) % 6) + 1;
     
@@ -77,7 +122,7 @@ const ProductDetails = () => {
     images.push(`/images/${category}${imageIndex}.jpg`);
     
     // Add additional images (repeating if needed)
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 2; i++) {
       const additionalIndex = ((imageIndex + i - 1) % 6) + 1;
       images.push(`/images/${category}${additionalIndex}.jpg`);
     }
@@ -109,27 +154,82 @@ const ProductDetails = () => {
   const generateBreadcrumbs = () => {
     if (!product) return [];
     
-    // Determine product category (simplified for this example)
-    let category = "neckties"; // Default
-    const allProducts = getStaticProducts();
+    // Always use neckties category for items with ID <= 16
+    let categoryPath = "neckties";
+    let categoryLabel = "NECKTIES";
     
-    if (allProducts.bowTies.some(p => p.id === product.id)) category = "bow-ties";
-    else if (allProducts.pocketSquares.some(p => p.id === product.id)) category = "pocket-squares";
-    else if (allProducts.men.some(p => p.id === product.id)) category = "men";
-    else if (allProducts.women.some(p => p.id === product.id)) category = "women";
-    else if (allProducts.combos.some(p => p.id === product.id)) category = "combos";
-    else if (allProducts.oversizedTees.some(p => p.id === product.id)) category = "oversized-tees";
-    else if (allProducts.wedding.some(p => p.id === product.id)) category = "wedding";
+    // Only determine category for non-necktie products
+    if (product.id > 16) {
+      const allProducts = getStaticProducts();
+      
+      if (allProducts.bowTies.some(p => p.id === product.id)) {
+        categoryPath = "bow-ties";
+        categoryLabel = "BOW TIES";
+      }
+      else if (allProducts.pocketSquares.some(p => p.id === product.id)) {
+        categoryPath = "pocket-squares";
+        categoryLabel = "POCKET SQUARES";
+      }
+      else if (allProducts.men.some(p => p.id === product.id)) {
+        categoryPath = "men";
+        categoryLabel = "MEN";
+      }
+      else if (allProducts.women.some(p => p.id === product.id)) {
+        categoryPath = "women"; 
+        categoryLabel = "WOMEN";
+      }
+      else if (allProducts.combos.some(p => p.id === product.id)) {
+        categoryPath = "combos";
+        categoryLabel = "COMBOS";
+      }
+      else if (allProducts.oversizedTees.some(p => p.id === product.id)) {
+        categoryPath = "oversized-tees";
+        categoryLabel = "OVERSIZED TEES";
+      }
+      else if (allProducts.wedding.some(p => p.id === product.id)) {
+        categoryPath = "wedding";
+        categoryLabel = "WEDDING";
+      }
+    }
     
     return [
       { label: "HOME", path: "/" },
-      { 
-        label: category.toUpperCase().replace("-", " "), 
-        path: `/${category}` 
-      },
+      { label: categoryLabel, path: `/${categoryPath}` },
       { label: product.name.toUpperCase(), path: "" }
     ];
   };
+
+  // Navigate to the previous image
+  const navigateToPrevImage = () => {
+    if (!product || productImages.length <= 1) return;
+    const currentIndex = productImages.findIndex(img => img === product.image);
+    const prevIndex = currentIndex <= 0 ? productImages.length - 1 : currentIndex - 1;
+    setProduct({...product, image: productImages[prevIndex]});
+  };
+
+  // Navigate to the next image
+  const navigateToNextImage = () => {
+    if (!product || productImages.length <= 1) return;
+    const currentIndex = productImages.findIndex(img => img === product.image);
+    const nextIndex = (currentIndex + 1) % productImages.length;
+    setProduct({...product, image: productImages[nextIndex]});
+  };
+
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        navigateToPrevImage();
+      } else if (e.key === 'ArrowRight') {
+        navigateToNextImage();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [product, productImages]);
 
   if (loading) {
     return (
@@ -160,7 +260,7 @@ const ProductDetails = () => {
   return (
     <Container size="xl" className="py-12">
       {/* Breadcrumbs navigation */}
-      <div className="flex text-sm text-gray-500 mb-8">
+      <div className="flex text-sm text-gray-500 mb-8 px-6 py-3 ml-2">
         {breadcrumbs.map((crumb, index) => (
           <React.Fragment key={index}>
             {index > 0 && <span className="mx-2">›</span>}
@@ -169,7 +269,9 @@ const ProductDetails = () => {
                 {crumb.label}
               </Link>
             ) : (
-              <span className="text-black">{crumb.label}</span>
+              <span className="text-black">
+                {crumb.label}
+              </span>
             )}
           </React.Fragment>
         ))}
@@ -192,21 +294,62 @@ const ProductDetails = () => {
                 NEW
               </Badge>
             )}
+            
+            {/* Navigation Arrows - only show if we have multiple images */}
+            {productImages.length > 1 && (
+              <>
+                <button 
+                  onClick={navigateToPrevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
+                  aria-label="Previous image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                <button 
+                  onClick={navigateToNextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
+                  aria-label="Next image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              </>
+            )}
           </div>
-          <div className="grid grid-cols-5 gap-2">
-            {productImages.map((image, i) => (
-              <div 
-                key={i} 
-                className="aspect-square border border-gray-200 cursor-pointer hover:border-black"
-                onClick={() => setProduct({...product, image})}
-              >
-                <img
-                  src={image}
-                  alt={`${product.name} - View ${i+1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+          
+          {/* Thumbnail Navigation */}
+          <div className="grid grid-cols-3 gap-2">
+            {productImages.map((image, i) => {
+              // Determine image label based on index for necktie products
+              let imageLabel = `View ${i+1}`;
+              if (productImages.length === 3 && category === "necktie") {
+                if (i === 0) imageLabel = "In Box";
+                else if (i === 1) imageLabel = "Front & Back";
+                else if (i === 2) imageLabel = "Rolled";
+              }
+              
+              return (
+                <div 
+                  key={i} 
+                  className={`aspect-square border cursor-pointer ${image === product.image ? 'border-black' : 'border-gray-200 hover:border-gray-400'}`}
+                  onClick={() => setProduct({...product, image})}
+                >
+                  <div className="relative h-full">
+                    <img
+                      src={image}
+                      alt={`${product.name} - ${imageLabel}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 text-center">
+                      {imageLabel}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -217,9 +360,12 @@ const ProductDetails = () => {
             {product.name}
           </h1>
           
-          <div className="text-xl text-gray-900 mb-4">
-            SKU: TTH-SNT-{product.id}
-          </div>
+          {/* Only show SKU for products other than 16 */}
+          {product.id !== 16 && (
+            <div className="text-xl text-gray-900 mb-4">
+              SKU: TTH-SNT-{product.id}
+            </div>
+          )}
           
           {/* Price */}
           <div className="text-2xl md:text-3xl font-serif">

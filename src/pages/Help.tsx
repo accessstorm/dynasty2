@@ -74,7 +74,7 @@ const Help = () => {
                     <IconMail size={24} />
                   </div>
                   <Title order={3} className="text-xl mb-2">Email Support</Title>
-                  <Text className="text-lg font-medium">support@dynasty.com</Text>
+                  <Text className="text-lg font-medium">dynastyneckties@gmail.com</Text>
                   <Text size="sm" className="text-gray-500 mb-4">24/7 Support</Text>
                   <Text size="sm">
                     Email us anytime for non-urgent inquiries. Our team typically responds within 24 hours to all customer emails.

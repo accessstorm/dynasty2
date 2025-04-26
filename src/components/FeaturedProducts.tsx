@@ -50,8 +50,32 @@ const getImagePath = (id: number) => {
     // Cufflinks
     const imageIndex = ((id - 100) % 6);
     return `/images/cufflinks${imageIndex}.jpg`;
+  } else if (id <= 16) {
+    // Neckties with box images
+    // Map ID to color names
+    const colorMap: {[key: number]: string} = {
+      1: 'navyblue',   // Royal Duchess Silk (blue)
+      2: 'blackpurple', // Charcoal Herringbone (grey)
+      3: 'navyblue',   // Midnight Blue Twill (navy)
+      4: 'red',        // Burgundy Classic (burgundy)
+      5: 'blackpink',  // Geometric Gold (black)
+      6: 'blackpurple', // Silver Anniversary (grey)
+      7: 'teal',       // Teal Elegance
+      8: 'orange',     // Orange Distinction
+      9: 'purple',     // Purple Royalty
+      10: 'pinkd',     // Pink Diamond
+      11: 'yellow',    // Yellow Sunlight
+      12: 'cyan',      // Cyan Executive
+      13: 'choco',     // Chocolate Sophistication
+      14: 'blackpink', // Black Pink Contrast
+      15: 'darkpurple', // Dark Purple Intensity
+      16: 'orangewhite' // Orange White Stripe
+    };
+    
+    const colorKey = colorMap[id] || 'navyblue';
+    return `/images/Aproducts/1Necktie/box/box${colorKey}.jpg`;
   } else {
-    // Neckties (default)
+    // Other neckties (default)
     const imageIndex = ((id - 1) % 6) + 1;
     return `/images/necktie${imageIndex}.jpg`;
   }

@@ -134,7 +134,7 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
         },
         prefill: {
           name: 'Customer Name',
-          email: 'customer@example.com',
+          email: 'dynastyneckties@gmail.com',
           contact: '+919820238241',
         },
         theme: {

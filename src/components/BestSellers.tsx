@@ -29,7 +29,7 @@ const BestSellers = () => {
         name: "Premium Necktie 1",
         description: "Elegant necktie placeholder",
         price: 4999,
-        image: "/images/necktie1.jpg", // Using existing image as placeholder
+        image: `/images/Aproducts/1Necktie/box/boxnavyblue.jpg?v=${new Date().getTime()}`,
         type: "necktie"
       },
       {
@@ -37,7 +37,7 @@ const BestSellers = () => {
         name: "Premium Necktie 2",
         description: "Elegant necktie placeholder",
         price: 5999,
-        image: "/images/necktie2.jpg",
+        image: `/images/Aproducts/1Necktie/box/boxred.jpg?v=${new Date().getTime()}`,
         type: "necktie"
       },
       {
@@ -45,7 +45,7 @@ const BestSellers = () => {
         name: "Premium Necktie 3",
         description: "Elegant necktie placeholder",
         price: 6999,
-        image: "/images/necktie3.jpg",
+        image: `/images/Aproducts/1Necktie/box/boxblackpink.jpg?v=${new Date().getTime()}`,
         type: "necktie"
       },
       // Gift Sets placeholders (6)
@@ -183,7 +183,7 @@ const BestSellers = () => {
           ))}
         </motion.div>
         
-        <div className="flex justify-center space-x-8 mt-12">
+        <div className="flex justify-center space-x-4 mt-12">
           <Button
             component={Link}
             to="/neckties"

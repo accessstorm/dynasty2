@@ -239,8 +239,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <Text fw={500}>Email</Text>
-                    <Text className="text-gray-600">contact@dynasty.com</Text>
-                    <Text className="text-gray-600">support@dynasty.com</Text>
+                    <Text className="text-gray-600">dynastyneckties@gmail.com</Text>
                   </div>
                 </motion.div>
 
@@ -328,7 +327,7 @@ const Contact = () => {
             <div>
               <Text fw={600} className="mb-2">Do you offer customized ties?</Text>
               <Text className="text-gray-600 text-sm md:text-base">
-                Yes, we offer customization services for bulk orders. Please contact us directly for customized queries at kanika@tossido.in.
+                Yes, we offer customization services for bulk orders. Please contact us directly for customized queries at dynastyneckties@gmail.com.
               </Text>
             </div>
           </div>

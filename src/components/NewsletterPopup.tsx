@@ -70,7 +70,7 @@ const NewsletterPopup = () => {
             </Text>
             
             <Text size="xs" className="text-center mb-2">
-              Contact contact@dynasty.com for customised queries.
+              Contact dynastyneckties@gmail.com for customised queries.
             </Text>
             
             <Text size="sm" className="text-center mb-4">

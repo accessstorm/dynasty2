@@ -306,7 +306,7 @@ const About = () => {
                   <Title order={3} className="text-xl font-serif mb-4 text-white">Dedicated Support</Title>
                   <Text className="text-gray-300">
                     Our customer service team is available to assist with any queries or concerns you might have.
-                    Reach out to us at kanika@tossido.in for personalized assistance.
+                    Reach out to us at dynastyneckties@gmail.com for personalized assistance.
                   </Text>
                 </motion.div>
               </Grid.Col>
