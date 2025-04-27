@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, Text, Button } from "@mantine/core";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { getStaticProducts, ProductCardProps } from "../services/StaticProductService";
 
 interface Product {
   id: number;
@@ -10,6 +11,7 @@ interface Product {
   price: number;
   image: string;
   type: string; // "necktie" or "giftset"
+  link: string;
 }
 
 // Function to format price in Indian Rupees
@@ -20,86 +22,38 @@ const BestSellers = () => {
   const [products, setProducts] = useState<Product[]>([]);
   
   useEffect(() => {
-    // For now, we'll use placeholder products
-    // TODO: Replace with actual products once the images are uploaded
-    const placeholderProducts: Product[] = [
-      // Neckties placeholders (3)
-      {
-        id: 101,
-        name: "Premium Necktie 1",
-        description: "Elegant necktie placeholder",
-        price: 4999,
-        image: `/images/Aproducts/1Necktie/box/boxnavyblue.jpg?v=${new Date().getTime()}`,
-        type: "necktie"
-      },
-      {
-        id: 102,
-        name: "Premium Necktie 2",
-        description: "Elegant necktie placeholder",
-        price: 5999,
-        image: `/images/Aproducts/1Necktie/box/boxred.jpg?v=${new Date().getTime()}`,
-        type: "necktie"
-      },
-      {
-        id: 103,
-        name: "Premium Necktie 3",
-        description: "Elegant necktie placeholder",
-        price: 6999,
-        image: `/images/Aproducts/1Necktie/box/boxblackpink.jpg?v=${new Date().getTime()}`,
-        type: "necktie"
-      },
-      // Gift Sets placeholders (6)
-      {
-        id: 201,
-        name: "Premium Gift Set 1",
-        description: "Elegant gift set placeholder",
-        price: 9999,
-        image: `/images/Aproducts/2Giftset/box/blue.jpg?v=${new Date().getTime()}`,
-        type: "giftset"
-      },
-      {
-        id: 202,
-        name: "Premium Gift Set 2",
-        description: "Elegant gift set placeholder",
-        price: 12999,
-        image: `/images/Aproducts/2Giftset/box/black.jpg?v=${new Date().getTime()}`,
-        type: "giftset"
-      },
-      {
-        id: 203,
-        name: "Premium Gift Set 3",
-        description: "Elegant gift set placeholder",
-        price: 14999,
-        image: `/images/Aproducts/2Giftset/box/pink.jpg?v=${new Date().getTime()}`,
-        type: "giftset"
-      },
-      {
-        id: 204,
-        name: "Premium Gift Set 4",
-        description: "Elegant gift set placeholder",
-        price: 11999,
-        image: `/images/Aproducts/2Giftset/box/red.jpg?v=${new Date().getTime()}`,
-        type: "giftset"
-      },
-      {
-        id: 205,
-        name: "Premium Gift Set 5",
-        description: "Elegant gift set placeholder",
-        price: 13999,
-        image: `/images/Aproducts/2Giftset/box/green.JPG?v=${new Date().getTime()}`,
-        type: "giftset"
-      },
-      {
-        id: 206,
-        name: "Premium Gift Set 6",
-        description: "Elegant gift set placeholder",
-        price: 10999,
-        image: `/images/Aproducts/2Giftset/box/teal.jpg?v=${new Date().getTime()}`,
-        type: "giftset"
-      }
-    ];
+    // Get products from StaticProductService
+    const allProducts = getStaticProducts();
     
-    setProducts(placeholderProducts);
+    // Select top neckties (3)
+    const topNeckties = allProducts.neckties
+      .filter(tie => tie.isNew)
+      .slice(0, 3)
+      .map(tie => ({
+        id: tie.id,
+        name: tie.name,
+        description: tie.description,
+        price: tie.price,
+        image: tie.image,
+        type: "necktie",
+        link: tie.link
+      }));
+      
+    // Select top gift sets (6)
+    const topGiftSets = allProducts.combos
+      .slice(0, 6)
+      .map(giftSet => ({
+        id: giftSet.id,
+        name: giftSet.name,
+        description: giftSet.description,
+        price: giftSet.price,
+        image: giftSet.image,
+        type: "giftset",
+        link: giftSet.link
+      }));
+    
+    // Combine the products
+    setProducts([...topNeckties, ...topGiftSets]);
   }, []);
   
   // Animation variants
@@ -159,12 +113,15 @@ const BestSellers = () => {
                 padding="0"
                 radius="sm"
                 className="overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+                component={Link}
+                to={product.link}
               >
                 <Card.Section>
                   <div className="h-64 overflow-hidden">
-                    <motion.div
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${product.image})` }}
+                    <motion.img
+                      src={`${product.image}?v=${Date.now()}`} 
+                      alt={product.name}
+                      className="w-full h-full object-cover object-center"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     />
