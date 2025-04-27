@@ -43,6 +43,7 @@ const ProductDetails = () => {
           else if (allProducts.pocketSquares.some(p => p.id === foundProduct.id)) category = "pocketsquares";
           else if (allProducts.oversizedTees.some(p => p.id === foundProduct.id)) category = "oversizedtees";
           else if (allProducts.wedding.some(p => p.id === foundProduct.id)) category = "wedding";
+          else if (allProducts.combos.some(p => p.id === foundProduct.id)) category = "giftset";
           
           // Ensure necktie products use the new image structure
           if (category === "necktie" || foundProduct.id <= 16) {
@@ -115,6 +116,43 @@ const ProductDetails = () => {
       return images;
     }
     
+    // For gift sets, use the box and set images (only two images per product)
+    if (category === "giftset") {
+      // Map ID to color names for gift sets
+      const colorMap: {[key: number]: string} = {
+        64: 'blue.jpg',
+        65: 'black.jpg',
+        66: 'chrome.jpg',
+        67: 'cream.jpg',
+        68: 'red.jpg',
+        69: 'gold.jpg',
+        70: 'pink.jpg',
+        71: 'green.JPG',
+        72: 'cyan.jpg',
+        73: 'babypink.jpg',
+        74: 'babypinkd.jpg',
+        75: 'aqua.jpg',
+        76: 'teal.jpg',
+        77: 'violet.jpg',
+        78: 'pinkd.jpg',
+        79: 'greend.jpg',
+        80: 'whiteblue.jpg',
+        81: 'pinkblue.jpg',
+        82: 'brightpink.jpg',
+        83: 'lightgreen.jpg'
+      };
+      
+      const colorKey = colorMap[id] || 'blue.jpg';
+      
+      // Add box image first with cache busting
+      images.push(`/images/Aproducts/2Giftset/box/${colorKey}?v=${new Date().getTime()}`);
+      
+      // Add set image with cache busting
+      images.push(`/images/Aproducts/2Giftset/set/${colorKey}?v=${new Date().getTime()}`);
+      
+      return images;
+    }
+    
     // Map product ID to image index (1-6)
     const imageIndex = ((id - 1) % 6) + 1;
     
@@ -179,8 +217,8 @@ const ProductDetails = () => {
         categoryLabel = "WOMEN";
       }
       else if (allProducts.combos.some(p => p.id === product.id)) {
-        categoryPath = "combos";
-        categoryLabel = "COMBOS";
+        categoryPath = "gift-sets";
+        categoryLabel = "GIFT SETS";
       }
       else if (allProducts.oversizedTees.some(p => p.id === product.id)) {
         categoryPath = "oversized-tees";
@@ -422,8 +460,100 @@ const ProductDetails = () => {
             />
           </div>
           
-          {/* Product Description */}
-          <div className="mb-10">
+          {/* Short Description */}
+          <div className="mt-4">
+            <Text className="text-gray-700 leading-relaxed">
+              {product.description}
+            </Text>
+          </div>
+          
+          {/* Style Guide */}
+          <div>
+            <Text fw={600} className="text-lg mb-2">Style Guide</Text>
+            <Text className="text-gray-700 leading-relaxed">
+              Perfect for formal occasions, business meetings, and special events.
+            </Text>
+          </div>
+
+          {/* Why You'll Love It */}
+          <div className="bg-gray-50 p-4 rounded-md">
+            <Text fw={600} className="text-lg mb-3">Why you'll love it</Text>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <Text className="text-gray-700">Pre-matched for effortless elegance</Text>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <Text className="text-gray-700">Crafted with attention to detail</Text>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <Text className="text-gray-700">Ideal for gifting or personal styling</Text>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <Text className="text-gray-700">Packaged in a premium gift box</Text>
+              </li>
+            </ul>
+          </div>
+
+          {/* Component Details Table */}
+          <div className="mt-4">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white font-medium w-1/3">Component</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white font-medium w-2/3">Details</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Fabric</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Woven Microfibre</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Tie Length</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">58" – 60"</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Tie Width</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">3" (Standard Width)</td>
+                </tr>
+                {category === "giftset" && (
+                  <tr>
+                    <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Pocket Square</td>
+                    <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">10" x 10"</td>
+                  </tr>
+                )}
+                <tr>
+                  <td className="py-2 px-4 border border-gray-200">Pattern</td>
+                  <td className="py-2 px-4 border border-gray-200">{product.pattern || "Unique pattern for each product"}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Return/Exchange Policy Button */}
+          <Button
+            variant="subtle"
+            className="bg-[#00C2CB] text-white hover:bg-[#00A9B0] w-full py-3 mt-4"
+            radius="xs"
+            onClick={() => console.log("Return policy clicked")}
+          >
+            Return/Exchange Policy
+          </Button>
+
+          {/* Product Display & Accuracy Policy */}
+          <Button
+            variant="subtle"
+            className="bg-[#00C2CB] text-white hover:bg-[#00A9B0] w-full py-3"
+            radius="xs"
+            onClick={() => console.log("Product Display policy clicked")}
+          >
+            Product Display & Accuracy Policy
+          </Button>
+          
+          {/* Add to Wishlist */}
+          <div className="mb-6">
             <Button
               variant="subtle"
               className="text-gray-500 hover:text-black underline p-0"
@@ -455,53 +585,31 @@ const ProductDetails = () => {
           >
             <Accordion.Item value="description">
               <Accordion.Control>
-                <Text fw={500}>PRODUCT DESCRIPTION</Text>
+                <Text fw={500}>PRODUCT FEATURES</Text>
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  {product.description}
-                  <br /><br />
-                  This premium {product.color} necktie is designed with geometric diamond patterns, 
+                  This premium {product.color} {category === "necktie" ? "necktie" : "gift set"} is designed with attention to detail, 
                   adding a sophisticated touch to any formal attire. Crafted from high-quality microfiber,
-                  this tie offers a silky finish and excellent durability for everyday wear.
+                  our products offer a silky finish and excellent durability for everyday wear.
                   <br /><br />
-                  Each tie is meticulously handcrafted by our master artisans, ensuring the highest 
+                  Each piece is meticulously handcrafted by our master artisans, ensuring the highest 
                   quality and attention to detail that Dynasty is renowned for.
                 </Text>
               </Accordion.Panel>
             </Accordion.Item>
             
-            <Accordion.Item value="information">
+            <Accordion.Item value="care">
               <Accordion.Control>
-                <Text fw={500}>MORE INFORMATION</Text>
+                <Text fw={500}>CARE INSTRUCTIONS</Text>
               </Accordion.Control>
               <Accordion.Panel>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Text fw={500} className="mb-1">Material</Text>
-                    <Text className="text-gray-700">Premium Microfiber</Text>
-                  </div>
-                  <div>
-                    <Text fw={500} className="mb-1">Pattern</Text>
-                    <Text className="text-gray-700">Geometric Diamond</Text>
-                  </div>
-                  <div>
-                    <Text fw={500} className="mb-1">Color</Text>
-                    <Text className="text-gray-700" style={{textTransform: 'capitalize'}}>{product.color}</Text>
-                  </div>
-                  <div>
-                    <Text fw={500} className="mb-1">Width</Text>
-                    <Text className="text-gray-700">3.25 inches</Text>
-                  </div>
-                  <div>
-                    <Text fw={500} className="mb-1">Length</Text>
-                    <Text className="text-gray-700">58 inches</Text>
-                  </div>
-                  <div>
-                    <Text fw={500} className="mb-1">Care</Text>
-                    <Text className="text-gray-700">Dry Clean Only</Text>
-                  </div>
-                </div>
+                <Text className="text-gray-700 leading-relaxed">
+                  • Dry clean only<br />
+                  • Store properly rolled or hung to prevent creasing<br />
+                  • Avoid prolonged exposure to direct sunlight<br />
+                  • Remove stains promptly with a clean, damp cloth
+                </Text>
               </Accordion.Panel>
             </Accordion.Item>
             

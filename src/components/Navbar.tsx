@@ -43,7 +43,8 @@ const Navbar = () => {
 
   // Generate breadcrumbs based on current path
   const generateBreadcrumbs = () => {
-    if (location.pathname === '/') return null;
+    // Don't show breadcrumbs on product pages or home page
+    if (location.pathname === '/' || location.pathname.includes('/product/')) return null;
     
     const pathSegments = location.pathname.split('/').filter(Boolean);
     if (pathSegments.length === 0) return null;
@@ -178,22 +179,7 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
 
-                {/* Shopping Cart with Razorpay integration */}
-                <RazorpayButton
-                  amount={4990}
-                  name="Dynasty Shopping Cart"
-                  description="Complete your purchase"
-                  className="text-black"
-                >
-                  <motion.div 
-                    className="flex items-center cursor-pointer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ShoppingCart className="h-5 w-5" />
-                    <span className="ml-1">(0)</span>
-                  </motion.div>
-                </RazorpayButton>
+                
               </div>
             </div>
 
@@ -279,7 +265,7 @@ const Navbar = () => {
       </motion.nav>
       
       {/* Spacer for the fixed navbar */}
-      <div className="h-[94px]"></div>
+      <div className="h-[120px]"></div>
       
       {/* Breadcrumbs */}
       {generateBreadcrumbs()}

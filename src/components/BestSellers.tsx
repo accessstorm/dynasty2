@@ -54,7 +54,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 1",
         description: "Elegant gift set placeholder",
         price: 9999,
-        image: "/images/pocketsquares1.jpg", // Using existing image as placeholder for now
+        image: `/images/Aproducts/2Giftset/box/blue.jpg?v=${new Date().getTime()}`,
         type: "giftset"
       },
       {
@@ -62,7 +62,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 2",
         description: "Elegant gift set placeholder",
         price: 12999,
-        image: "/images/pocketsquares2.jpg",
+        image: `/images/Aproducts/2Giftset/box/black.jpg?v=${new Date().getTime()}`,
         type: "giftset"
       },
       {
@@ -70,7 +70,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 3",
         description: "Elegant gift set placeholder",
         price: 14999,
-        image: "/images/pocketsquares3.jpg",
+        image: `/images/Aproducts/2Giftset/box/pink.jpg?v=${new Date().getTime()}`,
         type: "giftset"
       },
       {
@@ -78,7 +78,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 4",
         description: "Elegant gift set placeholder",
         price: 11999,
-        image: "/images/pocketsquares4.jpg",
+        image: `/images/Aproducts/2Giftset/box/red.jpg?v=${new Date().getTime()}`,
         type: "giftset"
       },
       {
@@ -86,7 +86,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 5",
         description: "Elegant gift set placeholder",
         price: 13999,
-        image: "/images/pocketsquares5.jpg",
+        image: `/images/Aproducts/2Giftset/box/green.JPG?v=${new Date().getTime()}`,
         type: "giftset"
       },
       {
@@ -94,7 +94,7 @@ const BestSellers = () => {
         name: "Premium Gift Set 6",
         description: "Elegant gift set placeholder",
         price: 10999,
-        image: "/images/pocketsquares6.jpg",
+        image: `/images/Aproducts/2Giftset/box/teal.jpg?v=${new Date().getTime()}`,
         type: "giftset"
       }
     ];

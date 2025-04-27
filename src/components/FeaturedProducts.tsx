@@ -40,16 +40,42 @@ const getImagePath = (id: number) => {
     // Pocket squares
     const imageIndex = ((id - 28) % 6) + 1;
     return `/images/pocketsquares${imageIndex}.jpg`;
-  } else if (id >= 76 && id <= 87) {
+  } else if (id >= 84 && id <= 95) {
     // Oversized tees
     return '/images/oversizedtees.jpg';
-  } else if (id >= 88 && id <= 99) {
+  } else if (id >= 96 && id <= 107) {
     // Wedding
     return '/images/wedding.jpg';
-  } else if (id >= 101 && id <= 106) {
+  } else if (id >= 108 && id <= 113) {
     // Cufflinks
-    const imageIndex = ((id - 100) % 6);
+    const imageIndex = ((id - 108) % 6);
     return `/images/cufflinks${imageIndex}.jpg`;
+  } else if (id >= 64 && id <= 83) {
+    // Gift sets
+    const colorMap: {[key: number]: string} = {
+      64: 'blue.jpg',
+      65: 'black.jpg',
+      66: 'chrome.jpg',
+      67: 'cream.jpg',
+      68: 'red.jpg',
+      69: 'gold.jpg',
+      70: 'pink.jpg',
+      71: 'green.JPG',
+      72: 'cyan.jpg',
+      73: 'babypink.jpg',
+      74: 'babypinkd.jpg',
+      75: 'aqua.jpg',
+      76: 'teal.jpg',
+      77: 'violet.jpg',
+      78: 'pinkd.jpg',
+      79: 'greend.jpg',
+      80: 'whiteblue.jpg',
+      81: 'pinkblue.jpg',
+      82: 'brightpink.jpg',
+      83: 'lightgreen.jpg'
+    };
+    const colorKey = colorMap[id] || 'blue.jpg';
+    return `/images/Aproducts/2Giftset/box/${colorKey}?v=${new Date().getTime()}`;
   } else if (id <= 16) {
     // Neckties with box images
     // Map ID to color names

@@ -1,7 +1,7 @@
 import { Text, Button, Badge } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RazorpayButton from './RazorpayButton';
 
 export interface ProductCardProps {
@@ -25,18 +25,31 @@ const ProductCard = ({
   price, 
   image,
   isNew = false,
-  link = '#'
+  link = '#',
+  category = ''
 }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
   
   // Format price to INR currency format
   const formattedPrice = `₹${price.toLocaleString('en-IN')}`;
   
+  // Check if product is a necktie or gift set (should not show buy now button)
+  const isNecktieOrGiftSet = id <= 16 || (id >= 64 && id <= 83);
+  
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Only navigate if the click was directly on the card (not on buttons)
+    if (!(e.target as HTMLElement).closest('button')) {
+      navigate(link || `/product/${id}`);
+    }
+  };
+  
   return (
     <div 
-      className="flex flex-col h-full group bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg"
+      className="flex flex-col h-full group bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
       {/* Image container with fixed aspect ratio */}
       <div className="relative overflow-hidden aspect-square">
@@ -79,18 +92,21 @@ const ProductCard = ({
               </Button>
             </motion.div>
             
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <RazorpayButton
-                amount={price}
-                name={name}
-                description={description}
-                className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-xs tracking-widest px-4 sm:px-8 py-2 sm:py-3 font-medium"
-                buttonText="Buy Now"
-              />
-            </motion.div>
+            {/* Only show Buy Now button for products that are not neckties or gift sets */}
+            {!isNecktieOrGiftSet && (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <RazorpayButton
+                  amount={price}
+                  name={name}
+                  description={description}
+                  className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-xs tracking-widest px-4 sm:px-8 py-2 sm:py-3 font-medium"
+                  buttonText="Buy Now"
+                />
+              </motion.div>
+            )}
           </div>
         </div>
       </div>

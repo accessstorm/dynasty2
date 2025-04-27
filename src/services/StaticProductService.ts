@@ -27,10 +27,10 @@ export const getStaticProducts = (): CategoryProducts => {
     // Determine the category and image path based on the product ID
     let imagePath;
     
-    if (id >= 76 && id <= 87) {
+    if (id >= 84 && id <= 95) {
       // Oversized tees use the base category image
       imagePath = '/images/oversizedtees.jpg';
-    } else if (id >= 88 && id <= 99) {
+    } else if (id >= 96 && id <= 107) {
       // Wedding products use the base category image
       imagePath = '/images/wedding.jpg';
     } else if (id <= 16) {
@@ -56,6 +56,32 @@ export const getStaticProducts = (): CategoryProducts => {
       
       const colorKey = colorMap[color.toLowerCase()] || 'navyblue';
       imagePath = `/images/Aproducts/1Necktie/box/box${colorKey}.jpg?v=${new Date().getTime()}`;
+    } else if (id >= 64 && id <= 83) {
+      // Gift sets use box images as primary
+      const colorMap: {[key: number]: string} = {
+        64: 'blue.jpg',
+        65: 'black.jpg',
+        66: 'chrome.jpg',
+        67: 'cream.jpg',
+        68: 'red.jpg',
+        69: 'gold.jpg',
+        70: 'pink.jpg',
+        71: 'green.JPG',
+        72: 'cyan.jpg',
+        73: 'babypink.jpg',
+        74: 'babypinkd.jpg',
+        75: 'aqua.jpg',
+        76: 'teal.jpg',
+        77: 'violet.jpg',
+        78: 'pinkd.jpg',
+        79: 'greend.jpg',
+        80: 'whiteblue.jpg',
+        81: 'pinkblue.jpg',
+        82: 'brightpink.jpg',
+        83: 'lightgreen.jpg'
+      };
+      const colorKey = colorMap[id] || 'blue.jpg';
+      imagePath = `/images/Aproducts/2Giftset/box/${colorKey}?v=${new Date().getTime()}`;
     } else {
       // Other products use numbered images
       let category = "necktie";
@@ -163,42 +189,56 @@ export const getStaticProducts = (): CategoryProducts => {
   ];
 
   const combos: ProductCardProps[] = [
-    createProduct(64, "Navy & Burgundy Set", "Tie and pocket square set", 9999, "navy", true),
+    createProduct(64, "Navy & Burgundy Set", "Tie and pocket square set", 9999, "blue", true),
     createProduct(65, "Black Formal Combo", "Bow tie and pocket square", 8999, "black", false),
-    createProduct(66, "Grey Business Set", "Tie, pocket square, and cufflinks", 12999, "grey", true),
-    createProduct(67, "Wedding Ivory", "Complete wedding accessory set", 15999, "white", true),
-    createProduct(68, "Power Meeting", "Red tie and gold cufflinks", 9499, "red", false),
-    createProduct(69, "Blue Harmony", "Coordinated blue accessories", 10999, "blue", true)
+    createProduct(66, "Silver Chrome Set", "Tie, pocket square, and cufflinks", 12999, "chrome", true),
+    createProduct(67, "Wedding Cream", "Complete wedding accessory set", 15999, "cream", true),
+    createProduct(68, "Power Red Set", "Red tie and gold cufflinks", 9499, "red", false),
+    createProduct(69, "Golden Elegance Set", "Coordinated gold accessories", 10999, "gold", true),
+    createProduct(70, "Pink Diamond Set", "Premium pink accessory collection", 11499, "pink", true),
+    createProduct(71, "Green Executive Set", "Professional green accessory set", 9799, "green", false),
+    createProduct(72, "Cyan Business Set", "Modern cyan accessory collection", 10999, "cyan", true),
+    createProduct(73, "Light Pink Gift Set", "Delicate pink accessory set", 8999, "babypink", false),
+    createProduct(74, "Deep Pink Collection", "Rich pink accessory set", 9999, "babypinkd", true),
+    createProduct(75, "Aqua Marine Set", "Refreshing aqua accessory collection", 10499, "aqua", false),
+    createProduct(76, "Teal Harmony Set", "Coordinated teal accessories", 11299, "teal", true),
+    createProduct(77, "Violet Luxury Set", "Premium violet accessory set", 12499, "violet", false),
+    createProduct(78, "Pink Delight Set", "Pink premium accessory collection", 9999, "pinkd", true),
+    createProduct(79, "Deep Green Set", "Elegant green accessory package", 10799, "greend", false),
+    createProduct(80, "White & Blue Set", "Classic white and blue accessories", 11999, "whiteblue", true),
+    createProduct(81, "Pink & Blue Combo", "Stylish pink and blue collection", 10499, "pinkblue", false),
+    createProduct(82, "Bright Pink Gift Set", "Vibrant pink accessory set", 9799, "brightpink", true),
+    createProduct(83, "Light Green Collection", "Fresh light green accessories", 10299, "lightgreen", false)
   ];
 
   const oversizedTees: ProductCardProps[] = [
-    createProduct(76, "Black Luxury Tee", "Oversized premium cotton t-shirt", 3999, "black", true),
-    createProduct(77, "White Essential", "Staple white oversized tee", 3499, "white", false),
-    createProduct(78, "Navy Comfort", "Relaxed fit navy t-shirt", 3799, "navy", true),
-    createProduct(79, "Grey Marl", "Soft marl texture", 3599, "grey", true),
-    createProduct(80, "Burgundy Statement", "Rich tone casual tee", 3899, "burgundy", false),
-    createProduct(81, "Forest Casual", "Deep green for everyday wear", 3799, "green", true),
-    createProduct(82, "Charcoal Minimal", "Subtle logo detail", 3699, "grey", true),
-    createProduct(83, "Ivory Premium", "Luxurious ivory tee", 4299, "white", false),
-    createProduct(84, "Blue Signature", "With subtle embroidered logo", 3999, "blue", true),
-    createProduct(85, "Taupe Essential", "Neutral tone for versatility", 3599, "beige", true),
-    createProduct(86, "Black Embroidered", "With gold embroidery detail", 4499, "black", false),
-    createProduct(87, "Cream Luxury", "Soft cream tone premium tee", 3899, "beige", true)
+    createProduct(84, "Black Luxury Tee", "Oversized premium cotton t-shirt", 3999, "black", true),
+    createProduct(85, "White Essential", "Staple white oversized tee", 3499, "white", false),
+    createProduct(86, "Navy Comfort", "Relaxed fit navy t-shirt", 3799, "navy", true),
+    createProduct(87, "Grey Marl", "Soft marl texture", 3599, "grey", true),
+    createProduct(88, "Burgundy Statement", "Rich tone casual tee", 3899, "burgundy", false),
+    createProduct(89, "Forest Casual", "Deep green for everyday wear", 3799, "green", true),
+    createProduct(90, "Charcoal Minimal", "Subtle logo detail", 3699, "grey", true),
+    createProduct(91, "Ivory Premium", "Luxurious ivory tee", 4299, "white", false),
+    createProduct(92, "Blue Signature", "With subtle embroidered logo", 3999, "blue", true),
+    createProduct(93, "Taupe Essential", "Neutral tone for versatility", 3599, "beige", true),
+    createProduct(94, "Black Embroidered", "With gold embroidery detail", 4499, "black", false),
+    createProduct(95, "Cream Luxury", "Soft cream tone premium tee", 3899, "beige", true)
   ];
 
   const wedding: ProductCardProps[] = [
-    createProduct(88, "Ivory Celebration", "Pure silk for your special day", 9999, "white", true),
-    createProduct(89, "Silver Anniversary", "Lustrous silver tie", 8999, "grey", false),
-    createProduct(90, "Champagne Toast", "Warm champagne tone", 10499, "beige", true),
-    createProduct(91, "White Diamond", "Textured white tie", 9499, "white", true),
-    createProduct(92, "Platinum Special", "Platinum silk with subtle pattern", 11999, "grey", false),
-    createProduct(93, "Gold Ceremony", "Elegant gold for ceremonies", 12499, "beige", true),
-    createProduct(94, "Ivory Paisley", "Traditional pattern for weddings", 9799, "white", true),
-    createProduct(95, "Pearl Elegance", "Pearlescent finish", 10999, "white", false),
-    createProduct(96, "Blush Wedding", "Subtle blush tone for modern weddings", 9299, "pink", true),
-    createProduct(97, "Silver Jacquard", "Intricate jacquard pattern", 11499, "grey", true),
-    createProduct(98, "Cream Silk", "Pure silk with hand-rolled edges", 10799, "beige", false),
-    createProduct(99, "White Celebration", "Traditional white for formal weddings", 9999, "white", true)
+    createProduct(96, "Ivory Celebration", "Pure silk for your special day", 9999, "white", true),
+    createProduct(97, "Silver Anniversary", "Lustrous silver tie", 8999, "grey", false),
+    createProduct(98, "Champagne Toast", "Warm champagne tone", 10499, "beige", true),
+    createProduct(99, "White Diamond", "Textured white tie", 9499, "white", true),
+    createProduct(100, "Platinum Special", "Platinum silk with subtle pattern", 11999, "grey", false),
+    createProduct(101, "Gold Ceremony", "Elegant gold for ceremonies", 12499, "beige", true),
+    createProduct(102, "Ivory Paisley", "Traditional pattern for weddings", 9799, "white", true),
+    createProduct(103, "Pearl Elegance", "Pearlescent finish", 10999, "white", false),
+    createProduct(104, "Blush Wedding", "Subtle blush tone for modern weddings", 9299, "pink", true),
+    createProduct(105, "Silver Jacquard", "Intricate jacquard pattern", 11499, "grey", true),
+    createProduct(106, "Cream Silk", "Pure silk with hand-rolled edges", 10799, "beige", false),
+    createProduct(107, "White Celebration", "Traditional white for formal weddings", 9999, "white", true)
   ];
 
   // Create a function to ensure all products have images
@@ -208,12 +248,38 @@ export const getStaticProducts = (): CategoryProducts => {
       if (!product.image || product.image.includes('Formal Attire Portrait')) {
         let imagePath;
         
-        if (product.id >= 76 && product.id <= 87) {
+        if (product.id >= 84 && product.id <= 95) {
           // Oversized tees use the base category image
           imagePath = '/images/oversizedtees.jpg';
-        } else if (product.id >= 88 && product.id <= 99) {
+        } else if (product.id >= 96 && product.id <= 107) {
           // Wedding products use the base category image
           imagePath = '/images/wedding.jpg';
+        } else if (product.id >= 64 && product.id <= 83) {
+          // Gift sets use box images as primary
+          const colorMap: {[key: number]: string} = {
+            64: 'blue.jpg',
+            65: 'black.jpg',
+            66: 'chrome.jpg',
+            67: 'cream.jpg',
+            68: 'red.jpg',
+            69: 'gold.jpg',
+            70: 'pink.jpg',
+            71: 'green.JPG',
+            72: 'cyan.jpg',
+            73: 'babypink.jpg',
+            74: 'babypinkd.jpg',
+            75: 'aqua.jpg',
+            76: 'teal.jpg',
+            77: 'violet.jpg',
+            78: 'pinkd.jpg',
+            79: 'greend.jpg',
+            80: 'whiteblue.jpg',
+            81: 'pinkblue.jpg',
+            82: 'brightpink.jpg',
+            83: 'lightgreen.jpg'
+          };
+          const colorKey = colorMap[product.id] || 'blue.jpg';
+          imagePath = `/images/Aproducts/2Giftset/box/${colorKey}?v=${new Date().getTime()}`;
         } else if (product.id >= 16 && product.id <= 27) {
           let category = "bowtie";
           let imageIndex = ((product.id - 16) % 6) + 1;
@@ -251,64 +317,64 @@ export const getStaticProducts = (): CategoryProducts => {
   // Create cufflinks data
   const cufflinks: ProductCardProps[] = [
     {
-      id: 101,
+      id: 108,
       name: "Silver Square Cufflinks",
       description: "Classic sterling silver square cufflinks with subtle engraving",
       price: 7999,
       color: "silver",
       image: "/images/cufflinks1.jpg",
       isNew: true,
-      link: `/product/101`
+      link: `/product/108`
     },
     {
-      id: 102,
+      id: 109,
       name: "Gold Knot Cufflinks",
       description: "Elegant gold-plated knot design cufflinks",
       price: 9499,
       color: "gold",
       image: "/images/cufflinks2.jpg",
       isNew: false,
-      link: `/product/102`
+      link: `/product/109`
     },
     {
-      id: 103,
+      id: 110,
       name: "Onyx Round Cufflinks",
       description: "Sophisticated black onyx stone set in silver",
       price: 8499,
       color: "black",
       image: "/images/cufflinks3.jpg",
       isNew: true,
-      link: `/product/103`
+      link: `/product/110`
     },
     {
-      id: 104,
+      id: 111,
       name: "Navy Blue Enamel",
       description: "Navy blue enamel with silver detailing",
       price: 7299,
       color: "blue",
       image: "/images/cufflinks4.jpg",
       isNew: true,
-      link: `/product/104`
+      link: `/product/111`
     },
     {
-      id: 105,
+      id: 112,
       name: "Burgundy Stone",
       description: "Deep burgundy stone set in gold plating",
       price: 8999,
       color: "burgundy",
       image: "/images/cufflinks5.jpg",
       isNew: false,
-      link: `/product/105`
+      link: `/product/112`
     },
     {
-      id: 106,
+      id: 113,
       name: "Silver Initial",
       description: "Personalized silver initial cufflinks",
       price: 10999,
       color: "silver",
       image: "/images/cufflinks6.jpg",
       isNew: true,
-      link: `/product/106`
+      link: `/product/113`
     }
   ];
 

@@ -34,8 +34,8 @@ const GiftSets = () => {
   
   useEffect(() => {
     // Get products from static service
-    const { neckties } = StaticProductService.getStaticProducts();
-    setProducts(neckties);
+    const { combos } = StaticProductService.getStaticProducts();
+    setProducts(combos);
     
     // Parse URL parameters
     const searchParams = new URLSearchParams(location.search);
@@ -57,7 +57,7 @@ const GiftSets = () => {
     setSortOption(initialSort);
     
     // Apply initial filters
-    applyFilters(initialPriceRange, initialColors, initialSort, neckties);
+    applyFilters(initialPriceRange, initialColors, initialSort, combos);
   }, [location.search]);
   
   // Update URL with current filter state
