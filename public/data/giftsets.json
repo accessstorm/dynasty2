@@ -39,7 +39,7 @@
       "description": "A tribute to timeless sophistication, the Serene Paisley set showcases a finely detailed microfibre necktie, an elegantly matching pocket square, and striking black cufflinks. Crafted for those who appreciate subtle opulence, this set captures an air of relaxed luxury and enduring grace.",
       "styleGuide": "Best paired with a light grey or navy blue blazer and a crisp white or soft pastel shirt for a distinguished, polished ensemble. For a more relaxed yet refined look without a blazer, pair it with a soft powder blue or classic white shirt to enhance the delicate hues of the set.",
       "image": "/images/Aproducts/2Giftset/box/Serene Paisley.jpg",
-      "color": "navy",
+      "color": "blue",
       "isNew": true
     },
     {
@@ -53,8 +53,8 @@
       "description": "The Azure Prism set speaks to the bold and modern gentleman, combining a vibrant microfibre necktie, a coordinated pocket square, and distinguished rose gold cufflinks. This ensemble is crafted to embody contemporary style with a nod to timeless sophistication, making it an ideal choice for those who aren't afraid to stand out with elegance.",
       "styleGuide": "Best paired with a navy blue or charcoal grey blazer and a light pastel shirt to highlight the intricate pattern and cool tones. For a sleek, blazer-free look, a crisp white or deep blue shirt will accentuate the vibrant details perfectly.",
       "image": "/images/Aproducts/2Giftset/box/Azure Prism.jpg",
-      "color": "azure",
-      "isNew": true
+      "color": "blue",
+      "isNew": false
     },
     {
       "id": 68,

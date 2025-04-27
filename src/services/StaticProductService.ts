@@ -89,7 +89,7 @@ export const getStaticProducts = (): CategoryProducts => {
         77: 'Aqua Lilac Paisley.jpg',
         78: 'Teal & Green Paisley.jpg',
         79: 'Royal Amethyst.jpg',
-        80: 'whiteblue.jpg', // Keeping as is since it doesn't have a corresponding name
+        80: 'Mint Reverie Paisley.jpg',
         81: 'Crimson Royale Brocade.jpg',
         82: 'Midnight Mirage Paisley.jpg',
         83: 'Crimson Checkmate.jpg'
@@ -201,26 +201,26 @@ export const getStaticProducts = (): CategoryProducts => {
   ];
 
   const combos: ProductCardProps[] = [
-    createProduct(64, "Coral Elegance", "A testament to timeless refinement, The Coral Elegance pairs a finely woven microfibre necktie with a matching pocket square and bold, elegant cufflinks.", 2799, "coral", true, "GS-CORAL-01", 15, "Solid with subtle texture"),
-    createProduct(65, "Rosewood Majesty", "A celebration of classic elegance, the Rosewood Majesty set brings together a finely textured microfibre necktie, a matching pocket square, and sleek rose gold striped cufflinks.", 2799, "rosewood", false, "GS-ROSE-02", 12, "Textured solid"),
-    createProduct(66, "Serene Paisley", "A tribute to timeless sophistication, the Serene Paisley set showcases a finely detailed microfibre necktie, an elegantly matching pocket square, and striking black cufflinks.", 2799, "navy", true, "GS-NAVY-03", 8, "Paisley"),
-    createProduct(67, "Azure Prism", "The Azure Prism set speaks to the bold and modern gentleman, combining a vibrant microfibre necktie, a coordinated pocket square, and distinguished rose gold cufflinks.", 2799, "azure", true, "GS-AZURE-04", 10, "Geometric"),
-    createProduct(68, "Frosted Whirl", "Step into refined elegance with the Frosted Whirl set, featuring a microfibre tie and matching pocket square with a beautifully detailed paisley design.", 2799, "frosted", false, "GS-FROST-05", 7, "Paisley"),
-    createProduct(69, "Blush Avenue", "Add a pop of sophistication with the Blush Avenue set, featuring a microfibre tie and matching pocket square adorned in pink, white, and deep navy stripes.", 2799, "blush", true, "GS-BLUSH-06", 14, "Striped"),
-    createProduct(70, "Golden Hour", "Illuminate your look with the Golden Hour set, featuring a glossy chevron-patterned tie and a matching pocket square in a rich, sunlit gold.", 2799, "gold", true, "GS-GOLD-07", 9, "Chevron"),
-    createProduct(71, "Blush Mosaic", "Stand out with the Blush Mosaic set, featuring a shimmering micro-checkered tie and pocket square in vibrant shades of blush, red, and light grey.", 2799, "blush", false, "GS-BLUSH-08", 11, "Micro-checkered"),
-    createProduct(72, "Midnight Paisley", "The Midnight Paisley set brings together a bold black backdrop with intricate swirling blue and blush paisley embroidery, paired with sleek copper toned checkered cufflinks.", 2799, "midnight", true, "GS-MDNT-09", 8, "Paisley"),
-    createProduct(73, "Emerald Ivory Elegance", "The Emerald Elegance set showcases a luxurious deep green silk base with intricate paisley embroidery, paired with hexagonal silver cufflinks with black pattern.", 2799, "emerald", false, "GS-EMER-10", 6, "Paisley"),
-    createProduct(74, "Teal Noir", "The Teal Noir set brings a sharp, modern twist with vivid teal and subtle ivory lines against a deep background, finished with sleek, dark-toned cufflinks.", 2799, "teal", true, "GS-TEAL-11", 10, "Linear"),
-    createProduct(75, "Dark Green Fuchsia Paisley", "The Dark Green Fuchsia Paisley set captures vibrant energy with rich green tones and lively fuchsia pink paisley patterns, complete with sleek black cufflinks.", 1899, "green", false, "GS-GREEN-12", 15, "Paisley"),
-    createProduct(76, "Navy Brown Bloom", "The Navy Brown Bloom set merges deep navy tones with intricate brown floral patterns, creating a refined, textured look, complete with striking blue cufflinks.", 2799, "navy", true, "GS-NAVY-13", 9, "Floral"),
-    createProduct(77, "Aqua Lilac Paisley", "The Aqua Lilac Paisley set brings a refreshing play of soft aqua blues and muted lilac tones across an elegant black base, completed with gold-toned cufflinks.", 2799, "aqua", false, "GS-AQUA-14", 12, "Paisley"),
-    createProduct(78, "Teal & Green Paisley", "The Teal Green Paisley set showcases vibrant teal and green paisley patterns over a dark base, paired with antique gold-toned cufflinks for a classic, elegant touch.", 2799, "teal", true, "GS-TEAL-15", 8, "Paisley"),
-    createProduct(79, "Royal Amethyst", "The Royal Amethyst set dazzles with a rich mix of deep purple and lilac hues, paired with subtle woven details for a touch of sophistication.", 2799, "purple", false, "GS-PURP-16", 7, "Woven texture"),
-    createProduct(80, "White & Blue Set", "Classic white and blue accessories for a timeless, versatile look, perfect for both formal occasions and professional settings.", 2799, "whiteblue", true, "GS-WHTBL-17", 10, "Classic solid"),
-    createProduct(81, "Crimson Royale Brocade", "The Crimson Royale Brocade set radiates bold elegance with its intricate, regal patterns woven into rich crimson fabric, paired with classic dark cufflinks.", 2799, "crimson", false, "GS-CRIM-18", 6, "Brocade"),
-    createProduct(82, "Midnight Mirage Paisley", "Dive into deep elegance with the Midnight Mirage Paisley set. Shades of blue, indigo, and sapphire swirl in a hypnotic paisley dance, matched with starry cufflinks.", 1899, "midnight", true, "GS-MDNT-19", 15, "Paisley"),
-    createProduct(83, "Crimson Checkmate", "Striking a perfect balance between playful and polished, the Crimson Checkmate set features a vibrant plaid design in shades of red and pink.", 2799, "crimson", false, "GS-CRIM-20", 9, "Plaid"),
+    createProduct(64, "Coral Elegance", "A testament to timeless refinement, The Coral Elegance pairs a finely woven microfibre necktie with a matching pocket square and bold, elegant cufflinks.", 2799, "coral", true, "SKUDYNEGS001", 3, "Solid with subtle texture"),
+    createProduct(65, "Rosewood Majesty", "A celebration of classic elegance, the Rosewood Majesty set brings together a finely textured microfibre necktie, a matching pocket square, and sleek rose gold striped cufflinks.", 2799, "rosewood", false, "SKUDYNEGS002", 3, "Textured solid"),
+    createProduct(66, "Serene Paisley", "A tribute to timeless sophistication, the Serene Paisley set showcases a finely detailed microfibre necktie, an elegantly matching pocket square, and striking black cufflinks.", 2799, "navy", true, "SKUDYNEGS003", 3, "Paisley"),
+    createProduct(67, "Azure Prism", "The Azure Prism set speaks to the bold and modern gentleman, combining a vibrant microfibre necktie, a coordinated pocket square, and distinguished rose gold cufflinks.", 2799, "azure", true, "SKUDYNEGS004", 2, "Geometric"),
+    createProduct(68, "Frosted Whirl", "Step into refined elegance with the Frosted Whirl set, featuring a microfibre tie and matching pocket square with a beautifully detailed paisley design.", 2799, "frosted", false, "SKUDYNEGS005", 3, "Paisley"),
+    createProduct(69, "Blush Avenue", "Add a pop of sophistication with the Blush Avenue set, featuring a microfibre tie and matching pocket square adorned in pink, white, and deep navy stripes.", 2799, "blush", true, "SKUDYNEGS006", 5, "Striped"),
+    createProduct(70, "Golden Hour", "Illuminate your look with the Golden Hour set, featuring a glossy chevron-patterned tie and a matching pocket square in a rich, sunlit gold.", 2799, "gold", true, "SKUDYNEGS007", 5, "Chevron"),
+    createProduct(71, "Blush Mosaic", "Stand out with the Blush Mosaic set, featuring a shimmering micro-checkered tie and pocket square in vibrant shades of blush, red, and light grey.", 2799, "blush", false, "SKUDYNEGS008", 3, "Micro-checkered"),
+    createProduct(72, "Midnight Paisley", "The Midnight Paisley set brings together a bold black backdrop with intricate swirling blue and blush paisley embroidery, paired with sleek copper toned checkered cufflinks.", 2799, "midnight", true, "SKUJPKDEGS009", 3, "Paisley"),
+    createProduct(73, "Emerald Ivory Elegance", "The Emerald Elegance set showcases a luxurious deep green silk base with intricate paisley embroidery, paired with hexagonal silver cufflinks with black pattern.", 2799, "emerald", false, "SKUDYNEGS010", 3, "Paisley"),
+    createProduct(74, "Teal Noir", "The Teal Noir set brings a sharp, modern twist with vivid teal and subtle ivory lines against a deep background, finished with sleek, dark-toned cufflinks.", 2799, "teal", true, "SKUDYNEGS011", 4, "Linear"),
+    createProduct(75, "Dark Green Fuchsia Paisley", "The Dark Green Fuchsia Paisley set captures vibrant energy with rich green tones and lively fuchsia pink paisley patterns, complete with sleek black cufflinks.", 1899, "green", false, "SKUDYNEGS012", 1, "Paisley"),
+    createProduct(76, "Navy Brown Bloom", "The Navy Brown Bloom set merges deep navy tones with intricate brown floral patterns, creating a refined, textured look, complete with striking blue cufflinks.", 2799, "navy", true, "SKUDYNEGS013", 4, "Floral"),
+    createProduct(77, "Aqua Lilac Paisley", "The Aqua Lilac Paisley set brings a refreshing play of soft aqua blues and muted lilac tones across an elegant black base, completed with gold-toned cufflinks.", 2799, "aqua", false, "SKUDYNEGS014", 3, "Paisley"),
+    createProduct(78, "Teal & Green Paisley", "The Teal Green Paisley set showcases vibrant teal and green paisley patterns over a dark base, paired with antique gold-toned cufflinks for a classic, elegant touch.", 2799, "teal", true, "SKUDYNEGS015", 3, "Paisley"),
+    createProduct(79, "Royal Amethyst", "The Royal Amethyst set dazzles with a rich mix of deep purple and lilac hues, paired with subtle woven details for a touch of sophistication.", 2799, "purple", false, "SKUDYNEGS016", 3, "Woven texture"),
+    createProduct(80, "Mint Reverie Paisley", "Light, fresh, and effortlessly sophisticated, the Mint Reverie Paisley set infuses your look with a breath of elegance. Detailed swirling patterns on a soft mint canvas, paired with golden, finely etched cufflinks.", 2799, "mint", true, "SKUDYNEGS019", 4, "Whispered Paisley Brocade"),
+    createProduct(81, "Crimson Royale Brocade", "The Crimson Royale Brocade set radiates bold elegance with its intricate, regal patterns woven into rich crimson fabric, paired with classic dark cufflinks.", 2799, "crimson", false, "SKUDYNEGS017", 4, "Brocade"),
+    createProduct(82, "Midnight Mirage Paisley", "Dive into deep elegance with the Midnight Mirage Paisley set. Shades of blue, indigo, and sapphire swirl in a hypnotic paisley dance, matched with starry cufflinks.", 1899, "midnight", true, "SKUDYNEGS018", 3, "Paisley"),
+    createProduct(83, "Crimson Checkmate", "Striking a perfect balance between playful and polished, the Crimson Checkmate set features a vibrant plaid design in shades of red and pink.", 2799, "crimson", false, "SKUDYNEGS020", 3, "Plaid"),
     createProduct(84, "Mint Reverie Paisley", "Light, fresh, and effortlessly sophisticated, the Mint Reverie Paisley set infuses your look with a breath of elegance. Detailed swirling patterns on a soft mint canvas, paired with golden, finely etched cufflinks.", 2799, "mint", true, "SKUDYNEGS019", 4, "Whispered Paisley Brocade")
   ];
 
@@ -298,7 +298,7 @@ export const getStaticProducts = (): CategoryProducts => {
             77: 'Aqua Lilac Paisley.jpg',
             78: 'Teal & Green Paisley.jpg',
             79: 'Royal Amethyst.jpg',
-            80: 'whiteblue.jpg', // Keeping as is since it doesn't have a corresponding name
+            80: 'Mint Reverie Paisley.jpg',
             81: 'Crimson Royale Brocade.jpg',
             82: 'Midnight Mirage Paisley.jpg',
             83: 'Crimson Checkmate.jpg'

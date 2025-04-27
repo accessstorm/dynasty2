@@ -5,11 +5,14 @@ import { getStaticProducts } from '../services/StaticProductService';
 import { ProductCardProps } from '../components/ProductCard';
 import RazorpayButton from '../components/RazorpayButton';
 import RazorpayQRButton from '../components/RazorpayQRButton';
+import ProductCard from '../components/ProductCard';
 
 const GiftSetDetails = () => {
   const { giftSetId } = useParams<{ giftSetId: string }>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const [maxQuantityReached, setMaxQuantityReached] = useState(false);
+  const [cartMessage, setCartMessage] = useState<{text: string, type: 'success' | 'error'} | null>(null);
   const [loading, setLoading] = useState(true);
   const [productImages, setProductImages] = useState<string[]>([]);
   const [product, setProduct] = useState<ProductCardProps | null>(null);
@@ -164,12 +167,39 @@ const GiftSetDetails = () => {
   const handleIncrement = () => {
     if (product && product.quantity !== undefined && quantity < product.quantity) {
       setQuantity(prev => prev + 1);
+      setMaxQuantityReached(quantity + 1 >= product.quantity);
+    } else if (product && product.quantity !== undefined) {
+      setMaxQuantityReached(true);
     }
   };
 
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity(prev => prev - 1);
+      setMaxQuantityReached(false);
+    }
+  };
+  
+  // Add a function to handle direct quantity input with validation
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    
+    if (isNaN(value) || value < 1) {
+      setQuantity(1);
+      setMaxQuantityReached(false);
+      return;
+    }
+    
+    if (product && product.quantity !== undefined) {
+      if (value > product.quantity) {
+        setQuantity(product.quantity);
+        setMaxQuantityReached(true);
+      } else {
+        setQuantity(value);
+        setMaxQuantityReached(value >= product.quantity);
+      }
+    } else {
+      setQuantity(value);
     }
   };
   
@@ -215,6 +245,46 @@ const GiftSetDetails = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [product, productImages]);
+
+  // Handle add to cart functionality
+  const handleAddToCart = () => {
+    if (!product) return;
+    
+    // Enforce quantity limit
+    if (product.quantity !== undefined) {
+      if (product.quantity === 0) {
+        setCartMessage({
+          text: "Sorry, this product is out of stock.",
+          type: 'error'
+        });
+        return;
+      }
+      
+      if (quantity > product.quantity) {
+        setCartMessage({
+          text: `Sorry, only ${product.quantity} units available.`,
+          type: 'error'
+        });
+        // Reset quantity to max available
+        setQuantity(product.quantity);
+        setMaxQuantityReached(true);
+        return;
+      }
+    }
+    
+    // Here you would normally implement actual cart functionality
+    console.log(`Added to cart: ${quantity} x ${product.name}`);
+    
+    setCartMessage({
+      text: `${quantity} x ${product.name} added to cart!`,
+      type: 'success'
+    });
+    
+    // Clear the message after 3 seconds
+    setTimeout(() => {
+      setCartMessage(null);
+    }, 3000);
+  };
 
   if (loading) {
     return (
@@ -366,23 +436,53 @@ const GiftSetDetails = () => {
           </div>
 
           {/* Quantity Selector */}
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-700">Quantity:</span>
-            <div className="flex border border-gray-300">
-              <button 
-                onClick={handleDecrement}
-                className="px-3 py-1 text-lg border-r border-gray-300"
-              >
-                -
-              </button>
-              <span className="px-4 py-1 text-lg">{quantity}</span>
-              <button 
-                onClick={handleIncrement}
-                className="px-3 py-1 text-lg border-l border-gray-300"
-              >
-                +
-              </button>
+          <div className="flex flex-col space-y-2">
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-700">Quantity:</span>
+              <div className="flex border border-gray-300">
+                <button 
+                  onClick={handleDecrement}
+                  className="px-3 py-1 text-lg border-r border-gray-300"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  max={product?.quantity || 99}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  className="w-12 px-2 py-1 text-lg text-center focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  onBlur={() => {
+                    // Validate on blur as well
+                    if (product && product.quantity !== undefined && quantity > product.quantity) {
+                      setQuantity(product.quantity);
+                      setMaxQuantityReached(true);
+                    }
+                  }}
+                />
+                <button 
+                  onClick={handleIncrement}
+                  className={`px-3 py-1 text-lg border-l border-gray-300 ${
+                    product && product.quantity !== undefined && quantity >= product.quantity 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : ''
+                  }`}
+                  disabled={product && product.quantity !== undefined && quantity >= product.quantity}
+                >
+                  +
+                </button>
+              </div>
             </div>
+            {product && product.quantity !== undefined && (
+              <div className="text-sm">
+                <span className={maxQuantityReached ? "text-red-500" : "text-gray-500"}>
+                  {maxQuantityReached 
+                    ? `Maximum available quantity (${product.quantity}) reached` 
+                    : `Available: ${product.quantity}`}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Action Buttons */}
@@ -390,29 +490,59 @@ const GiftSetDetails = () => {
             <Button
               className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
               radius="xs"
-              onClick={() => console.log("Add to cart clicked")}
+              onClick={handleAddToCart}
+              disabled={product?.quantity === 0}
             >
-              Add to Cart
+              {product?.quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
             </Button>
             
-            <RazorpayButton
-              amount={product?.price * quantity}
-              name={product?.name || "Gift Set"}
-              description={product?.description || "Luxury Gift Set"}
-              className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
-              buttonText="Buy Now"
-            />
+            {product?.quantity !== 0 ? (
+              <RazorpayButton
+                amount={product?.price * quantity}
+                name={product?.name || "Gift Set"}
+                description={product?.description || "Luxury Gift Set"}
+                className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
+                buttonText="Buy Now"
+              />
+            ) : (
+              <Button
+                className="bg-gray-400 text-white uppercase text-sm tracking-widest py-4 font-medium cursor-not-allowed"
+                radius="xs"
+                disabled
+              >
+                Buy Now
+              </Button>
+            )}
           </div>
+          
+          {/* Cart Message */}
+          {cartMessage && (
+            <div className={`mt-2 p-2 text-white text-center rounded-sm ${
+              cartMessage.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+            }`}>
+              {cartMessage.text}
+            </div>
+          )}
           
           {/* UPI Payment Option */}
           <div className="mt-2">
-            <RazorpayQRButton
-              amount={product?.price * quantity}
-              name={product?.name || "Gift Set"}
-              description={product?.description || "Luxury Gift Set"}
-              className="w-full bg-[#528FF0] text-white hover:bg-[#4169E1] transition-all uppercase text-sm tracking-widest py-3 font-medium"
-              buttonText="Pay with UPI / QR Code"
-            />
+            {product?.quantity !== 0 ? (
+              <RazorpayQRButton
+                amount={product?.price * quantity}
+                name={product?.name || "Gift Set"}
+                description={product?.description || "Luxury Gift Set"}
+                className="w-full bg-[#528FF0] text-white hover:bg-[#4169E1] transition-all uppercase text-sm tracking-widest py-3 font-medium"
+                buttonText="Pay with UPI / QR Code"
+              />
+            ) : (
+              <Button
+                className="w-full bg-gray-400 text-white uppercase text-sm tracking-widest py-3 font-medium cursor-not-allowed"
+                radius="xs"
+                disabled
+              >
+                Pay with UPI / QR Code
+              </Button>
+            )}
           </div>
           
           {/* Short Description */}
@@ -435,19 +565,19 @@ const GiftSetDetails = () => {
             <Text fw={600} className="text-lg mb-3">Why you'll love it</Text>
             <ul className="space-y-2">
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Pre-matched for effortless elegance</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Ready-to-gift in premium packaging</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Perfect for special occasions</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Meticulously curated by our stylists</Text>
               </li>
             </ul>
@@ -458,20 +588,20 @@ const GiftSetDetails = () => {
             <table className="w-full border-collapse">
               <tbody>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white font-medium w-1/3">Component</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white font-medium w-2/3">Details</td>
+                  <td className="py-2 px-4 bg-black text-white font-medium w-1/3">Component</td>
+                  <td className="py-2 px-4 bg-black text-white font-medium w-2/3">Details</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Necktie</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Microfibre, 58" Length, 3" Width</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Necktie</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Microfibre, 58" Length, 3" Width</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Pocket Square</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Microfibre, 10" × 10"</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Pocket Square</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Microfibre, 10" × 10"</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Cufflinks</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Metal alloy, Matching design</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Cufflinks</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Metal alloy, Matching design</td>
                 </tr>
                 <tr>
                   <td className="py-2 px-4 border border-gray-200">Pattern</td>
@@ -488,7 +618,7 @@ const GiftSetDetails = () => {
           {/* Return/Exchange Policy Button */}
           <Button
             variant="subtle"
-            className="bg-[#00C2CB] text-white hover:bg-[#00A9B0] w-full py-3 mt-4"
+            className="bg-black text-white hover:bg-gray-800 w-full py-3 mt-4"
             radius="xs"
             onClick={() => console.log("Return policy clicked")}
           >
@@ -498,7 +628,7 @@ const GiftSetDetails = () => {
           {/* Product Display & Accuracy Policy */}
           <Button
             variant="subtle"
-            className="bg-[#00C2CB] text-white hover:bg-[#00A9B0] w-full py-3"
+            className="bg-black text-white hover:bg-gray-800 w-full py-3"
             radius="xs"
             onClick={() => console.log("Product Display policy clicked")}
           >
@@ -585,6 +715,61 @@ const GiftSetDetails = () => {
             </Accordion.Item>
           </Accordion>
         </div>
+      </div>
+
+      {/* Similar Products Section */}
+      <div className="mt-16 border-t border-gray-200 pt-12 pb-8">
+        <Container size="xl">
+          <Text className="text-2xl font-medium mb-8 text-center">View Similar Products</Text>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {allGiftSets
+              .filter(giftSet => giftSet.id !== Number(giftSetId) && 
+                (giftSet.color === product?.color || giftSet.pattern === product?.pattern))
+              .slice(0, 4)
+              .map(giftSet => (
+                <ProductCard 
+                  key={giftSet.id}
+                  id={giftSet.id}
+                  name={giftSet.name}
+                  price={giftSet.price}
+                  image={generateGiftSetImages(giftSet.id)[0]}
+                  description={giftSet.description}
+                  isNew={giftSet.isNew}
+                  link={`/gift-set/${giftSet.id}`}
+                  pattern={giftSetPatterns[giftSet.id] || giftSet.pattern}
+                  color={giftSet.color}
+                  quantity={giftSet.quantity}
+                />
+              ))}
+            {/* Fallback if not enough similar products */}
+            {allGiftSets.filter(giftSet => 
+              giftSet.id !== Number(giftSetId) && 
+              (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
+            ).length < 4 && 
+              allGiftSets
+                .filter(giftSet => giftSet.id !== Number(giftSetId))
+                .slice(0, 4 - allGiftSets.filter(giftSet => 
+                  giftSet.id !== Number(giftSetId) && 
+                  (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
+                ).length)
+                .map(giftSet => (
+                  <ProductCard 
+                    key={giftSet.id}
+                    id={giftSet.id}
+                    name={giftSet.name}
+                    price={giftSet.price}
+                    image={generateGiftSetImages(giftSet.id)[0]}
+                    description={giftSet.description}
+                    isNew={giftSet.isNew}
+                    link={`/gift-set/${giftSet.id}`}
+                    pattern={giftSetPatterns[giftSet.id] || giftSet.pattern}
+                    color={giftSet.color}
+                    quantity={giftSet.quantity}
+                  />
+                ))
+            }
+          </div>
+        </Container>
       </div>
     </Container>
   );
