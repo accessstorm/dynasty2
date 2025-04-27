@@ -11,7 +11,7 @@ const CategoricalCollection = () => {
     { 
       id: 1, 
       name: 'NECKTIES', 
-      href: '/neckties',
+      href: '/necktie-products',
       image: '/images/necktie.jpg',
       status: 'available' 
     },
@@ -37,6 +37,73 @@ const CategoricalCollection = () => {
       status: 'coming-soon'
     }
   ];
+
+  // Function to render card content based on status
+  const renderCardContent = (category: typeof categories[0]) => {
+    return (
+      <div className="relative h-80">
+        <img
+          src={category.image}
+          alt={category.name}
+          className="w-full h-full object-cover"
+        />
+        
+        <div className="absolute inset-0 flex flex-col justify-between p-4">
+          <h3 className="text-lg font-medium bg-white inline-block px-4 py-1">
+            {category.name}
+          </h3>
+        </div>
+        
+        {/* Hover overlay */}
+        <AnimatePresence>
+          {hoveredCard === category.id && (
+            <motion.div
+              initial={{ opacity: 0, y: '100%' }}
+              animate={{ opacity: 0.7, y: 0 }}
+              exit={{ opacity: 0, y: '100%' }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0 bg-black"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Centered Content on Hover */}
+        <AnimatePresence>
+          {hoveredCard === category.id && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              {category.status === 'available' ? (
+                <div className="text-white text-center">
+                  <h3 className="text-xl font-serif mb-2">View Collection</h3>
+                </div>
+              ) : (
+                <div className="text-white text-center">
+                  <h3 className="text-xl font-serif mb-2">Coming Soon</h3>
+                  <p className="text-sm opacity-80">This collection will be available shortly</p>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* Mobile indicator */}
+        {category.status === 'available' ? (
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 text-center sm:hidden">
+            <span className="text-sm">Tap to view collection</span>
+          </div>
+        ) : (
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 text-center sm:hidden">
+            <span className="text-sm">Coming Soon</span>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -64,64 +131,18 @@ const CategoricalCollection = () => {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="relative overflow-hidden border border-gray-200">
-                <div className="relative h-80">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  <div className="absolute inset-0 flex flex-col justify-between p-4">
-                    <h3 className="text-lg font-medium bg-white inline-block px-4 py-1">
-                      {category.name}
-                    </h3>
-                  </div>
-                  
-                  {/* Hover overlay */}
-                  <AnimatePresence>
-                    {hoveredCard === category.id && (
-                      <motion.div
-                        initial={{ opacity: 0, y: '100%' }}
-                        animate={{ opacity: 0.7, y: 0 }}
-                        exit={{ opacity: 0, y: '100%' }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute inset-0 bg-black"
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  {/* Centered Content on Hover */}
-                  <AnimatePresence>
-                    {hoveredCard === category.id && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        {category.status === 'available' ? (
-                          <Button
-                            component={Link}
-                            to={category.href}
-                            variant="outline"
-                            radius="0"
-                            className="border-white text-white hover:bg-white hover:text-black transition-all px-8 py-2 tracking-widest text-sm uppercase"
-                          >
-                            View Details
-                          </Button>
-                        ) : (
-                          <div className="text-white text-center">
-                            <h3 className="text-xl font-serif mb-2">Coming Soon</h3>
-                            <p className="text-sm opacity-80">This collection will be available shortly</p>
-                          </div>
-                        )}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+              {category.status === 'available' ? (
+                <Link 
+                  to={category.href}
+                  className="block h-full w-full relative overflow-hidden border border-gray-200"
+                >
+                  {renderCardContent(category)}
+                </Link>
+              ) : (
+                <div className="block h-full w-full relative overflow-hidden border border-gray-200">
+                  {renderCardContent(category)}
                 </div>
-              </div>
+              )}
             </motion.div>
           ))}
         </div>
@@ -129,7 +150,7 @@ const CategoricalCollection = () => {
         <div className="text-center mt-12">
           <Button
             component={Link}
-            to="/neckties"
+            to="/necktie-products"
             variant="outline"
             radius="0"
             className="border-black text-black hover:bg-black hover:text-white transition-all px-8 py-2 tracking-widest text-sm uppercase"

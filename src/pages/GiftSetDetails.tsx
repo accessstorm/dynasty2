@@ -27,7 +27,7 @@ const GiftSetDetails = () => {
     69: "SKUDYNEGS006",
     70: "SKUDYNEGS007",
     71: "SKUDYNEGS008",
-    72: "SKUDYNEGS009",
+    72: "SKUJPKDEGS009",
     73: "SKUDYNEGS010",
     74: "SKUDYNEGS011",
     75: "SKUDYNEGS012",
@@ -35,9 +35,9 @@ const GiftSetDetails = () => {
     77: "SKUDYNEGS014",
     78: "SKUDYNEGS015",
     79: "SKUDYNEGS016",
-    80: "SKUDYNEGS017",
-    81: "SKUDYNEGS018",
-    82: "SKUDYNEGS019",
+    80: "SKUDYNEGS019",
+    81: "SKUDYNEGS017",
+    82: "SKUDYNEGS018",
     83: "SKUDYNEGS020"
   };
 
@@ -59,9 +59,9 @@ const GiftSetDetails = () => {
     77: "Paisley",
     78: "Paisley",
     79: "Diagonal Stripes",
-    80: "Baroque Floral Brocade",
-    81: "Paisley Weave",
-    82: "Whispered Paisley Brocade",
+    80: "Whispered Paisley Brocade",
+    81: "Baroque Floral Brocade",
+    82: "Paisley Weave",
     83: "Bold Crimson Plaid"
   };
 
@@ -136,7 +136,7 @@ const GiftSetDetails = () => {
       77: 'Aqua Lilac Paisley.jpg',
       78: 'Teal & Green Paisley.jpg',
       79: 'Royal Amethyst.jpg',
-      80: 'whiteblue.jpg',
+      80: 'Mint Reverie Paisley.jpg',
       81: 'Crimson Royale Brocade.jpg',
       82: 'Midnight Mirage Paisley.jpg',
       83: 'Crimson Checkmate.jpg'
@@ -162,7 +162,9 @@ const GiftSetDetails = () => {
   };
 
   const handleIncrement = () => {
-    setQuantity(prev => prev + 1);
+    if (product && product.quantity !== undefined && quantity < product.quantity) {
+      setQuantity(prev => prev + 1);
+    }
   };
 
   const handleDecrement = () => {

@@ -67,7 +67,7 @@
       "description": "Step into refined elegance with the Frosted Whirl set, featuring a microfibre tie and matching pocket square with a beautifully detailed paisley design. Paired with floral blue-and-gold cufflinks, this set perfectly balances subtle luxury with a hint of bold sophistication, ideal for elevating your formalwear.",
       "styleGuide": "Matches exceptionally well with a steel grey or classic black suit for a sharp, polished look. For a more relaxed yet stylish option, pair it with a crisp white shirt and skip the jacket to let the intricate pattern and rich cufflink accents shine.",
       "image": "/images/Aproducts/2Giftset/box/Frosted Whirl.jpg",
-      "color": "frosted",
+      "color": "grey",
       "isNew": false
     },
     {
@@ -81,7 +81,7 @@
       "description": "Add a pop of sophistication with the Blush Avenue set, featuring a microfibre tie and matching pocket square adorned in pink, white, and deep navy stripes. The set is finished with modern black and silver cufflinks, giving your outfit a contemporary edge while maintaining timeless charm.",
       "styleGuide": "Best paired with a navy or charcoal suit for a fresh, standout look. For a casual yet sharp statement, combine it with a light grey blazer and white shirt to let the vibrant stripes do all the talking.",
       "image": "/images/Aproducts/2Giftset/box/Blush Avenue.jpg",
-      "color": "blush",
+      "color": "pink",
       "isNew": true
     },
     {
@@ -123,7 +123,7 @@
       "description": "The Midnight Paisley set brings together a bold black backdrop with intricate swirling blue and blush paisley embroidery, paired with sleek copper toned checkered cufflinks for a powerful, refined statement.",
       "styleGuide": "Best suited for evening events, cocktail parties, or formal dinners — complements black, navy, or even deep maroon suits for a striking, confident look.",
       "image": "/images/Aproducts/2Giftset/box/Midnight Paisley.jpg",
-      "color": "midnight",
+      "color": "black",
       "isNew": true
     },
     {
@@ -137,7 +137,7 @@
       "description": "The Emerald Elegance set showcases a luxurious deep green silk base with intricate paisley embroidery, paired with hexagonal silver cufflinks with black pattern for a bold yet classic finish.",
       "styleGuide": "Perfect for winter weddings, formal events, or upscale soirées — pairs impeccably with charcoal grey, black, or deep green suits for a rich, distinguished look.",
       "image": "/images/Aproducts/2Giftset/box/Emerald Ivory Elegance.jpg",
-      "color": "emerald",
+      "color": "green",
       "isNew": false
     },
     {
@@ -226,22 +226,22 @@
     },
     {
       "id": 80,
-      "title": "White & Blue Set",
-      "sku": "SKUDYNEGS017",
+      "title": "Mint Reverie Paisley",
+      "sku": "SKUDYNEGS019",
       "price": 2799,
       "originalPrice": 3699,
       "quantity": 4,
-      "pattern": "Classic solid",
-      "description": "Classic white and blue accessories for a timeless, versatile look, perfect for both formal occasions and professional settings.",
-      "styleGuide": "A versatile choice for business meetings, formal events, or weddings; pairs perfectly with navy, grey, or black suits for a clean, professional appearance.",
-      "image": "/images/Aproducts/2Giftset/box/whiteblue.jpg",
-      "color": "whiteblue",
+      "pattern": "Whispered Paisley Brocade",
+      "description": "Light, fresh, and effortlessly sophisticated, the Mint Reverie Paisley set infuses your look with a breath of elegance. Detailed swirling patterns on a soft mint canvas, paired with golden, finely etched cufflinks, make this set perfect for spring weddings, garden parties, and daytime celebrations.",
+      "styleGuide": "Pairs beautifully with light gray, beige, or classic navy suits for a refined and refreshing ensemble.",
+      "image": "/images/Aproducts/2Giftset/box/Mint Reverie Paisley.jpg",
+      "color": "mint",
       "isNew": true
     },
     {
       "id": 81,
       "title": "Crimson Royale Brocade",
-      "sku": "SKUDYNEGS018",
+      "sku": "SKUDYNEGS017",
       "price": 2799,
       "originalPrice": 3699,
       "quantity": 4,
@@ -255,7 +255,7 @@
     {
       "id": 82,
       "title": "Midnight Mirage Paisley",
-      "sku": "SKUDYNEGS019",
+      "sku": "SKUDYNEGS018",
       "price": 1899,
       "originalPrice": 2799,
       "quantity": 3,
@@ -263,7 +263,7 @@
       "description": "Dive into deep elegance with the Midnight Mirage Paisley set. Shades of blue, indigo, and sapphire swirl in a hypnotic paisley dance, matched with starry cufflinks that add a celestial touch to your formal ensemble.",
       "styleGuide": "Perfect for evening galas, weddings, or any event under the stars; pairs best with charcoal, navy, or black suits for a truly magnetic look.",
       "image": "/images/Aproducts/2Giftset/box/Midnight Mirage Paisley.jpg",
-      "color": "midnight",
+      "color": "blue",
       "isNew": true
     },
     {
@@ -277,7 +277,7 @@
       "description": "Striking a perfect balance between playful and polished, the Crimson Checkmate set features a vibrant plaid design in shades of red and pink. Accompanied by textured black cufflinks, this set is made for those who aren't afraid to stand out at social gatherings, weddings, or semi-formal events.",
       "styleGuide": "Looks sharp with navy, or black suits, bringing a pop of color that's both commanding and stylish.",
       "image": "/images/Aproducts/2Giftset/box/Crimson Checkmate.jpg",
-      "color": "crimson",
+      "color": "red",
       "isNew": false
     }
   ]

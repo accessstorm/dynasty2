@@ -62,20 +62,11 @@ export const getStaticProducts = (): CategoryProducts => {
         6: 'Amber Grid Classic.jpg', 
         7: 'Golden Gleam Check.jpg',
         8: 'Crimson Board.jpg',
-        9: 'Midnight Stride.jpg',
         10: 'Rosé Rally.jpg',
-        11: 'Blush Boulevard.jpg',
-        12: 'Lavender Lines.jpg',
         13: 'Golden Charm.jpg',
-        14: 'Royal Whimsy.jpg',
-        15: 'Vintage Charm.jpg',
-        16: 'Highland Flair.jpg',
-        17: 'Midnight Maze.jpg',
-        18: 'Ocean Breeze.jpg',
-        19: 'Royal Twilight.jpg'
       };
       
-      const imageName = necktieNames[id] || 'Rosewood Reverie.jpg';
+      const imageName = necktieNames[id] || 'Amber Grid Classic.jpg'; // Default to an existing image
       // More aggressive cache busting with random number + timestamp
       const cacheBuster = `?v=${Math.random()}_${new Date().getTime()}`;
       imagePath = `/images/Aproducts/1Necktie/box/${imageName}${cacheBuster}`;
@@ -145,17 +136,8 @@ export const getStaticProducts = (): CategoryProducts => {
     createProduct(6, "Amber Grid Classic", "Bright and charismatic, the Amber Grid Classic tie features a vivid orange tone with a refined grid pattern highlighted by subtle silver accents.", 799, "orange", true, "SKUDYNENT006", 16, "Geometric Grid", "Microfiber"),
     createProduct(7, "Golden Gleam Check", "Radiating positivity and charm, the Golden Gleam Check tie is crafted with a bright yellow hue and a refined micro-checkered pattern.", 799, "yellow", true, "SKUDYNENT007", 16, "Micro Checkered Grid", "Microfiber"),
     createProduct(8, "Crimson Board", "Deep crimson with an intricate shadow weave, this tie creates a bold yet refined look, perfect for leaving a memorable impression.", 799, "burgundy", false, "SKUDYNENT008", 16, "Subtle Geometric Texture", "Microfiber"),
-    createProduct(9, "Midnight Stride", "A sophisticated navy base with tonal textured stripes, this tie is designed for timeless elegance and versatility.", 799, "navy", true, "SKUDYNENT009", 16, "Diagonal Woven Stripes", "Microfiber"),
-    createProduct(10, "Rosé Rally", "A vibrant fusion of blush pink, deep navy, white, and a touch of magenta creates a bold yet tasteful tie.", 799, "pink", false, "SKUDYNENT010", 16, "Wide Diagonal Stripes", "Microfiber"),
-    createProduct(11, "Blush Boulevard", "This sophisticated tie blends soft pink with sharp black and white plaid accents, offering a contemporary twist on a classic pattern.", 799, "pink", true, "SKUDYNENT011", 16, "Modern Plaid", "Microfiber"),
-    createProduct(12, "Lavender Lines", "A stylish lavender tie featuring fine white, navy, and greenish stripes, perfect for a fresh, confident look.", 799, "purple", false, "SKUDYNENT012", 16, "Sleek Stripes", "Microfiber"),
+    createProduct(10, "Rosé Rally", "A vibrant and stylish tie with a unique pattern", 799, "pink", true, "SKUDYNENT010", 16, "Paisley", "Microfiber"),
     createProduct(13, "Golden Charm", "A vibrant golden-yellow tie featuring an elegant checkered texture, ideal for adding a lively yet polished touch.", 799, "yellow", true, "SKUDYNENT013", 16, "Subtle Checkered Weave", "Microfiber"),
-    createProduct(14, "Royal Whimsy", "A luxurious lavender tie adorned with a classic deep purple paisley design, embodying charm and sophistication.", 799, "purple", true, "SKUDYNENT014", 16, "Paisley", "Microfiber"),
-    createProduct(15, "Vintage Charm", "A rich brown tie with intricate gold paisley patterns, offering a vintage yet polished elegance.", 799, "brown", false, "SKUDYNENT015", 16, "Paisley", "Microfiber"),
-    createProduct(16, "Highland Flair", "A bold plaid design in shades of blue and purple, blending classic tradition with modern attitude.", 799, "blue", true, "SKUDYNENT016", 16, "Plaid", "Microfiber"),
-    createProduct(17, "Midnight Maze", "A modern twist with an intricate navy and light blue geometric weave that captures light and attention effortlessly.", 799, "navy", false, "SKUDYNENT017", 16, "Geometric", "Microfiber"),
-    createProduct(18, "Ocean Breeze", "Fresh aqua blues, navy, and green stripes bring vibrant energy and effortless charm to your outfit.", 799, "blue", true, "SKUDYNENT018", 16, "Striped", "Microfiber"),
-    createProduct(19, "Royal Twilight", "Deep violets, lilacs, and sharp white accents make this tie a bold, confident choice for both formal and smart-casual looks.", 799, "purple", false, "SKUDYNENT019", 16, "Plaid", "Microfiber")
   ];
 
   const bowTies: ProductCardProps[] = [
@@ -342,20 +324,11 @@ export const getStaticProducts = (): CategoryProducts => {
             6: 'Amber Grid Classic.jpg', 
             7: 'Golden Gleam Check.jpg',
             8: 'Crimson Board.jpg',
-            9: 'Midnight Stride.jpg',
             10: 'Rosé Rally.jpg',
-            11: 'Blush Boulevard.jpg',
-            12: 'Lavender Lines.jpg',
             13: 'Golden Charm.jpg',
-            14: 'Royal Whimsy.jpg',
-            15: 'Vintage Charm.jpg',
-            16: 'Highland Flair.jpg',
-            17: 'Midnight Maze.jpg',
-            18: 'Ocean Breeze.jpg',
-            19: 'Royal Twilight.jpg'
           };
           
-          const imageName = necktieNames[product.id] || 'Rosewood Reverie.jpg';
+          const imageName = necktieNames[product.id] || 'Amber Grid Classic.jpg';
           const cacheBuster = `?v=${Math.random()}_${new Date().getTime()}`;
           imagePath = `/images/Aproducts/1Necktie/box/${imageName}${cacheBuster}`;
         } else {
@@ -451,11 +424,12 @@ export const getStaticProducts = (): CategoryProducts => {
   // Home page features a mix of products from all categories
   // Ensure we have enough products for the home page
   const home: ProductCardProps[] = [
-    // First row - neckties with box images
+    // First row - neckties with box images that we confirmed exist
     { ...necktiesWithImages[0], image: `/images/Aproducts/1Necktie/box/Rosewood Reverie.jpg?v=${Math.random()}_${new Date().getTime()}` },
     { ...necktiesWithImages[1], image: `/images/Aproducts/1Necktie/box/Tangerine Tact.jpg?v=${Math.random()}_${new Date().getTime()}` },
     { ...necktiesWithImages[2], image: `/images/Aproducts/1Necktie/box/Purple Prism.jpg?v=${Math.random()}_${new Date().getTime()}` },
-    { ...necktiesWithImages[3], image: `/images/Aproducts/1Necktie/box/Jade Reverie.jpg?v=${Math.random()}_${new Date().getTime()}` },
+    // Using only verified images that exist in the box folder
+    { ...necktiesWithImages[4], image: `/images/Aproducts/1Necktie/box/Bold Blush Charm.jpg?v=${Math.random()}_${new Date().getTime()}` },
     
     // Second row - bow ties
     { ...bowTiesWithImages[0], image: '/images/bowtie1.jpg' },
@@ -469,11 +443,11 @@ export const getStaticProducts = (): CategoryProducts => {
     { ...pocketSquaresWithImages[2], image: '/images/pocketsquares3.jpg' },
     { ...pocketSquaresWithImages[3], image: '/images/pocketsquares4.jpg' },
     
-    // Fourth row - mix of categories
+    // Fourth row - mix of categories with verified images only
     { ...oversizedTeesWithImages[0], image: '/images/oversizedtees.jpg' },
     { ...weddingWithImages[0], image: '/images/wedding.jpg' },
-    { ...necktiesWithImages[4], image: `/images/Aproducts/1Necktie/box/Golden Gleam Check.jpg?v=${Math.random()}_${new Date().getTime()}` },
-    { ...necktiesWithImages[5], image: `/images/Aproducts/1Necktie/box/Highland Flair.jpg?v=${Math.random()}_${new Date().getTime()}` }
+    { ...necktiesWithImages[5], image: `/images/Aproducts/1Necktie/box/Amber Grid Classic.jpg?v=${Math.random()}_${new Date().getTime()}` },
+    { ...necktiesWithImages[6], image: `/images/Aproducts/1Necktie/box/Golden Gleam Check.jpg?v=${Math.random()}_${new Date().getTime()}` }
   ];
 
   return {

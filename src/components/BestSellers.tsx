@@ -25,8 +25,12 @@ const BestSellers = () => {
     // Get products from StaticProductService
     const allProducts = getStaticProducts();
     
-    // Select top neckties (3)
+    // Get the available necktie IDs that have confirmed images
+    const availableNecktieIds = [1, 2, 3, 4, 5, 6, 7, 8, 13];
+    
+    // Select top neckties with verified images (3)
     const topNeckties = allProducts.neckties
+      .filter(tie => availableNecktieIds.includes(tie.id))
       .filter(tie => tie.isNew)
       .slice(0, 3)
       .map(tie => ({
@@ -39,9 +43,9 @@ const BestSellers = () => {
         link: tie.link
       }));
       
-    // Select top gift sets (6)
+    // Select top gift sets (3)
     const topGiftSets = allProducts.combos
-      .slice(0, 6)
+      .slice(0, 3)
       .map(giftSet => ({
         id: giftSet.id,
         name: giftSet.name,

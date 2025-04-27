@@ -1,29 +1,29 @@
-import { Container, Text, Title, Group, Box, ThemeIcon } from '@mantine/core';
+import { Container, Text, Title, Group, Box, ThemeIcon, Image, Flex } from '@mantine/core';
 import { motion } from 'framer-motion';
-import { IconAward, IconCertificate, IconRulerMeasure } from '@tabler/icons-react';
+import { IconDiamond, IconFileDescription, IconGlobe } from '@tabler/icons-react';
 
 const HomeWhyChooseUs = () => {
   const features = [
     {
       id: 1,
-      title: 'Exquisite Craftsmanship',
-      description: 'Each product is meticulously handcrafted by our skilled artisans, ensuring unparalleled attention to detail and finish.',
-      icon: IconRulerMeasure,
-      color: '#000'
+      title: 'Artisanal Craftsmanship',
+      description: 'Each product is meticulously crafted with expert attention to detail and superior workmanship.',
+      icon: IconDiamond,
+      color: '#fff'
     },
     {
       id: 2,
-      title: 'Global-Grade Quality',
-      description: 'We source only the finest materials from around the world, meeting international standards of excellence.',
-      icon: IconCertificate,
-      color: '#000'
+      title: 'Premium Materials',
+      description: 'We source only the finest quality materials to ensure exceptional durability and luxury.',
+      icon: IconFileDescription,
+      color: '#fff'
     },
     {
       id: 3,
-      title: '30+ Years of Expertise',
-      description: 'With over three decades in the industry, our heritage of excellence has been passed down through generations.',
-      icon: IconAward,
-      color: '#000'
+      title: 'Global Shipping',
+      description: 'We deliver our exceptional products to customers worldwide with care and efficiency.',
+      icon: IconGlobe,
+      color: '#fff'
     }
   ];
 
@@ -49,7 +49,7 @@ const HomeWhyChooseUs = () => {
   };
 
   return (
-    <Box className="bg-white py-24 border-t border-gray-100">
+    <Box className="bg-black py-24 border-t border-gray-800">
       <Container size="xl">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -58,10 +58,7 @@ const HomeWhyChooseUs = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Title order={2} className="text-3xl font-serif mb-4">Why Choose Us?</Title>
-          <Text className="text-gray-600 max-w-2xl mx-auto">
-            We have maintained our dedication to quality, craftsmanship, and timeless elegance
-          </Text>
+          <Title order={2} className="text-3xl font-serif mb-4 text-white">Why Choose Dynasty?</Title>
         </motion.div>
 
         <motion.div
@@ -76,19 +73,13 @@ const HomeWhyChooseUs = () => {
               <motion.div
                 key={feature.id}
                 variants={itemVariants}
-                className="flex flex-col items-center text-center p-8 border-l border-gray-200 first:border-0"
+                className="flex flex-col items-center text-center p-8"
               >
-                <ThemeIcon 
-                  size={90} 
-                  radius={45} 
-                  className="mb-8 bg-gray-50 shadow-sm"
-                >
-                  <feature.icon size={45} stroke={1.5} />
-                </ThemeIcon>
-                <Title order={3} className="text-2xl font-serif mb-4">
+                <feature.icon size={45} stroke={1.5} color="#fff" className="mb-6" />
+                <Title order={3} className="text-xl font-serif mb-3 text-white">
                   {feature.title}
                 </Title>
-                <Text className="text-gray-600 leading-relaxed">
+                <Text className="text-gray-300 leading-relaxed text-sm">
                   {feature.description}
                 </Text>
               </motion.div>

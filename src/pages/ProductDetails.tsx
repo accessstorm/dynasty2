@@ -206,7 +206,9 @@ const ProductDetails = () => {
   };
 
   const handleIncrement = () => {
-    setQuantity(prev => prev + 1);
+    if (product && product.quantity !== undefined && quantity < product.quantity) {
+      setQuantity(prev => prev + 1);
+    }
   };
 
   const handleDecrement = () => {

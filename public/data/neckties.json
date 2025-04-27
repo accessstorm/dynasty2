@@ -121,21 +121,6 @@
       "material": "Microfiber"
     },
     {
-      "id": 9,
-      "title": "Midnight Stride",
-      "sku": "SKUDYNENT009",
-      "price": 799,
-      "originalPrice": 999,
-      "quantity": 16,
-      "pattern": "Diagonal Woven Stripes",
-      "description": "A sophisticated navy base with tonal textured stripes, this tie is designed for timeless elegance and versatility across any professional or formal setting.",
-      "styleGuide": "Best complemented with grey, black, or lighter blue suits; perfect for boardroom meetings, business events, and upscale dinners.",
-      "image": "/images/Aproducts/1Necktie/box/Midnight Stride.jpg",
-      "color": "navy",
-      "isNew": true,
-      "material": "Microfiber"
-    },
-    {
       "id": 10,
       "title": "Rosé Rally",
       "sku": "SKUDYNENT010",
@@ -147,36 +132,6 @@
       "styleGuide": "Pairs beautifully with light grey, navy blue, or charcoal suits; ideal for spring weddings, cocktail events, and business-casual gatherings.",
       "image": "/images/Aproducts/1Necktie/box/Rosé Rally.jpg",
       "color": "pink",
-      "isNew": false,
-      "material": "Microfiber"
-    },
-    {
-      "id": 11,
-      "title": "Blush Boulevard",
-      "sku": "SKUDYNENT011",
-      "price": 799,
-      "originalPrice": 999,
-      "quantity": 16,
-      "pattern": "Modern Plaid",
-      "description": "This sophisticated tie blends soft pink with sharp black and white plaid accents, offering a contemporary twist on a classic pattern.",
-      "styleGuide": "Looks sharp with charcoal, navy, or black suits; perfect for weddings, networking events, or stylish office wear.",
-      "image": "/images/Aproducts/1Necktie/box/Blush Boulevard.jpg",
-      "color": "pink",
-      "isNew": true,
-      "material": "Microfiber"
-    },
-    {
-      "id": 12,
-      "title": "Lavender Lines",
-      "sku": "SKUDYNENT012",
-      "price": 799,
-      "originalPrice": 999,
-      "quantity": 16,
-      "pattern": "Sleek Stripes",
-      "description": "A stylish lavender tie featuring fine white, navy, and greenish stripes, perfect for a fresh, confident look.",
-      "styleGuide": "Pair with a light gray, charcoal, or navy suit; great for business meetings, spring weddings, or sharp everyday style.",
-      "image": "/images/Aproducts/1Necktie/box/Lavender Lines.jpg",
-      "color": "purple",
       "isNew": false,
       "material": "Microfiber"
     },

@@ -11,11 +11,13 @@ const Footer = () => {
 
   const footerLinks = [
     { name: 'HOME', href: '/' },
-    { name: 'NECKTIES', href: '/neckties' },
-    { name: 'BOW TIES', href: '/bow-ties' },
+    { name: 'NECKTIES', href: '/necktie-products' },
+    { name: 'GIFT SETS', href: '/gift-sets' },
     { name: 'POCKET SQUARES', href: '/pocket-squares' },
-    { name: 'TRACKING', href: '#' },
-    { name: 'CONTACT US', href: '/contact' }
+    { name: 'CUFFLINKS', href: '/cufflinks' },
+    { name: 'BULK ORDERS', href: '/bulk-orders' },
+    { name: 'HELP', href: '/help' },
+    { name: 'FAQ', href: '/faq' }
   ];
 
   const contactInfo = [

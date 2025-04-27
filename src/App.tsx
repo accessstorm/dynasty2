@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { luxuryTheme } from './components/LuxuryTheme';
 import WhatsAppButton from './components/WhatsAppButton';
 import ChatbotButton from './components/ChatbotButton';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -27,6 +28,7 @@ function App() {
   return (
     <MantineProvider theme={luxuryTheme}>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col overflow-x-hidden">
           <Navbar />
           <div className="flex-grow w-full max-w-full">
