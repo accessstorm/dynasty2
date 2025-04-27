@@ -1,208 +1,164 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Container, Text, Button, Badge, Accordion } from '@mantine/core';
 import { getStaticProducts } from '../services/StaticProductService';
 import { ProductCardProps } from '../components/ProductCard';
 import RazorpayButton from '../components/RazorpayButton';
 import RazorpayQRButton from '../components/RazorpayQRButton';
 
-const ProductDetails = () => {
-  const { productId } = useParams<{ productId: string }>();
+const GiftSetDetails = () => {
+  const { giftSetId } = useParams<{ giftSetId: string }>();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [productImages, setProductImages] = useState<string[]>([]);
   const [product, setProduct] = useState<ProductCardProps | null>(null);
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
-  const [category, setCategory] = useState('necktie'); // Default category
+  const [allGiftSets, setAllGiftSets] = useState<ProductCardProps[]>([]);
 
+  // Map gift set IDs to their respective SKUs
+  const giftSetSkus: {[key: number]: string} = {
+    64: "SKUDYNEGS001",
+    65: "SKUDYNEGS002",
+    66: "SKUDYNEGS003",
+    67: "SKUDYNEGS004",
+    68: "SKUDYNEGS005",
+    69: "SKUDYNEGS006",
+    70: "SKUDYNEGS007",
+    71: "SKUDYNEGS008",
+    72: "SKUDYNEGS009",
+    73: "SKUDYNEGS010",
+    74: "SKUDYNEGS011",
+    75: "SKUDYNEGS012",
+    76: "SKUDYNEGS013",
+    77: "SKUDYNEGS014",
+    78: "SKUDYNEGS015",
+    79: "SKUDYNEGS016",
+    80: "SKUDYNEGS017",
+    81: "SKUDYNEGS018",
+    82: "SKUDYNEGS019",
+    83: "SKUDYNEGS020"
+  };
+
+  // Map gift set IDs to their respective patterns
+  const giftSetPatterns: {[key: number]: string} = {
+    64: "Subtle diamond weave",
+    65: "Geometric Overlapping Squares",
+    66: "Classic Paisley Weave",
+    67: "Geometric square-in-square weave",
+    68: "Intricate Paisley Swirl",
+    69: "Bold Striped Contrast",
+    70: "Chevron Shine Texture",
+    71: "Micro-Checkered",
+    72: "Paisley Embroidery",
+    73: "Paisley",
+    74: "Diagonal Stripes",
+    75: "Paisley",
+    76: "Floral Brocade",
+    77: "Paisley",
+    78: "Paisley",
+    79: "Diagonal Stripes",
+    80: "Baroque Floral Brocade",
+    81: "Paisley Weave",
+    82: "Whispered Paisley Brocade",
+    83: "Bold Crimson Plaid"
+  };
+
+  // Load all gift sets on component mount
   useEffect(() => {
-    const fetchProduct = () => {
-      try {
-        const allProducts = getStaticProducts();
-        // Flatten all product categories into a single array
-        const productsArray = [
-          ...allProducts.neckties,
-          ...allProducts.bowTies,
-          ...allProducts.pocketSquares,
-          ...allProducts.men,
-          ...allProducts.women,
-          ...allProducts.combos,
-          ...allProducts.oversizedTees,
-          ...allProducts.wedding,
-        ];
-        
-        // Find the product with the matching ID
-        const foundProduct = productsArray.find(p => p.id === Number(productId));
-        
-        if (foundProduct) {
-          console.log(`Found product with ID ${productId}:`, foundProduct);
-          
-          // Determine product category
-          let category = "necktie"; // Default
-          
-          if (allProducts.bowTies.some(p => p.id === foundProduct.id)) category = "bowtie";
-          else if (allProducts.pocketSquares.some(p => p.id === foundProduct.id)) category = "pocketsquares";
-          else if (allProducts.oversizedTees.some(p => p.id === foundProduct.id)) category = "oversizedtees";
-          else if (allProducts.wedding.some(p => p.id === foundProduct.id)) category = "wedding";
-          else if (allProducts.combos.some(p => p.id === foundProduct.id)) category = "giftset";
-          
-          // Ensure necktie products use the new image structure
-          if (category === "necktie" || foundProduct.id <= 16) {
-            category = "necktie"; // Override category if ID matches necktie range
-          }
-          
-          console.log(`Product category determined as: ${category}`);
-          
-          // Store the category in state
-          setCategory(category);
-          
-          // Generate product images based on category
-          const images = generateProductImages(category, foundProduct.id);
-          console.log(`Generated ${images.length} images for product:`, images);
-          setProductImages(images);
-          
-          // Update product with the first image
-          setProduct({
-            ...foundProduct,
-            image: images[0]
-          });
-          
-          // Preload images to prevent loading issues
-          images.forEach(src => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => console.log(`Successfully preloaded image: ${src}`);
-            img.onerror = () => console.error(`Failed to preload image: ${src}`);
-          });
-        } else {
-          console.error(`Product with ID ${productId} not found`);
-          setProduct(null);
-        }
-        
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching product:', error);
+    const allProducts = getStaticProducts();
+    setAllGiftSets(allProducts.combos);
+  }, []);
+
+  // Handle gift set lookup or redirect if needed
+  useEffect(() => {
+    if (!allGiftSets.length) return; // Wait until sets are loaded
+    
+    console.log("All gift set IDs:", allGiftSets.map(set => set.id));
+    
+    // Try to find the requested gift set
+    const foundGiftSet = allGiftSets.find(gs => gs.id === Number(giftSetId));
+    
+    if (!foundGiftSet) {
+      console.log(`Gift set ID ${giftSetId} not found, redirecting to first available gift set`);
+      
+      // If not found, redirect to the first available gift set
+      if (allGiftSets.length > 0) {
+        const firstGiftSet = allGiftSets[0];
+        navigate(`/gift-set/${firstGiftSet.id}`, { replace: true });
+      } else {
+        console.error("No gift sets available for redirection");
         setLoading(false);
       }
-    };
+      return;
+    }
     
-    fetchProduct();
-  }, [productId]);
+    // Gift set found, continue with display
+    console.log("Found gift set:", foundGiftSet);
+    
+    // Generate images
+    const images = generateGiftSetImages(foundGiftSet.id);
+    setProductImages(images);
+    
+    // Set product data with first image and correct SKU based on ID
+    setProduct({
+      ...foundGiftSet,
+      image: images[0],
+      sku: giftSetSkus[foundGiftSet.id] || foundGiftSet.sku,
+      pattern: giftSetPatterns[foundGiftSet.id] || foundGiftSet.pattern
+    });
+    
+    setLoading(false);
+  }, [giftSetId, allGiftSets, navigate]);
 
-  // Function to generate product images based on category and ID
-  const generateProductImages = (category: string, id: number): string[] => {
+  // Function to generate gift set images based on ID
+  const generateGiftSetImages = (id: number): string[] => {
     const images: string[] = [];
     
-    // For neckties, use the folder structure with box, frontback, and roll images
-    if (category === "necktie" && id <= 19) {
-      // Map ID to actual necktie names
-      const necktieNames: {[key: number]: string} = {
-        1: 'Rosewood Reverie.jpg',      // ID in details.txt: 1
-        2: 'Tangerine Tact.jpg',        // ID in details.txt: 2
-        3: 'Purple Prism.jpg',          // ID in details.txt: 3
-        4: 'Jade Reverie.jpg',          // ID in details.txt: 4
-        5: 'Bold Blush Charm.jpg',      // ID in details.txt: 5
-        6: 'Amber Grid Classic.jpg',    // ID in details.txt: 6
-        7: 'Golden Gleam Check.jpg',    // ID in details.txt: 7
-        8: 'Crimson Board.jpg',         // ID in details.txt: 8
-        9: 'Midnight Stride.jpg',       // ID in details.txt: 9
-        10: 'Rosé Rally.jpg',           // ID in details.txt: 10
-        11: 'Blush Boulevard.jpg',      // ID in details.txt: 11
-        12: 'Lavender Lines.jpg',       // ID in details.txt: 12
-        13: 'Golden Charm.jpg',         // ID in details.txt: 13
-        14: 'Royal Whimsy.jpg',         // ID in details.txt: 14
-        15: 'Vintage Charm.jpg',        // ID in details.txt: 15
-        16: 'Highland Flair.jpg',       // ID in details.txt: 16
-        17: 'Midnight Maze.jpg',        // ID in details.txt: 17
-        18: 'Ocean Breeze.jpg',         // ID in details.txt: 18
-        19: 'Royal Twilight.jpg'        // ID in details.txt: 19
-      };
-      
-      const imageName = necktieNames[id] || 'Rosewood Reverie.jpg';
-      console.log(`Using necktie image name: ${imageName} for ID: ${id}`);
-      
-      // More aggressive cache busting with random number + timestamp
-      const cacheBuster = `?v=${Math.random()}_${new Date().getTime()}`;
-      
-      // Add box image first with cache busting
-      const boxImagePath = `/images/Aproducts/1Necktie/box/${imageName}${cacheBuster}`;
-      console.log(`Box image path: ${boxImagePath}`);
-      images.push(boxImagePath);
-      
-      // Add frontback image with cache busting
-      const frontbackImagePath = `/images/Aproducts/1Necktie/frontback/${imageName}${cacheBuster}`;
-      console.log(`Frontback image path: ${frontbackImagePath}`);
-      images.push(frontbackImagePath);
-      
-      // Add roll image with cache busting
-      const rollImagePath = `/images/Aproducts/1Necktie/roll/${imageName}${cacheBuster}`;
-      console.log(`Roll image path: ${rollImagePath}`);
-      images.push(rollImagePath);
-      
-      return images;
-    }
+    console.log(`Generating images for gift set ID: ${id}`);
     
-    // For gift sets, use the box and set images (only two images per product)
-    if (category === "giftset") {
-      // Map ID to actual gift set names
-      const giftSetNames: {[key: number]: string} = {
-        64: 'Coral Elegance.jpg',
-        65: 'Rosewood Majesty.jpg',
-        66: 'Serene Paisley.jpg',
-        67: 'Azure Prism.jpg',
-        68: 'Frosted Whirl.jpg',
-        69: 'Blush Avenue.jpg',
-        70: 'Golden Hour.jpg',
-        71: 'Blush Mosaic.jpg',
-        72: 'Midnight Paisley.jpg',
-        73: 'Emerald Ivory Elegance.jpg',
-        74: 'Teal Noir.jpg',
-        75: 'Dark Green Fuchsia Paisley.jpg',
-        76: 'Navy Brown Bloom.jpg',
-        77: 'Aqua Lilac Paisley.jpg',
-        78: 'Teal & Green Paisley.jpg',
-        79: 'Royal Amethyst.jpg',
-        80: 'whiteblue.jpg', // Keeping as is since it doesn't have a corresponding name
-        81: 'Crimson Royale Brocade.jpg',
-        82: 'Midnight Mirage Paisley.jpg',
-        83: 'Crimson Checkmate.jpg'
-      };
-      
-      const imageName = giftSetNames[id] || 'Coral Elegance.jpg';
-      
-      // Add box image first with cache busting
-      images.push(`/images/Aproducts/2Giftset/box/${imageName}?v=${new Date().getTime()}`);
-      
-      // Add set image with cache busting
-      images.push(`/images/Aproducts/2Giftset/set/${imageName}?v=${new Date().getTime()}`);
-      
-      return images;
-    }
+    // Map ID to actual gift set names
+    const giftSetNames: {[key: number]: string} = {
+      64: 'Coral Elegance.jpg',
+      65: 'Rosewood Majesty.jpg',
+      66: 'Serene Paisley.jpg',
+      67: 'Azure Prism.jpg',
+      68: 'Frosted Whirl.jpg',
+      69: 'Blush Avenue.jpg',
+      70: 'Golden Hour.jpg',
+      71: 'Blush Mosaic.jpg',
+      72: 'Midnight Paisley.jpg',
+      73: 'Emerald Ivory Elegance.jpg',
+      74: 'Teal Noir.jpg',
+      75: 'Dark Green Fuchsia Paisley.jpg',
+      76: 'Navy Brown Bloom.jpg',
+      77: 'Aqua Lilac Paisley.jpg',
+      78: 'Teal & Green Paisley.jpg',
+      79: 'Royal Amethyst.jpg',
+      80: 'whiteblue.jpg',
+      81: 'Crimson Royale Brocade.jpg',
+      82: 'Midnight Mirage Paisley.jpg',
+      83: 'Crimson Checkmate.jpg'
+    };
     
-    // Map product ID to image index (1-6)
-    const imageIndex = ((id - 1) % 6) + 1;
+    const imageName = giftSetNames[id] || `${id}.jpg`;
+    console.log(`Using image name: ${imageName} for gift set ID: ${id}`);
     
-    // Add main product image
-    images.push(`/images/${category}${imageIndex}.jpg`);
+    // More aggressive cache busting with random number + timestamp
+    const cacheBuster = `?v=${Math.random()}_${new Date().getTime()}`;
     
-    // Add additional images (repeating if needed)
-    for (let i = 1; i <= 2; i++) {
-      const additionalIndex = ((imageIndex + i - 1) % 6) + 1;
-      images.push(`/images/${category}${additionalIndex}.jpg`);
-    }
+    // Add box image first with cache busting
+    const boxImagePath = `/images/Aproducts/2Giftset/box/${imageName}${cacheBuster}`;
+    console.log(`Box image path: ${boxImagePath}`);
+    images.push(boxImagePath);
+    
+    // Add set image with cache busting
+    const setImagePath = `/images/Aproducts/2Giftset/set/${imageName}${cacheBuster}`;
+    console.log(`Set image path: ${setImagePath}`);
+    images.push(setImagePath);
     
     return images;
-  };
-
-  // Function to handle color selection
-  const handleColorSelect = (color: string) => {
-    setSelectedColor(color);
-  };
-
-  // Function to handle size selection
-  const handleSizeSelect = (size: string) => {
-    setSelectedSize(size);
   };
 
   const handleIncrement = () => {
@@ -215,51 +171,13 @@ const ProductDetails = () => {
     }
   };
   
-  // Function to generate breadcrumbs based on product category
+  // Function to generate breadcrumbs
   const generateBreadcrumbs = () => {
     if (!product) return [];
     
-    // Always use neckties category for items with ID <= 16
-    let categoryPath = "neckties";
-    let categoryLabel = "NECKTIES";
-    
-    // Only determine category for non-necktie products
-    if (product.id > 16) {
-      const allProducts = getStaticProducts();
-      
-      if (allProducts.bowTies.some(p => p.id === product.id)) {
-        categoryPath = "bow-ties";
-        categoryLabel = "BOW TIES";
-      }
-      else if (allProducts.pocketSquares.some(p => p.id === product.id)) {
-        categoryPath = "pocket-squares";
-        categoryLabel = "POCKET SQUARES";
-      }
-      else if (allProducts.men.some(p => p.id === product.id)) {
-        categoryPath = "men";
-        categoryLabel = "MEN";
-      }
-      else if (allProducts.women.some(p => p.id === product.id)) {
-        categoryPath = "women"; 
-        categoryLabel = "WOMEN";
-      }
-      else if (allProducts.combos.some(p => p.id === product.id)) {
-        categoryPath = "gift-sets";
-        categoryLabel = "GIFT SETS";
-      }
-      else if (allProducts.oversizedTees.some(p => p.id === product.id)) {
-        categoryPath = "oversized-tees";
-        categoryLabel = "OVERSIZED TEES";
-      }
-      else if (allProducts.wedding.some(p => p.id === product.id)) {
-        categoryPath = "wedding";
-        categoryLabel = "WEDDING";
-      }
-    }
-    
     return [
       { label: "HOME", path: "/" },
-      { label: categoryLabel, path: `/${categoryPath}` },
+      { label: "GIFT SETS", path: "/gift-sets" },
       { label: product.name.toUpperCase(), path: "" }
     ];
   };
@@ -300,7 +218,7 @@ const ProductDetails = () => {
     return (
       <Container className="py-20">
         <div className="flex justify-center">
-          <Text size="xl">Loading product...</Text>
+          <Text size="xl">Loading gift set...</Text>
         </div>
       </Container>
     );
@@ -310,9 +228,9 @@ const ProductDetails = () => {
     return (
       <Container className="py-20">
         <div className="flex flex-col items-center">
-          <Text size="xl" className="mb-4">Product not found</Text>
-          <Button component={Link} to="/" variant="outline">
-            Return to Home
+          <Text size="xl" className="mb-4">Gift set not found</Text>
+          <Button component={Link} to="/gift-sets" variant="outline">
+            Return to Gift Sets
           </Button>
         </div>
       </Container>
@@ -391,15 +309,10 @@ const ProductDetails = () => {
           </div>
           
           {/* Thumbnail Navigation */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {productImages.map((image, i) => {
-              // Determine image label based on index for necktie products
-              let imageLabel = `View ${i+1}`;
-              if (productImages.length === 3 && category === "necktie") {
-                if (i === 0) imageLabel = "In Box";
-                else if (i === 1) imageLabel = "Front & Back";
-                else if (i === 2) imageLabel = "Rolled";
-              }
+              // Determine image label based on index for gift set products
+              let imageLabel = i === 0 ? "Box View" : "Set View";
               
               return (
                 <div 
@@ -414,8 +327,8 @@ const ProductDetails = () => {
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         console.error(`Error loading thumbnail image: ${image}`);
-                        e.currentTarget.onerror = null; // Prevent infinite error loop
-                        e.currentTarget.src = '/images/placeholder.jpg'; // Use a placeholder image
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = '/images/placeholder.jpg';
                       }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 text-center">
@@ -435,12 +348,15 @@ const ProductDetails = () => {
             {product.name}
           </h1>
           
-          {/* Only show SKU for products other than 16 */}
-          {product.id !== 16 && (
-            <div className="text-xl text-gray-900 mb-4">
-              SKU: TTH-SNT-{product.id}
-            </div>
-          )}
+          {/* SKU */}
+          <div className="text-xl text-gray-900 mb-4">
+            SKU: {product.sku}
+          </div>
+          
+          {/* Pattern */}
+          <div className="text-xl text-gray-900 mb-4">
+            Pattern: {product.pattern}
+          </div>
           
           {/* Price */}
           <div className="text-2xl md:text-3xl font-serif">
@@ -479,8 +395,8 @@ const ProductDetails = () => {
             
             <RazorpayButton
               amount={product?.price * quantity}
-              name={product?.name || "Product"}
-              description={product?.description || "Description"}
+              name={product?.name || "Gift Set"}
+              description={product?.description || "Luxury Gift Set"}
               className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
               buttonText="Buy Now"
             />
@@ -490,8 +406,8 @@ const ProductDetails = () => {
           <div className="mt-2">
             <RazorpayQRButton
               amount={product?.price * quantity}
-              name={product?.name || "Product"}
-              description={product?.description || "Description"}
+              name={product?.name || "Gift Set"}
+              description={product?.description || "Luxury Gift Set"}
               className="w-full bg-[#528FF0] text-white hover:bg-[#4169E1] transition-all uppercase text-sm tracking-widest py-3 font-medium"
               buttonText="Pay with UPI / QR Code"
             />
@@ -506,9 +422,9 @@ const ProductDetails = () => {
           
           {/* Style Guide */}
           <div>
-            <Text fw={600} className="text-lg mb-2">Style Guide</Text>
+            <Text fw={600} className="text-lg mb-2">Set Contents</Text>
             <Text className="text-gray-700 leading-relaxed">
-              Perfect for formal occasions, business meetings, and special events.
+              Each {product.name} gift set contains a perfectly matched necktie, pocket square, and cufflinks, all presented in a premium gift box.
             </Text>
           </div>
 
@@ -522,15 +438,15 @@ const ProductDetails = () => {
               </li>
               <li className="flex items-start">
                 <span className="text-[#00C2CB] font-bold mr-2">•</span>
-                <Text className="text-gray-700">Crafted with attention to detail</Text>
+                <Text className="text-gray-700">Ready-to-gift in premium packaging</Text>
               </li>
               <li className="flex items-start">
                 <span className="text-[#00C2CB] font-bold mr-2">•</span>
-                <Text className="text-gray-700">Ideal for gifting or personal styling</Text>
+                <Text className="text-gray-700">Perfect for special occasions</Text>
               </li>
               <li className="flex items-start">
                 <span className="text-[#00C2CB] font-bold mr-2">•</span>
-                <Text className="text-gray-700">Packaged in a premium gift box</Text>
+                <Text className="text-gray-700">Meticulously curated by our stylists</Text>
               </li>
             </ul>
           </div>
@@ -544,26 +460,24 @@ const ProductDetails = () => {
                   <td className="py-2 px-4 bg-[#00C2CB] text-white font-medium w-2/3">Details</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Fabric</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Woven Microfibre</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Necktie</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Microfibre, 58" Length, 3" Width</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Tie Length</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">58" – 60"</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Pocket Square</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Microfibre, 10" × 10"</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Tie Width</td>
-                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">3" (Standard Width)</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Cufflinks</td>
+                  <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Metal alloy, Matching design</td>
                 </tr>
-                {category === "giftset" && (
-                  <tr>
-                    <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">Pocket Square</td>
-                    <td className="py-2 px-4 bg-[#00C2CB] text-white border-t border-white">10" x 10"</td>
-                  </tr>
-                )}
                 <tr>
                   <td className="py-2 px-4 border border-gray-200">Pattern</td>
-                  <td className="py-2 px-4 border border-gray-200">{product.pattern || "Unique pattern for each product"}</td>
+                  <td className="py-2 px-4 border border-gray-200">{product.pattern || "Unique pattern for each gift set"}</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border border-gray-200">Color</td>
+                  <td className="py-2 px-4 border border-gray-200">{product.color || "Varies"}</td>
                 </tr>
               </tbody>
             </table>
@@ -626,12 +540,12 @@ const ProductDetails = () => {
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  This premium {product.color} {category === "necktie" ? "necktie" : "gift set"} is designed with attention to detail, 
-                  adding a sophisticated touch to any formal attire. Crafted from high-quality microfiber,
-                  our products offer a silky finish and excellent durability for everyday wear.
+                  This premium {product.name} gift set is designed with attention to detail, 
+                  adding a sophisticated touch to any formal attire. Each component is carefully 
+                  selected to complement each other perfectly.
                   <br /><br />
-                  Each piece is meticulously handcrafted by our master artisans, ensuring the highest 
-                  quality and attention to detail that Dynasty is renowned for.
+                  The set includes a luxurious necktie, matching pocket square, and elegant cufflinks, 
+                  all presented in a premium gift box, making it perfect for special occasions or as a thoughtful gift.
                 </Text>
               </Accordion.Panel>
             </Accordion.Item>
@@ -642,8 +556,9 @@ const ProductDetails = () => {
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  • Dry clean only<br />
+                  • Necktie & Pocket Square: Dry clean only<br />
                   • Store properly rolled or hung to prevent creasing<br />
+                  • Cufflinks: Wipe with a soft, dry cloth<br />
                   • Avoid prolonged exposure to direct sunlight<br />
                   • Remove stains promptly with a clean, damp cloth
                 </Text>
@@ -659,10 +574,10 @@ const ProductDetails = () => {
                   Free standard shipping on all orders within India. Orders are typically 
                   processed within 24 hours and delivered within 3-5 business days.
                   <br /><br />
+                  All gift sets are carefully packaged to ensure they arrive in perfect condition.
+                  <br /><br />
                   International shipping is available for select countries. Shipping rates 
                   and delivery times vary by location.
-                  <br /><br />
-                  For more information, please visit our shipping policy page.
                 </Text>
               </Accordion.Panel>
             </Accordion.Item>
@@ -673,4 +588,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails; 
+export default GiftSetDetails; 

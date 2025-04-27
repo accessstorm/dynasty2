@@ -52,30 +52,30 @@ const getImagePath = (id: number) => {
     return `/images/cufflinks${imageIndex}.jpg`;
   } else if (id >= 64 && id <= 83) {
     // Gift sets
-    const colorMap: {[key: number]: string} = {
-      64: 'blue.jpg',
-      65: 'black.jpg',
-      66: 'chrome.jpg',
-      67: 'cream.jpg',
-      68: 'red.jpg',
-      69: 'gold.jpg',
-      70: 'pink.jpg',
-      71: 'green.JPG',
-      72: 'cyan.jpg',
-      73: 'babypink.jpg',
-      74: 'babypinkd.jpg',
-      75: 'aqua.jpg',
-      76: 'teal.jpg',
-      77: 'violet.jpg',
-      78: 'pinkd.jpg',
-      79: 'greend.jpg',
-      80: 'whiteblue.jpg',
-      81: 'pinkblue.jpg',
-      82: 'brightpink.jpg',
-      83: 'lightgreen.jpg'
+    const giftSetNames: {[key: number]: string} = {
+      64: 'Coral Elegance.jpg',
+      65: 'Rosewood Majesty.jpg',
+      66: 'Serene Paisley.jpg',
+      67: 'Azure Prism.jpg',
+      68: 'Frosted Whirl.jpg',
+      69: 'Blush Avenue.jpg',
+      70: 'Golden Hour.jpg',
+      71: 'Blush Mosaic.jpg',
+      72: 'Midnight Paisley.jpg',
+      73: 'Emerald Ivory Elegance.jpg',
+      74: 'Teal Noir.jpg',
+      75: 'Dark Green Fuchsia Paisley.jpg',
+      76: 'Navy Brown Bloom.jpg',
+      77: 'Aqua Lilac Paisley.jpg',
+      78: 'Teal & Green Paisley.jpg',
+      79: 'Royal Amethyst.jpg',
+      80: 'whiteblue.jpg', // Keeping as is since it doesn't have a corresponding name
+      81: 'Crimson Royale Brocade.jpg',
+      82: 'Midnight Mirage Paisley.jpg',
+      83: 'Crimson Checkmate.jpg'
     };
-    const colorKey = colorMap[id] || 'blue.jpg';
-    return `/images/Aproducts/2Giftset/box/${colorKey}?v=${new Date().getTime()}`;
+    const imageName = giftSetNames[id] || 'Coral Elegance.jpg';
+    return `/images/Aproducts/2Giftset/box/${imageName}?v=${new Date().getTime()}`;
   } else if (id <= 16) {
     // Neckties with box images
     // Map ID to color names

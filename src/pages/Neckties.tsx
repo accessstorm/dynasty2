@@ -13,7 +13,7 @@ const Neckties = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductCardProps[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([3400, 18000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([700, 1000]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string | null>('newest');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -46,8 +46,8 @@ const Neckties = () => {
     
     // Set initial filters from URL if present
     const initialPriceRange: [number, number] = [
-      minPrice ? parseInt(minPrice) : 3400,
-      maxPrice ? parseInt(maxPrice) : 18000
+      minPrice ? parseInt(minPrice) : 700,
+      maxPrice ? parseInt(maxPrice) : 1000
     ];
     const initialColors = colors ? colors.split(',') : [];
     const initialSort = sort || 'newest';
@@ -69,10 +69,10 @@ const Neckties = () => {
     const params = new URLSearchParams();
     
     // Only add price parameters if they differ from defaults
-    if (prices[0] !== 3400) {
+    if (prices[0] !== 700) {
       params.set('minPrice', prices[0].toString());
     }
-    if (prices[1] !== 18000) {
+    if (prices[1] !== 1000) {
       params.set('maxPrice', prices[1].toString());
     }
     
@@ -108,6 +108,14 @@ const Neckties = () => {
     setSelectedColors(updatedColors);
     const newFiltered = applyFilters(priceRange, updatedColors, sortOption);
     updateURLParams(priceRange, updatedColors, sortOption);
+    return newFiltered;
+  };
+  
+  // Handle sorting option change
+  const handleSortChange = (option: string | null) => {
+    setSortOption(option);
+    const newFiltered = applyFilters(priceRange, selectedColors, option);
+    updateURLParams(priceRange, selectedColors, option);
     return newFiltered;
   };
   
@@ -185,19 +193,31 @@ const Neckties = () => {
               isMobileFilterOpen && (
                 <FilterSidebar
                   priceRange={priceRange}
-                  onPriceRangeChange={handlePriceRangeChange}
+                  setPriceRange={handlePriceRangeChange}
                   colorFilters={colorFilters}
-                  onColorFilterChange={handleColorFilterChange}
                   selectedColors={selectedColors}
+                  setSelectedColors={setSelectedColors}
+                  sortOption={sortOption}
+                  setSortOption={handleSortChange}
+                  formatPrice={(val: number) => `₹${val}`}
+                  minPrice={700}
+                  maxPrice={1000}
+                  step={50}
                 />
               )
             ) : (
               <FilterSidebar
                 priceRange={priceRange}
-                onPriceRangeChange={handlePriceRangeChange}
+                setPriceRange={handlePriceRangeChange}
                 colorFilters={colorFilters}
-                onColorFilterChange={handleColorFilterChange}
                 selectedColors={selectedColors}
+                setSelectedColors={setSelectedColors}
+                sortOption={sortOption}
+                setSortOption={handleSortChange}
+                formatPrice={(val: number) => `₹${val}`}
+                minPrice={700}
+                maxPrice={1000}
+                step={50}
               />
             )}
           </div>

@@ -1,64 +1,104 @@
 import { useState, useEffect } from 'react';
 import { Container, Text, Button } from '@mantine/core';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FilterSidebar from '../components/FilterSidebar';
 import ProductGrid from '../components/ProductGrid';
 import { ProductCardProps } from '../components/ProductCard';
-import StaticProductService from '../services/StaticProductService';
 import { IconFilter } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 
+// Interface for the gift set data structure from JSON
+interface GiftSet {
+  id: number;
+  title: string;
+  sku: string;
+  price: number;
+  originalPrice: number;
+  quantity: number;
+  pattern: string;
+  description: string;
+  styleGuide: string;
+  image: string;
+  color: string;
+  isNew: boolean;
+}
+
 const GiftSets = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const [giftSets, setGiftSets] = useState<GiftSet[]>([]);
   const [products, setProducts] = useState<ProductCardProps[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([3400, 18000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([1800, 3000]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string | null>('newest');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
   const isMobile = useMediaQuery('(max-width: 768px)');
   
-  // Color filters with counts for neckties
+  // Color filters with counts for gift sets
   const colorFilters = [
-    { color: 'blue', label: 'Blue', count: 10, colorCode: '#1e3a8a' },
-    { color: 'black', label: 'Black', count: 8, colorCode: '#000000' },
-    { color: 'grey', label: 'Grey', count: 7, colorCode: '#6b7280' },
-    { color: 'green', label: 'Green', count: 6, colorCode: '#166534' },
-    { color: 'burgundy', label: 'Burgundy', count: 4, colorCode: '#800020' },
-    { color: 'navy', label: 'Navy Blue', count: 4, colorCode: '#172554' },
-    { color: 'red', label: 'Red', count: 3, colorCode: '#b91c1c' },
-    { color: 'white', label: 'White', count: 3, colorCode: '#ffffff' },
-    { color: 'brown', label: 'Brown', count: 2, colorCode: '#8b4513' },
+    { color: 'coral', label: 'Coral', count: 1, colorCode: '#FF7F50' },
+    { color: 'rosewood', label: 'Rosewood', count: 1, colorCode: '#65000B' },
+    { color: 'navy', label: 'Navy', count: 2, colorCode: '#172554' },
+    { color: 'azure', label: 'Azure', count: 1, colorCode: '#007FFF' },
+    { color: 'frosted', label: 'Frosted', count: 1, colorCode: '#E8F4F8' },
+    { color: 'blush', label: 'Blush', count: 2, colorCode: '#DE5D83' },
+    { color: 'gold', label: 'Gold', count: 1, colorCode: '#FFD700' },
+    { color: 'midnight', label: 'Midnight', count: 2, colorCode: '#191970' },
+    { color: 'emerald', label: 'Emerald', count: 1, colorCode: '#50C878' },
+    { color: 'teal', label: 'Teal', count: 2, colorCode: '#008080' },
+    { color: 'green', label: 'Green', count: 1, colorCode: '#008000' },
+    { color: 'aqua', label: 'Aqua', count: 1, colorCode: '#00FFFF' },
+    { color: 'purple', label: 'Purple', count: 1, colorCode: '#800080' },
+    { color: 'mint', label: 'Mint', count: 1, colorCode: '#3EB489' },
+    { color: 'crimson', label: 'Crimson', count: 2, colorCode: '#DC143C' },
   ];
   
+  // Fetch gift sets data
   useEffect(() => {
-    // Get products from static service
-    const { combos } = StaticProductService.getStaticProducts();
-    setProducts(combos);
+    const fetchGiftSets = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/data/giftsets.json');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch gift sets data');
+        }
+        
+        const data = await response.json();
+        setGiftSets(data.giftsets);
+        
+        // Convert GiftSet to ProductCardProps format
+        const productCards: ProductCardProps[] = data.giftsets.map((set: GiftSet) => ({
+          id: set.id,
+          name: set.title,
+          description: set.description,
+          price: set.price,
+          image: set.image,
+          color: set.color,
+          isNew: set.isNew,
+          link: `/gift-set/${set.id}`,
+          pattern: set.pattern,
+          material: "Microfiber Blend",
+          sku: set.sku,
+          quantity: set.quantity,
+          category: "gift-set"
+        }));
+        
+        setProducts(productCards);
+        setFilteredProducts(productCards);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load gift sets. Please try again later.');
+        setLoading(false);
+        console.error('Error fetching gift sets:', err);
+      }
+    };
     
-    // Parse URL parameters
-    const searchParams = new URLSearchParams(location.search);
-    const minPrice = searchParams.get('minPrice');
-    const maxPrice = searchParams.get('maxPrice');
-    const colors = searchParams.get('colors');
-    const sort = searchParams.get('sort');
-    
-    // Set initial filters from URL if present
-    const initialPriceRange: [number, number] = [
-      minPrice ? parseInt(minPrice) : 3400,
-      maxPrice ? parseInt(maxPrice) : 18000
-    ];
-    const initialColors = colors ? colors.split(',') : [];
-    const initialSort = sort || 'newest';
-    
-    setPriceRange(initialPriceRange);
-    setSelectedColors(initialColors);
-    setSortOption(initialSort);
-    
-    // Apply initial filters
-    applyFilters(initialPriceRange, initialColors, initialSort, combos);
-  }, [location.search]);
+    fetchGiftSets();
+  }, []);
   
   // Update URL with current filter state
   const updateURLParams = (
@@ -69,10 +109,10 @@ const GiftSets = () => {
     const params = new URLSearchParams();
     
     // Only add price parameters if they differ from defaults
-    if (prices[0] !== 3400) {
+    if (prices[0] !== 1800) {
       params.set('minPrice', prices[0].toString());
     }
-    if (prices[1] !== 18000) {
+    if (prices[1] !== 3000) {
       params.set('maxPrice', prices[1].toString());
     }
     
@@ -138,7 +178,13 @@ const GiftSets = () => {
     } else if (sort === 'price-high') {
       filtered.sort((a, b) => b.price - a.price);
     } else if (sort === 'newest') {
-      filtered.sort((a, b) => b.id - a.id);
+      filtered.sort((a, b) => {
+        // Sort by isNew first, then by id
+        if (a.isNew === b.isNew) {
+          return b.id - a.id;
+        }
+        return a.isNew ? -1 : 1;
+      });
     }
     
     setFilteredProducts(filtered);
@@ -148,14 +194,38 @@ const GiftSets = () => {
   const toggleMobileFilter = () => {
     setIsMobileFilterOpen(!isMobileFilterOpen);
   };
-
+  
+  // Loading state
+  if (loading) {
+    return (
+      <div className="py-8">
+        <Container size="xl" className="mb-6 px-6 md:px-8">
+          <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
+          <Text className="text-center text-gray-600 mb-8">Loading gift sets...</Text>
+        </Container>
+      </div>
+    );
+  }
+  
+  // Error state
+  if (error) {
+    return (
+      <div className="py-8">
+        <Container size="xl" className="mb-6 px-6 md:px-8">
+          <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
+          <Text className="text-center text-red-600 mb-8">{error}</Text>
+        </Container>
+      </div>
+    );
+  }
+  
   return (
     <div className="py-8">
       {/* Page Title */}
       <Container size="xl" className="mb-6 px-6 md:px-8">
         <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
         <Text className="text-center text-gray-600 mb-8">
-          Discover our exquisite collection of handcrafted neckties, made from the finest materials
+          Discover our exquisite collection of gift sets, featuring premium neckties, pocket squares, and cufflinks
         </Text>
         
         {/* Results Header */}

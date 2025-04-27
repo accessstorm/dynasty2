@@ -1,25 +1,37 @@
 import { useState, useEffect } from 'react';
-import { Text, RangeSlider, NumberInput, ColorSwatch } from '@mantine/core';
+import { Text, RangeSlider, NumberInput, ColorSwatch, Select } from '@mantine/core';
 
-interface FilterSidebarProps {
+export interface FilterSidebarProps {
   priceRange: [number, number];
-  onPriceRangeChange: (range: [number, number]) => void;
+  setPriceRange: (range: [number, number]) => void;
   colorFilters: {
     color: string;
     label: string;
     count: number;
     colorCode: string;
   }[];
-  onColorFilterChange: (color: string) => void;
   selectedColors: string[];
+  setSelectedColors: (colors: string[]) => void;
+  sortOption: string | null;
+  setSortOption: (option: string | null) => void;
+  formatPrice: (value: number) => string;
+  minPrice: number;
+  maxPrice: number;
+  step: number;
 }
 
 const FilterSidebar = ({
   priceRange,
-  onPriceRangeChange,
+  setPriceRange,
   colorFilters,
-  onColorFilterChange,
-  selectedColors
+  selectedColors,
+  setSelectedColors,
+  sortOption,
+  setSortOption,
+  formatPrice,
+  minPrice = 3400,
+  maxPrice = 18000,
+  step = 100
 }: FilterSidebarProps) => {
   const [localPriceRange, setLocalPriceRange] = useState<[number, number]>(priceRange);
   
@@ -31,14 +43,14 @@ const FilterSidebar = ({
   const handlePriceRangeChange = (value: [number, number]) => {
     setLocalPriceRange(value);
     // Apply price filter immediately without needing the Filter button
-    onPriceRangeChange(value);
+    setPriceRange(value);
   };
   
   const handleMinPriceChange = (value: number) => {
     if (value >= 0 && value <= localPriceRange[1]) {
       const newRange: [number, number] = [value, localPriceRange[1]];
       setLocalPriceRange(newRange);
-      onPriceRangeChange(newRange);
+      setPriceRange(newRange);
     }
   };
   
@@ -46,11 +58,19 @@ const FilterSidebar = ({
     if (value >= localPriceRange[0]) {
       const newRange: [number, number] = [localPriceRange[0], value];
       setLocalPriceRange(newRange);
-      onPriceRangeChange(newRange);
+      setPriceRange(newRange);
     }
   };
   
   const isColorSelected = (color: string) => selectedColors.includes(color);
+  
+  const handleColorChange = (color: string) => {
+    if (selectedColors.includes(color)) {
+      setSelectedColors(selectedColors.filter(c => c !== color));
+    } else {
+      setSelectedColors([...selectedColors, color]);
+    }
+  };
   
   // The main sidebar content - price and color filters
   const renderFilterContent = () => (
@@ -61,13 +81,13 @@ const FilterSidebar = ({
         
         <div className="mb-6" role="group" aria-labelledby="price-filter-heading">
           <RangeSlider
-            min={3400}
-            max={18000}
-            step={100}
+            min={minPrice}
+            max={maxPrice}
+            step={step}
             value={localPriceRange}
             onChange={handlePriceRangeChange}
-            minRange={100}
-            label={(value) => `₹${value}`}
+            minRange={step}
+            label={formatPrice}
             thumbSize={14}
             aria-label="Price range"
             styles={{
@@ -96,9 +116,9 @@ const FilterSidebar = ({
               <NumberInput
                 value={localPriceRange[0]}
                 onChange={(val) => handleMinPriceChange(val as number)}
-                min={3400}
+                min={minPrice}
                 max={localPriceRange[1]}
-                step={100}
+                step={step}
                 size="xs"
                 styles={{ input: { width: '60px', padding: '2px 8px' } }}
                 hideControls
@@ -112,8 +132,8 @@ const FilterSidebar = ({
                 value={localPriceRange[1]}
                 onChange={(val) => handleMaxPriceChange(val as number)}
                 min={localPriceRange[0]}
-                max={18000}
-                step={100}
+                max={maxPrice}
+                step={step}
                 size="xs"
                 styles={{ input: { width: '60px', padding: '2px 8px' } }}
                 hideControls
@@ -132,13 +152,13 @@ const FilterSidebar = ({
             <div 
               key={color} 
               className="flex items-center justify-between cursor-pointer py-1 hover:bg-gray-50"
-              onClick={() => onColorFilterChange(color)}
+              onClick={() => handleColorChange(color)}
               role="checkbox"
               aria-checked={isColorSelected(color)}
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  onColorFilterChange(color);
+                  handleColorChange(color);
                   e.preventDefault();
                 }
               }}

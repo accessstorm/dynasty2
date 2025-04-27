@@ -12,7 +12,7 @@ const Navbar = () => {
   // Main nav links - Updated with the requested items in the exact order
   const navLinks = [
     { name: 'HOME', href: '/' },
-    { name: 'NECKTIES', href: '/neckties' },
+    { name: 'NECKTIES', href: '/necktie-products' },
     { name: 'GIFT SETS', href: '/gift-sets' },
     { name: 'POCKET SQUARES', href: '/pocket-squares' },
     { name: 'CUFFLINKS', href: '/cufflinks' },

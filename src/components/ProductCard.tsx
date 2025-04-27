@@ -16,6 +16,8 @@ export interface ProductCardProps {
   category?: string;
   isNew?: boolean;
   link: string;
+  sku?: string;
+  quantity?: number;
 }
 
 const ProductCard = ({ 
@@ -36,6 +38,9 @@ const ProductCard = ({
   
   // Check if product is a necktie or gift set (should not show buy now button)
   const isNecktieOrGiftSet = id <= 16 || (id >= 64 && id <= 83);
+  
+  // Process image URL to handle spaces and ensure proper formatting
+  const processedImageUrl = image ? encodeURI(image) : '';
   
   const handleCardClick = (e: React.MouseEvent) => {
     // Only navigate if the click was directly on the card (not on buttons)
@@ -65,11 +70,15 @@ const ProductCard = ({
         
         {/* The image */}
         <img 
-          src={image} 
+          src={processedImageUrl} 
           alt={name} 
           className="object-cover w-full h-full transition-transform duration-700"
           style={{
             transform: isHovered ? 'scale(1.08)' : 'scale(1)'
+          }}
+          onError={(e) => {
+            console.error(`Failed to load image: ${processedImageUrl}`);
+            (e.target as HTMLImageElement).src = '/images/logo.png';
           }}
         />
         
