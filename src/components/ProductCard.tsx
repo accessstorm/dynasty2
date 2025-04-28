@@ -37,7 +37,7 @@ const ProductCard = ({
   const formattedPrice = `₹${price.toLocaleString('en-IN')}`;
   
   // Check if product is a necktie or gift set (should not show buy now button)
-  const isNecktieOrGiftSet = id <= 16 || (id >= 64 && id <= 83);
+  const isNecktieOrGiftSet = id <= 16 || (id >= 64 && id <= 83) || id === 17 || id === 18 || id === 19;
   
   // Process image URL to handle spaces and ensure proper formatting
   const processedImageUrl = image ? encodeURI(image) : '';

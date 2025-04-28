@@ -1,8 +1,7 @@
-import { ShoppingCart, Phone, Menu, X, ChevronRight, Home } from 'lucide-react';
+import { Phone, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, Anchor } from '@mantine/core';
 import RazorpayButton from './RazorpayButton';
 
 const Navbar = () => {
@@ -40,59 +39,6 @@ const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
-
-  // Generate breadcrumbs based on current path
-  const generateBreadcrumbs = () => {
-    // Don't show breadcrumbs on product pages or home page
-    if (location.pathname === '/' || location.pathname.includes('/product/')) return null;
-    
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    if (pathSegments.length === 0) return null;
-
-    const breadcrumbItems = [
-      { title: 'Home', href: '/' },
-      ...pathSegments.map((segment, index) => {
-        const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
-        return {
-          title: segment
-            .split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' '),
-          href
-        };
-      })
-    ];
-
-    return (
-      <div className="w-full py-2 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <Breadcrumbs
-            separator={<ChevronRight size={14} />}
-            classNames={{
-              root: 'text-xs text-gray-500',
-              separator: 'mx-1 text-gray-300'
-            }}
-          >
-            {breadcrumbItems.map((item, index) => (
-              <Anchor
-                key={item.href}
-                component={Link}
-                to={item.href}
-                className={`no-underline hover:underline ${
-                  index === breadcrumbItems.length - 1
-                    ? 'text-gray-800 font-medium'
-                    : 'text-gray-500'
-                }`}
-              >
-                {index === 0 ? <Home size={14} className="inline mr-1" /> : null}
-                {item.title}
-              </Anchor>
-            ))}
-          </Breadcrumbs>
-        </div>
-      </div>
-    );
-  };
 
   // Mobile menu animation variants
   const menuVariants = {
@@ -266,9 +212,6 @@ const Navbar = () => {
       
       {/* Spacer for the fixed navbar */}
       <div className="h-[120px]"></div>
-      
-      {/* Breadcrumbs */}
-      {generateBreadcrumbs()}
     </header>
   );
 };

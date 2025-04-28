@@ -123,6 +123,17 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Legal Policies */}
+        <div className="mb-8 text-center">
+          <a 
+            href="/legalPolicies/LEGAL POLICIES DYNASTY.pdf" 
+            download
+            className="inline-block bg-black text-white py-2 px-6 hover:bg-gray-800 transition-colors text-sm"
+          >
+            Download Legal Policies
+          </a>
+        </div>
+        
         {/* Copyright */}
         <div className="pt-6 md:pt-8 border-t border-gray-200 text-center">
           <p className="text-xs text-gray-500">

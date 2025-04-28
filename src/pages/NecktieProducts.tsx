@@ -184,11 +184,13 @@ const NecktieProducts = () => {
   return (
     <div className="py-8">
       {/* Page Title */}
-      <Container size="xl" className="mb-6 px-6 md:px-8">
-        <Text component="h1" className="text-3xl font-serif text-center mb-2">Premium Neckties Collection</Text>
-        <Text className="text-center text-gray-600 mb-8">
-          Discover our exquisite collection of handcrafted neckties, made from the finest materials for the modern gentleman
-        </Text>
+      <Container size="x0" className="mb-6 px-6 md:px-8">
+        <div className="pt-16 md:pt-20">
+          <Text component="h1" className="text-4xl font-serif text-center mb-4" style={{ color: "#000000" }}>Premium Neckties Collection</Text>
+          <Text className="text-center text-gray-600 mb-10" size="lg">
+            Discover our exquisite collection of handcrafted neckties, made from the finest materials for the modern gentleman
+          </Text>
+        </div>
         
         {/* Results Header */}
         <div className="mb-2 flex justify-between items-center">

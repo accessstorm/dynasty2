@@ -151,6 +151,22 @@ const GiftSets = () => {
     return newFiltered;
   };
   
+  // Create a wrapper function that matches setSelectedColors signature
+  const handleSetSelectedColors = (colors: string[]) => {
+    setSelectedColors(colors);
+    const newFiltered = applyFilters(priceRange, colors, sortOption);
+    updateURLParams(priceRange, colors, sortOption);
+    return newFiltered;
+  };
+  
+  // Handle sorting option change
+  const handleSortChange = (option: string | null) => {
+    setSortOption(option);
+    const newFiltered = applyFilters(priceRange, selectedColors, option);
+    updateURLParams(priceRange, selectedColors, option);
+    return newFiltered;
+  };
+  
   // Apply all filters
   const applyFilters = (
     prices: [number, number], 
@@ -198,10 +214,12 @@ const GiftSets = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="py-8">
+      <div className="py-8 mt-12">
         <Container size="xl" className="mb-6 px-6 md:px-8">
-          <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
-          <Text className="text-center text-gray-600 mb-8">Loading gift sets...</Text>
+          <div className="pt-16 md:pt-20">
+            <Text component="h1" className="text-4xl font-serif text-center mb-4" style={{ color: "#000000" }}>Gift Sets Collection</Text>
+            <Text className="text-center text-gray-600 mb-10" size="lg">Loading gift sets...</Text>
+          </div>
         </Container>
       </div>
     );
@@ -210,23 +228,27 @@ const GiftSets = () => {
   // Error state
   if (error) {
     return (
-      <div className="py-8">
+      <div className="py-8 mt-12">
         <Container size="xl" className="mb-6 px-6 md:px-8">
-          <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
-          <Text className="text-center text-red-600 mb-8">{error}</Text>
+          <div className="pt-16 md:pt-20">
+            <Text component="h1" className="text-4xl font-serif text-center mb-4" style={{ color: "#000000" }}>Gift Sets Collection</Text>
+            <Text className="text-center text-red-600 mb-10" size="lg">{error}</Text>
+          </div>
         </Container>
       </div>
     );
   }
   
   return (
-    <div className="py-8">
+    <div className="py-1 mt-1">
       {/* Page Title */}
-      <Container size="xl" className="mb-6 px-6 md:px-8">
-        <Text component="h1" className="text-3xl font-serif text-center mb-2">Gift Sets Collection</Text>
-        <Text className="text-center text-gray-600 mb-8">
-          Discover our exquisite collection of gift sets, featuring premium neckties, pocket squares, and cufflinks
-        </Text>
+      <Container size="x0" className="mb-6 px-6 md:px-8">
+        <div className="pt-16 md:pt-20">
+          <Text component="h1" className="text-4xl font-serif text-center mb-4" style={{ color: "#000000" }}>Gift Sets Collection</Text>
+          <Text className="text-center text-gray-600 mb-10" size="lg">
+            Discover our exquisite collection of gift sets, featuring premium neckties, pocket squares, and cufflinks
+          </Text>
+        </div>
         
         {/* Results Header */}
         <div className="mb-2 flex justify-between items-center">
@@ -255,19 +277,31 @@ const GiftSets = () => {
               isMobileFilterOpen && (
                 <FilterSidebar
                   priceRange={priceRange}
-                  onPriceRangeChange={handlePriceRangeChange}
+                  setPriceRange={handlePriceRangeChange}
                   colorFilters={colorFilters}
-                  onColorFilterChange={handleColorFilterChange}
                   selectedColors={selectedColors}
+                  setSelectedColors={handleSetSelectedColors}
+                  sortOption={sortOption}
+                  setSortOption={handleSortChange}
+                  formatPrice={(val: number) => `₹${val}`}
+                  minPrice={1800}
+                  maxPrice={3000}
+                  step={100}
                 />
               )
             ) : (
               <FilterSidebar
                 priceRange={priceRange}
-                onPriceRangeChange={handlePriceRangeChange}
+                setPriceRange={handlePriceRangeChange}
                 colorFilters={colorFilters}
-                onColorFilterChange={handleColorFilterChange}
                 selectedColors={selectedColors}
+                setSelectedColors={handleSetSelectedColors}
+                sortOption={sortOption}
+                setSortOption={handleSortChange}
+                formatPrice={(val: number) => `₹${val}`}
+                minPrice={1800}
+                maxPrice={3000}
+                step={100}
               />
             )}
           </div>

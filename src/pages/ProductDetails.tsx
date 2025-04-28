@@ -217,55 +217,6 @@ const ProductDetails = () => {
     }
   };
   
-  // Function to generate breadcrumbs based on product category
-  const generateBreadcrumbs = () => {
-    if (!product) return [];
-    
-    // Always use neckties category for items with ID <= 16
-    let categoryPath = "neckties";
-    let categoryLabel = "NECKTIES";
-    
-    // Only determine category for non-necktie products
-    if (product.id > 16) {
-      const allProducts = getStaticProducts();
-      
-      if (allProducts.bowTies.some(p => p.id === product.id)) {
-        categoryPath = "bow-ties";
-        categoryLabel = "BOW TIES";
-      }
-      else if (allProducts.pocketSquares.some(p => p.id === product.id)) {
-        categoryPath = "pocket-squares";
-        categoryLabel = "POCKET SQUARES";
-      }
-      else if (allProducts.men.some(p => p.id === product.id)) {
-        categoryPath = "men";
-        categoryLabel = "MEN";
-      }
-      else if (allProducts.women.some(p => p.id === product.id)) {
-        categoryPath = "women"; 
-        categoryLabel = "WOMEN";
-      }
-      else if (allProducts.combos.some(p => p.id === product.id)) {
-        categoryPath = "gift-sets";
-        categoryLabel = "GIFT SETS";
-      }
-      else if (allProducts.oversizedTees.some(p => p.id === product.id)) {
-        categoryPath = "oversized-tees";
-        categoryLabel = "OVERSIZED TEES";
-      }
-      else if (allProducts.wedding.some(p => p.id === product.id)) {
-        categoryPath = "wedding";
-        categoryLabel = "WEDDING";
-      }
-    }
-    
-    return [
-      { label: "HOME", path: "/" },
-      { label: categoryLabel, path: `/${categoryPath}` },
-      { label: product.name.toUpperCase(), path: "" }
-    ];
-  };
-
   // Navigate to the previous image
   const navigateToPrevImage = () => {
     if (!product || productImages.length <= 1) return;
@@ -277,7 +228,7 @@ const ProductDetails = () => {
   // Navigate to the next image
   const navigateToNextImage = () => {
     if (!product || productImages.length <= 1) return;
-    const currentIndex = productImages.findIndex(img => img === product.image);
+    const currentIndex = productImages.length - 1;
     const nextIndex = (currentIndex + 1) % productImages.length;
     setProduct({...product, image: productImages[nextIndex]});
   };
@@ -321,29 +272,8 @@ const ProductDetails = () => {
     );
   }
 
-  // Generate breadcrumbs
-  const breadcrumbs = generateBreadcrumbs();
-
   return (
     <Container size="xl" className="py-12">
-      {/* Breadcrumbs navigation */}
-      <div className="flex text-sm text-gray-500 mb-8 px-6 py-3 ml-2">
-        {breadcrumbs.map((crumb, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && <span className="mx-2">›</span>}
-            {crumb.path ? (
-              <Link to={crumb.path} className="hover:text-black">
-                {crumb.label}
-              </Link>
-            ) : (
-              <span className="text-black">
-                {crumb.label}
-              </span>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-
       <div className="grid lg:grid-cols-2 gap-10 max-w-7xl mx-auto px-4 py-10">
         {/* Left: Product Images */}
         <div className="flex flex-col space-y-4">

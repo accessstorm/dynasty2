@@ -419,69 +419,51 @@ const NecktieProductDetails = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
-              radius="xs"
-              onClick={() => {
-                // Add to cart functionality
-                if (!product) return;
-                
-                // Enforce quantity limit
-                if (product.quantity !== undefined) {
-                  if (product.quantity === 0) {
-                    setCartMessage({
-                      text: "Sorry, this product is out of stock.",
-                      type: 'error'
-                    });
-                    return;
-                  }
-                  
-                  if (quantity > product.quantity) {
-                    setCartMessage({
-                      text: `Sorry, only ${product.quantity} units available.`,
-                      type: 'error'
-                    });
-                    // Reset quantity to max available
-                    setQuantity(product.quantity);
-                    setMaxQuantityReached(true);
-                    return;
-                  }
-                }
-                
-                console.log(`Added to cart: ${quantity} x ${product.name}`);
-                
-                setCartMessage({
-                  text: `${quantity} x ${product.name} added to cart!`,
-                  type: 'success'
-                });
-                
-                // Clear the message after 3 seconds
-                setTimeout(() => {
-                  setCartMessage(null);
-                }, 3000);
-              }}
-            >
-              {product?.quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
-            </Button>
-            
+          <div className="grid grid-cols-1 gap-4">
             {product?.quantity !== 0 ? (
               <RazorpayButton
                 amount={product?.price * quantity}
                 name={product?.name || "Product"}
                 description={product?.description || "Description"}
-                className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
-                buttonText="Buy Now"
+                className="bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md w-full"
+                buttonText="Buy Now (Secured by Razorpay)"
               />
             ) : (
               <Button
-                className="bg-gray-400 text-white uppercase text-sm tracking-widest py-4 font-medium cursor-not-allowed"
+                className="bg-gray-400 text-white uppercase text-sm tracking-widest py-4 font-medium cursor-not-allowed rounded-md w-full"
                 radius="xs"
                 disabled
               >
-                Buy Now
+                Buy Now (Secured by Razorpay)
               </Button>
             )}
+            
+            <Button
+              className="bg-[#4CAF50] text-white hover:bg-[#45a049] transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md"
+              radius="xs"
+              onClick={() => {
+                if (!product) return;
+                if (product.quantity === 0) {
+                  setCartMessage({
+                    text: "Sorry, this product is out of stock.",
+                    type: 'error'
+                  });
+                  return;
+                }
+                
+                setCartMessage({
+                  text: "Cash on Delivery order placed successfully!",
+                  type: 'success'
+                });
+                
+                setTimeout(() => {
+                  setCartMessage(null);
+                }, 3000);
+              }}
+              disabled={product?.quantity === 0}
+            >
+              Purchase with Cash on Delivery
+            </Button>
           </div>
           
           {/* Cart Message */}
@@ -492,17 +474,6 @@ const NecktieProductDetails = () => {
               {cartMessage.text}
             </div>
           )}
-          
-          {/* UPI Payment Option */}
-          <div className="mt-2">
-            <RazorpayQRButton
-              amount={product?.price * quantity}
-              name={product?.name || "Product"}
-              description={product?.description || "Description"}
-              className="w-full bg-[#528FF0] text-white hover:bg-[#4169E1] transition-all uppercase text-sm tracking-widest py-3 font-medium"
-              buttonText="Pay with UPI / QR Code"
-            />
-          </div>
           
           {/* Short Description */}
           <div className="mt-4">
@@ -564,8 +535,8 @@ const NecktieProductDetails = () => {
                   <td className="py-2 px-4 bg-black text-white border-t border-white">3" (Standard Width)</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-4 border border-gray-200">Pattern</td>
-                  <td className="py-2 px-4 border border-gray-200">{product.pattern || "Unique pattern"}</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">Pattern</td>
+                  <td className="py-2 px-4 bg-black text-white border-t border-white">{product.pattern || "Unique pattern"}</td>
                 </tr>
               </tbody>
             </table>

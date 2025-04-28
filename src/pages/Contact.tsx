@@ -250,8 +250,7 @@ const Contact = () => {
                   <div>
                     <Text fw={500}>Address</Text>
                     <Text className="text-gray-600">
-                      Dynasty Premium Accessories,<br />
-                      Fashion Street, Colaba,<br />
+                      
                       Mumbai, Maharashtra, India
                     </Text>
                   </div>
