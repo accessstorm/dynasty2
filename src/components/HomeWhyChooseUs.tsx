@@ -1,28 +1,28 @@
 import { Container, Text, Title, Group, Box, ThemeIcon, Image, Flex } from '@mantine/core';
 import { motion } from 'framer-motion';
-import { IconDiamond, IconFileDescription, IconGlobe } from '@tabler/icons-react';
+import { IconDiamond, IconFileDescription, IconGlobe, IconHistory } from '@tabler/icons-react';
 
 const HomeWhyChooseUs = () => {
   const features = [
     {
       id: 1,
-      title: 'Artisanal Craftsmanship',
-      description: 'Each product is meticulously crafted with expert attention to detail and superior workmanship.',
+      title: 'Exquisite Craftsmanship',
+      description: 'Each piece is meticulously handcrafted with precision and attention to detail, resulting in accessories of unparalleled quality and elegance.',
       icon: IconDiamond,
       color: '#fff'
     },
     {
       id: 2,
-      title: 'Premium Materials',
-      description: 'We source only the finest quality materials to ensure exceptional durability and luxury.',
-      icon: IconFileDescription,
+      title: 'Global-Grade Quality',
+      description: 'We source only the finest materials and maintain rigorous quality standards that meet international benchmarks for luxury fashion accessories.',
+      icon: IconGlobe,
       color: '#fff'
     },
     {
       id: 3,
-      title: 'Global Shipping',
-      description: 'We deliver our exceptional products to customers worldwide with care and efficiency.',
-      icon: IconGlobe,
+      title: '30+ Years of Expertise',
+      description: 'Built on a foundation of three decades of experience in the industry, our heritage of excellence informs every product we create.',
+      icon: IconHistory,
       color: '#fff'
     }
   ];

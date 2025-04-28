@@ -404,9 +404,9 @@ const ProductDetails = () => {
             <Button
               className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-sm tracking-widest py-4 font-medium"
               radius="xs"
-              onClick={() => console.log("Add to cart clicked")}
+              onClick={() => console.log("Cart clicked")}
             >
-              Add to Cart
+               Cart
             </Button>
             
             <RazorpayButton

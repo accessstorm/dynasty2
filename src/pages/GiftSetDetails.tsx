@@ -286,6 +286,81 @@ const GiftSetDetails = () => {
     }, 3000);
   };
 
+  // Function to get Razorpay URL based on gift set name
+  const getRazorpayUrl = (productName: string): string => {
+    const razorpayUrls: { [key: string]: string } = {
+      "Coral Elegance": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbwBiP40sC5",
+      "Rosewood Majesty": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbwRlB25Yaj",
+      "Serene Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbwguibLEyA",
+      "Azure Prism": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbwxk6thyh4",
+      "Frosted Whirl": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbxDRbIikhH",
+      "Blush Avenue": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbxTx4DtMD2",
+      "Golden Hour": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbxmSG9JjTE",
+      "Blush Mosaic": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsby1gXDQQOw",
+      "Midnight Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbyIxiUdJRE",
+      "Emerald Ivory Elegance": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbyIxiUdJRE",
+      "Teal Noir": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbyqJMKYo05",
+      "Dark Green Fuchsia Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbz3yv2aSqR",
+      "Navy Brown Bloom": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbzJLyRq5gG",
+      "Aqua Lilac Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbzdCScNK6l",
+      "Teal & Green Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbzrfGxa2U7",
+      "Royal Amethyst": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsc07tme0AZE",
+      "Crimson Royale Brocade": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsc0Pr647fWq",
+      "Midnight Mirage Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsc0hxIbEMCQ",
+      "Mint Reverie Paisley": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsc103dmRWqJ",
+      "Crimson Checkmate": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsc1Gb2yqBrX"
+    };
+
+    return razorpayUrls[productName] || "#";
+  };
+
+  // Function to get the style guide based on product name
+  const getStyleGuide = (productName: string): string => {
+    const styleGuides: { [key: string]: string } = {
+      "Coral Elegance": "Best paired with a black or dark grey blazer and a light pastel shirt for a bold, sophisticated look.\nFor a sleek, modern style without a blazer, a crisp black shirt complements the coral tones beautifully.",
+      
+      "Rosewood Majesty": "Best paired with a deep navy or charcoal blazer and a crisp white shirt for an elevated, polished look.\nFor a more contemporary feel without a blazer, pair it with a tailored black shirt to enhance the richness of the rosewood tones.",
+      
+      "Serene Paisley": "Best paired with a light grey or navy blue blazer and a crisp white or soft pastel shirt for a distinguished, polished ensemble.\nFor a more relaxed yet refined look without a blazer, pair it with a soft powder blue or classic white shirt to enhance the delicate hues of the set.",
+      
+      "Azure Prism": "Best paired with a navy blue or charcoal grey blazer and a light pastel shirt to highlight the intricate pattern and cool tones.\nFor a sleek, blazer-free look, a crisp white or deep blue shirt will accentuate the vibrant details perfectly.",
+      
+      "Frosted Whirl": "Matches exceptionally well with a steel grey or classic black suit for a sharp, polished look.\nFor a more relaxed yet stylish option, pair it with a crisp white shirt and skip the jacket to let the intricate pattern and rich cufflink accents shine.",
+      
+      "Blush Avenue": "Best paired with a navy or charcoal suit for a fresh, standout look.\nFor a casual yet sharp statement, combine it with a light grey blazer and white shirt to let the vibrant stripes do all the talking.",
+      
+      "Golden Hour": "Perfect for weddings, cocktail events, or celebrations — pair with a deep navy, dark green, or classic black suit to let the golden tones truly pop.",
+      
+      "Blush Mosaic": "Ideal for daytime weddings, garden parties, or semi-formal events — matches beautifully with grey, charcoal, or cream suits for a lively yet polished impression.",
+      
+      "Midnight Paisley": "Best suited for evening events, cocktail parties, or formal dinners — complements black, navy, or even deep maroon suits for a striking, confident look.",
+      
+      "Emerald Ivory Elegance": "Perfect for winter weddings, formal events, or upscale soirées — pairs impeccably with charcoal grey, black, or deep green suits for a rich, distinguished look.",
+      
+      "Teal Noir": "Ideal for semi-formal to formal occasions; pair it with gray or black suits to make the teal hues pop effortlessly.",
+      
+      "Dark Green Fuchsia Paisley": "Perfect for weddings, festive events, and evening gatherings; pairs beautifully with black, deep green, or dark grey suits for a bold yet elegant statement.",
+      
+      "Navy Brown Bloom": "Perfect for weddings, receptions, and formal evenings; pairs best with navy, brown, or black suits to enhance the elegant contrast of the set.",
+      
+      "Aqua Lilac Paisley": "A standout choice for daytime weddings, receptions, or creative formal events; pairs beautifully with light grey, charcoal, or navy suits for a vibrant yet refined look.",
+      
+      "Teal & Green Paisley": "Perfect for formal occasions and evening events; pairs beautifully with black, navy, or deep green suits to highlight the rich teal accents.",
+      
+      "Royal Amethyst": "Perfect for gala events, weddings, and formal celebrations; pairs beautifully with black, or charcoal suits for a bold yet classy statement.",
+      
+      "Crimson Royale Brocade": "Ideal for black-tie events, weddings, or festive occasions; best styled with black, navy, or deep grey suits to let the vibrant red make a statement.",
+      
+      "Midnight Mirage Paisley": "Perfect for evening galas, weddings, or any event under the stars; pairs best with charcoal, navy, or black suits for a truly magnetic look.",
+      
+      "Mint Reverie Paisley": "Pairs beautifully with light gray, beige, or classic navy suits for a refined and refreshing ensemble.",
+      
+      "Crimson Checkmate": "Looks sharp with navy, or black suits, bringing a pop of color that's both commanding and stylish."
+    };
+
+    return styleGuides[productName] || "Best paired with a classic suit or blazer for a distinguished, elegant look.";
+  };
+
   if (loading) {
     return (
       <Container className="py-20">
@@ -335,49 +410,51 @@ const GiftSetDetails = () => {
       <div className="grid lg:grid-cols-2 gap-10 max-w-7xl mx-auto px-4 py-10">
         {/* Left: Product Images */}
         <div className="flex flex-col space-y-4">
-          <div className="relative aspect-square overflow-hidden border border-gray-100">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                console.error(`Error loading image: ${product.image}`);
-                e.currentTarget.onerror = null; // Prevent infinite error loop
-                e.currentTarget.src = '/images/placeholder.jpg'; // Use a placeholder image
-              }}
-            />
-            {product.isNew && (
-              <Badge 
-                className="absolute top-4 left-4 bg-black text-white py-1 px-3"
-                radius="xs"
-              >
-                NEW
-              </Badge>
-            )}
-            
-            {/* Navigation Arrows - only show if we have multiple images */}
-            {productImages.length > 1 && (
-              <>
-                <button 
-                  onClick={navigateToPrevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
-                  aria-label="Previous image"
+          <div className="relative border border-gray-100 bg-white">
+            <div className="relative w-full" style={{ paddingTop: '66.67%' }}>
+              <img
+                src={product.image}
+                alt={product.name}
+                className="absolute inset-0 h-full w-full object-contain"
+                onError={(e) => {
+                  console.error(`Error loading image: ${product.image}`);
+                  e.currentTarget.onerror = null; // Prevent infinite error loop
+                  e.currentTarget.src = '/images/placeholder.jpg'; // Use a placeholder image
+                }}
+              />
+              {product.isNew && (
+                <Badge 
+                  className="absolute top-4 left-4 bg-black text-white py-1 px-3 z-10"
+                  radius="xs"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={navigateToNextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
-                  aria-label="Next image"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
-              </>
-            )}
+                  NEW
+                </Badge>
+              )}
+              
+              {/* Navigation Arrows - only show if we have multiple images */}
+              {productImages.length > 1 && (
+                <>
+                  <button 
+                    onClick={navigateToPrevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
+                    aria-label="Previous image"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+                  <button 
+                    onClick={navigateToNextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
+                    aria-label="Next image"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </>
+              )}
+            </div>
           </div>
           
           {/* Thumbnail Navigation */}
@@ -389,21 +466,21 @@ const GiftSetDetails = () => {
               return (
                 <div 
                   key={i} 
-                  className={`aspect-square border cursor-pointer ${image === product.image ? 'border-black' : 'border-gray-200 hover:border-gray-400'}`}
+                  className={`relative border cursor-pointer ${image === product.image ? 'border-black' : 'border-gray-200 hover:border-gray-400'}`}
                   onClick={() => setProduct({...product, image})}
                 >
-                  <div className="relative h-full">
+                  <div style={{ paddingTop: '66.67%' }} className="relative">
                     <img
                       src={image}
                       alt={`${product.name} - ${imageLabel}`}
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 h-full w-full object-contain bg-white"
                       onError={(e) => {
                         console.error(`Error loading thumbnail image: ${image}`);
                         e.currentTarget.onerror = null;
                         e.currentTarget.src = '/images/placeholder.jpg';
                       }}
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 text-center">
+                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 text-center z-10">
                       {imageLabel}
                     </div>
                   </div>
@@ -488,13 +565,14 @@ const GiftSetDetails = () => {
           {/* Action Buttons */}
           <div className="grid grid-cols-1 gap-4">
             {product?.quantity !== 0 ? (
-              <RazorpayButton
-                amount={product?.price * quantity}
-                name={product?.name || "Gift Set"}
-                description={product?.description || "Luxury Gift Set"}
-                className="bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md w-full"
-                buttonText="Buy Now (Secured by Razorpay)"
-              />
+              <Link
+                to={getRazorpayUrl(product.name)}
+                className="bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md w-full flex items-center justify-center"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Buy Now (Secured by Razorpay)
+              </Link>
             ) : (
               <Button
                 className="bg-gray-400 text-white uppercase text-sm tracking-widest py-4 font-medium cursor-not-allowed rounded-md w-full"
@@ -551,6 +629,19 @@ const GiftSetDetails = () => {
           
           {/* Style Guide */}
           <div>
+            <Text fw={600} className="text-lg mb-2">Style Guide</Text>
+            <Text className="text-gray-700 leading-relaxed">
+              {getStyleGuide(product.name).split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {index > 0 && <br />}
+                  {line}
+                </React.Fragment>
+              ))}
+            </Text>
+          </div>
+
+          {/* Set Contents */}
+          <div className="mt-4">
             <Text fw={600} className="text-lg mb-2">Set Contents</Text>
             <Text className="text-gray-700 leading-relaxed">
               Each {product.name} gift set contains a perfectly matched necktie, pocket square, and cufflinks, all presented in a premium gift box.
@@ -617,32 +708,11 @@ const GiftSetDetails = () => {
             variant="subtle"
             className="bg-black text-white hover:bg-gray-800 w-full py-3 mt-4"
             radius="xs"
-            onClick={() => console.log("Return policy clicked")}
+            onClick={() => navigate('/legal-policies')}
           >
             Return/Exchange Policy
           </Button>
 
-          {/* Product Display & Accuracy Policy */}
-          <Button
-            variant="subtle"
-            className="bg-black text-white hover:bg-gray-800 w-full py-3"
-            radius="xs"
-            onClick={() => console.log("Product Display policy clicked")}
-          >
-            Product Display & Accuracy Policy
-          </Button>
-          
-          {/* Add to Wishlist */}
-          <div className="mb-6">
-            <Button
-              variant="subtle"
-              className="text-gray-500 hover:text-black underline p-0"
-              radius="none"
-            >
-              ADD TO WISHLIST
-            </Button>
-          </div>
-          
           {/* Product Information Accordion */}
           <Accordion className="border-t border-b border-gray-200" 
             styles={{
@@ -700,13 +770,13 @@ const GiftSetDetails = () => {
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  Free standard shipping on all orders within India. Orders are typically 
-                  processed within 24 hours and delivered within 3-5 business days.
+                  Dynasty endeavors to dispatch all confirmed orders within one (1) to two (2) business days, subject to operational exigencies. Upon dispatch, standard delivery timelines range between three (3) to seven (7) business days, depending on the delivery location and logistical factors.
                   <br /><br />
-                  All gift sets are carefully packaged to ensure they arrive in perfect condition.
+                  While we strive to ensure timely delivery, delays may occur due to unforeseen circumstances including but not limited to courier delays, natural disasters, or governmental restrictions. Dynasty shall not be held liable for any such delays beyond its reasonable control.
                   <br /><br />
-                  International shipping is available for select countries. Shipping rates 
-                  and delivery times vary by location.
+                  Customers will receive shipping confirmation and tracking details via email upon dispatch. All deliveries shall be made through reputed third-party logistics providers, including but not limited to Delhivery.
+                  <br /><br />
+                  At present, Dynasty offers shipping exclusively within the territory of India.
                 </Text>
               </Accordion.Panel>
             </Accordion.Item>

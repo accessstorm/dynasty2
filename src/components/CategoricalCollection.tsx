@@ -115,7 +115,7 @@ const CategoricalCollection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Text className="text-4xl font-serif mb-3">Our Premium Collections</Text>
+          <Text className="text-4xl font-serif mb-3">Our Collections</Text>
           <Text className="text-lg text-gray-600 max-w-2xl mx-auto">
             Explore our curated selection of premium accessories, each crafted with precision and elegance.
           </Text>

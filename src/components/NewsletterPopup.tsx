@@ -52,9 +52,9 @@ const NewsletterPopup = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="fixed bottom-8 right-8 z-50 shadow-lg w-full max-w-sm"
+          className="fixed bottom-8 z-[9999] w-full flex justify-center md:justify-end md:right-8 md:w-auto md:left-auto left-0 right-0"
         >
-          <Box className="bg-gray-50 relative p-6 border border-gray-200 rounded-sm">
+          <Box className="bg-gray-50 relative p-6 border border-gray-200 rounded-sm w-full max-w-sm shadow-xl mx-4 md:mx-0">
             {/* Custom X button */}
             <button 
               onClick={handleClose}

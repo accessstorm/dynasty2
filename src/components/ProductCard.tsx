@@ -142,7 +142,7 @@ const ProductCard = ({
             className="text-gray-800 hover:bg-gray-100 text-xs uppercase tracking-wider p-0 h-auto"
             radius="xs"
           >
-            Add to Cart
+             Cart
           </Button>
         </div>
       </div>

@@ -359,7 +359,7 @@ const FeaturedProducts = () => {
     <>
       {/* Hero Section with Slideshow */}
       <motion.section 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-center justify-center overflow-hidden"
         variants={heroVariants}
         initial="hidden"
         animate="visible"
@@ -401,7 +401,7 @@ const FeaturedProducts = () => {
         
         <div className="relative z-20 flex flex-col items-center justify-center">
           <motion.h1 
-            className="text-6xl font-serif text-white tracking-[0.15em] mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white tracking-[0.15em] mb-4 px-4 text-center"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
@@ -410,7 +410,7 @@ const FeaturedProducts = () => {
           </motion.h1>
           
           <motion.p
-            className="text-xl text-white tracking-widest mb-16 font-light"
+            className="text-base sm:text-lg md:text-xl text-white tracking-widest mb-8 md:mb-16 font-light px-4 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
@@ -419,7 +419,7 @@ const FeaturedProducts = () => {
           </motion.p>
           
           {/* Navigation dots */}
-          <div className="flex space-x-2 mt-8">
+          <div className="flex space-x-2 mt-4 md:mt-8">
             {slides.map((_, index) => (
               <button
                 key={index}

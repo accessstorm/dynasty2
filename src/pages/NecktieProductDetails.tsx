@@ -216,6 +216,31 @@ const NecktieProductDetails = () => {
     };
   }, [product, productImages]);
 
+  // Function to get Razorpay URL based on product name
+  const getRazorpayUrl = (productName: string): string => {
+    const razorpayUrls: { [key: string]: string } = {
+      "Rosewood Reverie": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbrlicfFXdt",
+      "Tangerine Tact": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbs2enjIPUv",
+      "Purple Prism": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbscg2iraTd",
+      "Jade Reverie": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbsLFq2YZnl",
+      "Bold Blush Charm": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbsud7Xh33R",
+      "Amber Grid Classic": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbtUW2soYIh",
+      "Golden Gleam Check": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbtCYC0Nyit",
+      "Crimson Board": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbtoTHzxpCT",
+      "Midnight Stride": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbtUW2soYIh",
+      "Rosé Rally": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbuNlk3jlxa",
+      "Golden Charm": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbu6an5YXYg",
+      "Royal Whimsy": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbutVg84mSt",
+      "Vintage Charm": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbueRwcaFbH",
+      "Highland Flair": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbv9kEFP2yc",
+      "Midnight Maze": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbveO1xC29G",
+      "Ocean Breeze": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbvOPOExQiC",
+      "Royal Twilight": "https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbvuuYcgJft"
+    };
+
+    return razorpayUrls[productName] || "#";
+  };
+
   if (loading) {
     return (
       <Container className="py-20">
@@ -421,13 +446,14 @@ const NecktieProductDetails = () => {
           {/* Action Buttons */}
           <div className="grid grid-cols-1 gap-4">
             {product?.quantity !== 0 ? (
-              <RazorpayButton
-                amount={product?.price * quantity}
-                name={product?.name || "Product"}
-                description={product?.description || "Description"}
-                className="bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md w-full"
-                buttonText="Buy Now (Secured by Razorpay)"
-              />
+              <Link
+                to={getRazorpayUrl(product.name)}
+                className="bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md w-full flex items-center justify-center"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Buy Now (Secured by Razorpay)
+              </Link>
             ) : (
               <Button
                 className="bg-gray-400 text-white uppercase text-sm tracking-widest py-4 font-medium cursor-not-allowed rounded-md w-full"
@@ -547,32 +573,11 @@ const NecktieProductDetails = () => {
             variant="subtle"
             className="bg-black text-white hover:bg-gray-800 w-full py-3 mt-4"
             radius="xs"
-            onClick={() => console.log("Return policy clicked")}
+            onClick={() => navigate('/legal-policies')}
           >
             Return/Exchange Policy
           </Button>
 
-          {/* Product Display & Accuracy Policy */}
-          <Button
-            variant="subtle"
-            className="bg-black text-white hover:bg-gray-800 w-full py-3"
-            radius="xs"
-            onClick={() => console.log("Product Display policy clicked")}
-          >
-            Product Display & Accuracy Policy
-          </Button>
-          
-          {/* Add to Wishlist */}
-          <div className="mb-6">
-            <Button
-              variant="subtle"
-              className="text-gray-500 hover:text-black underline p-0"
-              radius="none"
-            >
-              ADD TO WISHLIST
-            </Button>
-          </div>
-          
           {/* Product Information Accordion */}
           <Accordion className="border-t border-b border-gray-200" 
             styles={{
@@ -629,13 +634,13 @@ const NecktieProductDetails = () => {
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  Free standard shipping on all orders within India. Orders are typically 
-                  processed within 24 hours and delivered within 3-5 business days.
+                  Dynasty endeavors to dispatch all confirmed orders within one (1) to two (2) business days, subject to operational exigencies. Upon dispatch, standard delivery timelines range between three (3) to seven (7) business days, depending on the delivery location and logistical factors.
                   <br /><br />
-                  International shipping is available for select countries. Shipping rates 
-                  and delivery times vary by location.
+                  While we strive to ensure timely delivery, delays may occur due to unforeseen circumstances including but not limited to courier delays, natural disasters, or governmental restrictions. Dynasty shall not be held liable for any such delays beyond its reasonable control.
                   <br /><br />
-                  For more information, please visit our shipping policy page.
+                  Customers will receive shipping confirmation and tracking details via email upon dispatch. All deliveries shall be made through reputed third-party logistics providers, including but not limited to Delhivery.
+                  <br /><br />
+                  At present, Dynasty offers shipping exclusively within the territory of India.
                 </Text>
               </Accordion.Panel>
             </Accordion.Item>

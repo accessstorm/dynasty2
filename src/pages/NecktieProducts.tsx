@@ -163,7 +163,7 @@ const NecktieProducts = () => {
     return (
       <div className="py-8">
         <Container size="xl" className="mb-6 px-6 md:px-8">
-          <Text component="h1" className="text-3xl font-serif text-center mb-2">Premium Neckties Collection</Text>
+          <Text component="h1" className="text-3xl font-serif text-center mb-2">Necktie Collection</Text>
           <Text className="text-center text-gray-600 mb-8">Loading neckties...</Text>
         </Container>
       </div>
@@ -175,7 +175,7 @@ const NecktieProducts = () => {
     return (
       <div className="py-8">
         <Container size="xl" className="mb-6 px-6 md:px-8">
-          <Text component="h1" className="text-3xl font-serif text-center mb-2">Premium Neckties Collection</Text>
+          <Text component="h1" className="text-3xl font-serif text-center mb-2">Necktie Collection</Text>
           <Text className="text-center text-red-600 mb-8">{error}</Text>
         </Container>
       </div>
@@ -187,7 +187,7 @@ const NecktieProducts = () => {
       {/* Page Title */}
       <Container size="x0" className="mb-6 px-6 md:px-8">
         <div className="pt-16 md:pt-20">
-          <Text component="h1" className={luxuryClasses.pageTitle}>PREMIUM NECKTIES COLLECTION</Text>
+          <Text component="h1" className={luxuryClasses.pageTitle}>NECKTIE COLLECTION</Text>
           <Text className={luxuryClasses.pageSubtitle}>
             Discover our exquisite collection of handcrafted neckties, made from the finest materials for the modern gentleman
           </Text>
