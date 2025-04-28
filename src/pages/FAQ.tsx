@@ -1,4 +1,4 @@
-import { Container, Title, Text, Grid, Box, Tabs, Badge, Group, ThemeIcon } from '@mantine/core';
+import { Container, Title, Text, Grid, Box, Tabs, Badge, Group, ThemeIcon, Paper, Divider } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { IconQuestionMark, IconSearch, IconPlus, IconMinus } from '@tabler/icons-react';
@@ -247,26 +247,6 @@ const FAQ = () => {
                 Returns Policy
               </Link>
             </div>
-          </motion.div>
-          
-          {/* Legal Policies Download */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-12 text-center"
-          >
-            <Title order={3} className="text-xl mb-4">Legal Policies</Title>
-            <Text className="text-gray-600 mb-6 max-w-xl mx-auto">
-              Download our comprehensive legal documentation for complete information about our terms, policies, and guidelines.
-            </Text>
-            <a 
-              href="/legalPolicies/LEGAL POLICIES DYNASTY.pdf" 
-              download
-              className="inline-block bg-black text-white py-3 px-8 font-medium hover:bg-gray-800 transition-colors"
-            >
-              Download Legal Policies
-            </a>
           </motion.div>
         </Container>
       </div>

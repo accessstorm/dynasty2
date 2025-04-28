@@ -15,7 +15,8 @@ const Footer = () => {
     { name: 'CUFFLINKS', href: '/cufflinks' },
     { name: 'BULK ORDERS', href: '/bulk-orders' },
     { name: 'HELP', href: '/help' },
-    { name: 'FAQ', href: '/faq' }
+    { name: 'FAQ', href: '/faq' },
+    { name: 'LEGAL POLICIES', href: '/legal-policies' }
   ];
 
   const contactInfo = [
@@ -123,20 +124,12 @@ const Footer = () => {
           </div>
         </div>
         
-        {/* Legal Policies */}
-        <div className="mb-8 text-center">
-          <a 
-            href="/legalPolicies/LEGAL POLICIES DYNASTY.pdf" 
-            download
-            className="inline-block bg-black text-white py-2 px-6 hover:bg-gray-800 transition-colors text-sm"
-          >
-            Download Legal Policies
-          </a>
-        </div>
-        
         {/* Copyright */}
         <div className="pt-6 md:pt-8 border-t border-gray-200 text-center">
           <p className="text-xs text-gray-500">
+            By using this website, you agree to be bound by Dynasty's <Link to="/legal-policies" className="underline hover:text-black transition-colors">Terms & Conditions, Return & Exchange Policy, and Privacy Policy</Link>
+          </p>
+          <p className="text-xs text-gray-500 mt-4">
             © {new Date().getFullYear()} DYNASTY. All rights reserved.
           </p>
           <p className="text-xs text-gray-500 mt-1">

@@ -17,7 +17,8 @@ const Navbar = () => {
     { name: 'CUFFLINKS', href: '/cufflinks' },
     { name: 'BULK ORDERS', href: '/bulk-orders' },
     { name: 'HELP', href: '/help' },
-    { name: 'FAQ', href: '/faq' }
+    { name: 'FAQ', href: '/faq' },
+    { name: 'LEGAL POLICIES', href: '/legal-policies' }
   ];
 
   // Close mobile menu when clicking outside

@@ -19,6 +19,7 @@ import GiftSets from './pages/GiftSets';
 import BulkOrders from './pages/BulkOrders';
 import Help from './pages/Help';
 import FAQ from './pages/FAQ';
+import LegalPolicies from './pages/LegalPolicies';
 import NecktieImageCheck from './pages/NecktieImageCheck';
 import ForceRefreshImages from './pages/ForceRefreshImages';
 import NecktieProducts from './pages/NecktieProducts';
@@ -46,6 +47,7 @@ function App() {
               <Route path="/bulk-orders" element={<BulkOrders />} />
               <Route path="/help" element={<Help />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/legal-policies" element={<LegalPolicies />} />
               <Route path="/image-check" element={<NecktieImageCheck />} />
               <Route path="/refresh-images" element={<ForceRefreshImages />} />
             </Routes>

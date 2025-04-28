@@ -648,11 +648,33 @@ const NecktieProductDetails = () => {
         <Container size="xl">
           <Text className="text-2xl font-medium mb-8 text-center">View Similar Products</Text>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {allNeckties
-              .filter(necktie => necktie.id !== Number(necktieId) && 
-                (necktie.color === product?.color || necktie.pattern === product?.pattern))
-              .slice(0, 4)
-              .map(necktie => (
+            {(() => {
+              // Get similar products based on color or pattern
+              const similarByColorOrPattern = allNeckties
+                .filter(necktie => 
+                  necktie.id !== Number(necktieId) && 
+                  (necktie.color === product?.color || necktie.pattern === product?.pattern)
+                );
+              
+              // Ensure we use unique products (no duplicates)
+              const uniqueSimilarProducts = [...new Map(similarByColorOrPattern.map(item => [item.id, item])).values()];
+              
+              // If we don't have enough similar products, get some random ones that aren't already included
+              let productsToShow = [...uniqueSimilarProducts];
+              
+              if (uniqueSimilarProducts.length < 4) {
+                const remainingProducts = allNeckties
+                  .filter(necktie => 
+                    necktie.id !== Number(necktieId) && 
+                    !uniqueSimilarProducts.some(p => p.id === necktie.id)
+                  )
+                  .slice(0, 4 - uniqueSimilarProducts.length);
+                
+                productsToShow = [...uniqueSimilarProducts, ...remainingProducts];
+              }
+              
+              // Take first 4 products
+              return productsToShow.slice(0, 4).map(necktie => (
                 <ProductCard 
                   key={necktie.id}
                   id={necktie.id}
@@ -666,34 +688,8 @@ const NecktieProductDetails = () => {
                   color={necktie.color}
                   quantity={necktie.quantity}
                 />
-              ))}
-            {/* Fallback if not enough similar products */}
-            {allNeckties.filter(necktie => 
-              necktie.id !== Number(necktieId) && 
-              (necktie.color === product?.color || necktie.pattern === product?.pattern)
-            ).length < 4 && 
-              allNeckties
-                .filter(necktie => necktie.id !== Number(necktieId))
-                .slice(0, 4 - allNeckties.filter(necktie => 
-                  necktie.id !== Number(necktieId) && 
-                  (necktie.color === product?.color || necktie.pattern === product?.pattern)
-                ).length)
-                .map(necktie => (
-                  <ProductCard 
-                    key={necktie.id}
-                    id={necktie.id}
-                    name={necktie.title}
-                    price={necktie.price}
-                    image={`/images/Aproducts/1Necktie/box/${necktie.title}.jpg`}
-                    description={necktie.description}
-                    isNew={necktie.isNew}
-                    link={`/necktie-product/${necktie.id}`}
-                    pattern={necktie.pattern}
-                    color={necktie.color}
-                    quantity={necktie.quantity}
-                  />
-                ))
-            }
+              ));
+            })()}
           </div>
         </Container>
       </div>

@@ -3,6 +3,7 @@ import FeaturedProducts from '../components/FeaturedProducts';
 import Newsletter from '../components/Newsletter';
 import NewsletterPopup from '../components/NewsletterPopup';
 import OurStory from '../components/OurStory';
+import OurServices from '../components/OurServices';
 import BestSellers from '../components/BestSellers';
 import HomeWhyChooseUs from '../components/HomeWhyChooseUs';
 
@@ -16,6 +17,7 @@ const Home = () => {
       <FeaturedProducts />
       <BestSellers />
       <OurStory />
+      <OurServices />
       <HomeWhyChooseUs />
       <Newsletter />
       <NewsletterPopup />

@@ -12,28 +12,28 @@ const CategoricalCollection = () => {
       id: 1, 
       name: 'NECKTIES', 
       href: '/necktie-products',
-      image: '/images/necktie.jpg',
+      image: '/images/collection/necktie.png',
       status: 'available' 
     },
     { 
       id: 2, 
       name: 'GIFT SETS', 
       href: '/gift-sets',
-      image: '/images/giftsets1.jpg',
+      image: '/images/collection/giftset.jpg',
       status: 'available'
     },
     { 
       id: 3, 
       name: 'POCKET SQUARES', 
       href: '/pocket-squares',
-      image: '/images/pocketsquares.jpg',
+      image: '/images/collection/pocketsquare.jpg',
       status: 'coming-soon'
     },
     { 
       id: 4, 
       name: 'CUFFLINKS', 
       href: '/cufflinks',
-      image: '/images/cufflinks.jpg',
+      image: '/images/collection/cufflinks.jpg',
       status: 'coming-soon'
     }
   ];
@@ -147,7 +147,7 @@ const CategoricalCollection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 flex flex-col sm:flex-row justify-center items-center gap-4">
           <Button
             component={Link}
             to="/necktie-products"
@@ -155,7 +155,16 @@ const CategoricalCollection = () => {
             radius="0"
             className="border-black text-black hover:bg-black hover:text-white transition-all px-8 py-2 tracking-widest text-sm uppercase"
           >
-            Explore All Collections
+            Shop Necktie
+          </Button>
+          <Button
+            component={Link}
+            to="/gift-sets"
+            variant="outline"
+            radius="0"
+            className="border-black text-black hover:bg-black hover:text-white transition-all px-8 py-2 tracking-widest text-sm uppercase"
+          >
+            Shop Giftset
           </Button>
         </div>
       </div>

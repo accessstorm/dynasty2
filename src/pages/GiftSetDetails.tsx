@@ -719,11 +719,33 @@ const GiftSetDetails = () => {
         <Container size="xl">
           <Text className="text-2xl font-medium mb-8 text-center">View Similar Products</Text>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {allGiftSets
-              .filter(giftSet => giftSet.id !== Number(giftSetId) && 
-                (giftSet.color === product?.color || giftSet.pattern === product?.pattern))
-              .slice(0, 4)
-              .map(giftSet => (
+            {(() => {
+              // Get similar products based on color or pattern
+              const similarByColorOrPattern = allGiftSets
+                .filter(giftSet => 
+                  giftSet.id !== Number(giftSetId) && 
+                  (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
+                );
+              
+              // Ensure we use unique products (no duplicates)
+              const uniqueSimilarProducts = [...new Map(similarByColorOrPattern.map(item => [item.id, item])).values()];
+              
+              // If we don't have enough similar products, get some random ones that aren't already included
+              let productsToShow = [...uniqueSimilarProducts];
+              
+              if (uniqueSimilarProducts.length < 4) {
+                const remainingProducts = allGiftSets
+                  .filter(giftSet => 
+                    giftSet.id !== Number(giftSetId) && 
+                    !uniqueSimilarProducts.some(p => p.id === giftSet.id)
+                  )
+                  .slice(0, 4 - uniqueSimilarProducts.length);
+                
+                productsToShow = [...uniqueSimilarProducts, ...remainingProducts];
+              }
+              
+              // Take first 4 products
+              return productsToShow.slice(0, 4).map(giftSet => (
                 <ProductCard 
                   key={giftSet.id}
                   id={giftSet.id}
@@ -737,34 +759,8 @@ const GiftSetDetails = () => {
                   color={giftSet.color}
                   quantity={giftSet.quantity}
                 />
-              ))}
-            {/* Fallback if not enough similar products */}
-            {allGiftSets.filter(giftSet => 
-              giftSet.id !== Number(giftSetId) && 
-              (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
-            ).length < 4 && 
-              allGiftSets
-                .filter(giftSet => giftSet.id !== Number(giftSetId))
-                .slice(0, 4 - allGiftSets.filter(giftSet => 
-                  giftSet.id !== Number(giftSetId) && 
-                  (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
-                ).length)
-                .map(giftSet => (
-                  <ProductCard 
-                    key={giftSet.id}
-                    id={giftSet.id}
-                    name={giftSet.name}
-                    price={giftSet.price}
-                    image={generateGiftSetImages(giftSet.id)[0]}
-                    description={giftSet.description}
-                    isNew={giftSet.isNew}
-                    link={`/gift-set/${giftSet.id}`}
-                    pattern={giftSetPatterns[giftSet.id] || giftSet.pattern}
-                    color={giftSet.color}
-                    quantity={giftSet.quantity}
-                  />
-                ))
-            }
+              ));
+            })()}
           </div>
         </Container>
       </div>

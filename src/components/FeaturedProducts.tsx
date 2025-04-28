@@ -121,32 +121,24 @@ const FeaturedProducts = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
     {
-      image: '/images/yes1.jpg',
+      image: '/images/newArrivals.png',
       title: 'NEW ARRIVALS',
-      subtitle: 'UNITY THROUGH DIVERSITY',
-      buttonText: 'Shop Now',
-      buttonLink: '#products'
+      subtitle: 'Introducing Masterpieces'
     },
     {
       image: '/images/yes2.jpg',
       title: 'OUR STORY',
-      subtitle: 'CRAFTING EXCELLENCE SINCE 2023',
-      buttonText: 'Learn More',
-      buttonLink: '/about'
+      subtitle: 'CRAFTING EXCELLENCE SINCE 1990s'
     },
     {
-      image: '/images/yes3.jpg',
+      image: '/images/ourServices.png',
       title: 'OUR SERVICES',
-      subtitle: 'PERSONALIZED STYLING & CUSTOM DESIGNS',
-      buttonText: 'Explore Services',
-      buttonLink: '/services'
+      subtitle: 'PERSONALIZED STYLING & CUSTOM DESIGNS'
     },
     {
-      image: '/images/yes4.jpg',
+      image: '/images/corporateOrders.jpg',
       title: 'CORPORATE ORDERS',
-      subtitle: 'PREMIUM BULK SOLUTIONS FOR BUSINESSES',
-      buttonText: 'Get a Quote',
-      buttonLink: '/bulk-orders'
+      subtitle: 'PREMIUM BULK SOLUTIONS FOR BUSINESSES'
     }
   ];
 
@@ -155,10 +147,19 @@ const FeaturedProducts = () => {
     const timer = setInterval(() => {
       // Move to next slide, loop back to first slide after the last
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 4000); // 4 seconds per slide
+    }, 3000); // 3 seconds per slide instead of 4
 
     return () => clearInterval(timer); // Clean up on unmount
   }, [slides.length]);
+
+  // Preload images for smoother transitions
+  useEffect(() => {
+    // Preload all slide images
+    slides.forEach(slide => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
   
   // Fetch products from JSON file
   useEffect(() => {
@@ -363,14 +364,28 @@ const FeaturedProducts = () => {
         initial="hidden"
         animate="visible"
       >
-        {/* Slideshow with fade transition */}
-        <AnimatePresence mode="wait">
+        {/* Preload all images with absolute positioning but hidden */}
+        {slides.map((slide, index) => (
+          <div 
+            key={`preload-${index}`}
+            className="absolute inset-0 w-full h-full opacity-0"
+            style={{
+              backgroundImage: `url('${slide.image}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              zIndex: 0
+            }}
+          />
+        ))}
+        
+        {/* Slideshow with improved fade transition */}
+        <AnimatePresence mode="sync">
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }} // 1 second fade transition
+            transition={{ duration: 0.5 }} // Faster 0.5 second fade transition
             className="absolute inset-0 w-full h-full"
             style={{
               backgroundImage: `url('${slides[currentSlide].image}')`,
@@ -403,25 +418,6 @@ const FeaturedProducts = () => {
             {slides[currentSlide].subtitle}
           </motion.p>
           
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-          >
-            <Button
-              component={Link}
-              to={slides[currentSlide].buttonLink}
-              variant="outline"
-              color="white"
-              radius="0"
-              classNames={{
-                root: 'border-white text-white hover:bg-white hover:text-black transition-all px-8 py-2 tracking-widest text-sm font-light uppercase'
-              }}
-            >
-              {slides[currentSlide].buttonText}
-            </Button>
-          </motion.div>
-
           {/* Navigation dots */}
           <div className="flex space-x-2 mt-8">
             {slides.map((_, index) => (

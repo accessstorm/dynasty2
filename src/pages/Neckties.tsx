@@ -7,6 +7,7 @@ import { ProductCardProps } from '../components/ProductCard';
 import StaticProductService from '../services/StaticProductService';
 import { IconFilter } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
+import { luxuryClasses } from '../components/LuxuryTheme';
 
 const Neckties = () => {
   const location = useLocation();
@@ -161,8 +162,8 @@ const Neckties = () => {
     <div className="py-8">
       {/* Page Title */}
       <Container size="xl" className="mb-6 px-6 md:px-8">
-        <Text component="h1" className="text-3xl font-serif text-center mb-2">Neckties Collection</Text>
-        <Text className="text-center text-gray-600 mb-8">
+        <Text component="h1" className={luxuryClasses.pageTitle}>NECKTIES COLLECTION</Text>
+        <Text className={luxuryClasses.pageSubtitle}>
           Discover our exquisite collection of handcrafted neckties, made from the finest materials
         </Text>
         
