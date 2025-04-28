@@ -1,12 +1,10 @@
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const socialMediaLinks = [
-    { icon: Instagram, label: 'Instagram' },
-    { icon: Facebook, label: 'Facebook' },
-    { icon: Twitter, label: 'Twitter' }
+    { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/dynastyworld.in?igsh=Z2JsaHNsZ3EwZGtz' }
   ];
 
   const footerLinks = [
@@ -90,7 +88,9 @@ const Footer = () => {
               {socialMediaLinks.map((social) => (
                 <motion.a
                   key={social.label}
-                  href="#" 
+                  href={social.href}
+                  target="_blank" 
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-black transition-colors"
                   aria-label={social.label}
                   variants={iconVariants}
