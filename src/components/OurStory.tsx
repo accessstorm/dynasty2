@@ -86,9 +86,9 @@ const OurStory = () => {
             viewport={{ once: true }}
           >
             <img 
-              src="/images/logo.jpg" 
-              alt="Dynasty Logo" 
-              className="w-full max-w-xs mx-auto h-auto object-contain rounded-sm"
+              src="/images/ourStory.jpg" 
+              alt="Dynasty Our Story" 
+              className="w-full max-w-md mx-auto h-auto object-contain rounded-sm"
             />
           </motion.div>
           
