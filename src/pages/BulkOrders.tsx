@@ -12,18 +12,62 @@ const BulkOrders = () => {
     email: '',
     requirements: ''
   });
+  const [formStatus, setFormStatus] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    console.log('Form submitted:', formData);
-    // You would typically send this data to a server
-    alert('Thank you for your inquiry. Our team will contact you shortly.');
+    setFormStatus("Sending...");
+    
+    try {
+      // Create FormData object
+      const webFormData = new FormData();
+      
+      // Append form values
+      webFormData.append("name", formData.name);
+      webFormData.append("organization", formData.organization);
+      webFormData.append("phone", formData.phone);
+      webFormData.append("email", formData.email);
+      webFormData.append("requirements", formData.requirements);
+      
+      // Important: Add subject so the email is properly titled
+      webFormData.append("subject", "New Bulk Order Inquiry from Dynasty Website");
+      
+      // Add the Web3Forms access key
+      webFormData.append("access_key", "326ec34d-562a-41a3-90b9-b0c9b8aa6aea");
+
+      // Submit to Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: webFormData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Form submitted successfully
+        setFormStatus("Thank you for your inquiry. We will contact you shortly.");
+        // Reset form
+        setFormData({
+          name: '',
+          organization: '',
+          phone: '',
+          email: '',
+          requirements: ''
+        });
+      } else {
+        // Error occurred
+        console.log("Error", data);
+        setFormStatus("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setFormStatus("An error occurred. Please try again later.");
+    }
   };
   
   return (
@@ -106,7 +150,7 @@ const BulkOrders = () => {
               >
                 <Title order={2} className="text-2xl mb-12 font-serif text-center pt-6">REQUEST A QUOTE</Title>
                 <Text className="text-gray-600 mb-12 text-center">
-                  Fill out the form below and our corporate team will get back<br /> to you within 24 hours
+                  Fill out the form below and our team will get back<br /> to you within 24 hours
                 </Text>
                 
                 <form onSubmit={handleSubmit} className="px-3">
@@ -197,6 +241,17 @@ const BulkOrders = () => {
                       >
                         SUBMIT INQUIRY
                       </button>
+                      
+                      {/* Form submission status */}
+                      {formStatus && (
+                        <div className={`mt-4 p-3 text-center rounded-sm ${
+                          formStatus.includes("Thank you") 
+                            ? "bg-green-100 text-green-800" 
+                            : "bg-red-100 text-red-800"
+                        }`}>
+                          {formStatus}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </form>

@@ -90,6 +90,7 @@ const NecktieProductDetails = () => {
       name: foundNecktie.title,
       description: foundNecktie.description,
       price: foundNecktie.price,
+      originalPrice: foundNecktie.originalPrice,
       image: images[0],
       color: foundNecktie.color,
       isNew: foundNecktie.isNew,
@@ -388,7 +389,7 @@ const NecktieProductDetails = () => {
               ₹{product.price.toLocaleString('en-IN')}
             </div>
             <div className="text-lg md:text-xl line-through text-gray-500">
-              ₹{(product.price * 1.25).toLocaleString('en-IN')}
+              ₹{product.originalPrice?.toLocaleString('en-IN')}
             </div>
           </div>
 
@@ -495,19 +496,19 @@ const NecktieProductDetails = () => {
             <Text fw={600} className="text-lg mb-3">Why you'll love it</Text>
             <ul className="space-y-2">
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Crafted with premium microfiber fabric</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Elegant design for all formal occasions</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Durable construction with attention to detail</Text>
               </li>
               <li className="flex items-start">
-                <span className="text-[#00C2CB] font-bold mr-2">•</span>
+                <span className="text-black font-bold mr-2">•</span>
                 <Text className="text-gray-700">Presented in an elegant gift box</Text>
               </li>
             </ul>
@@ -541,16 +542,6 @@ const NecktieProductDetails = () => {
             </table>
           </div>
 
-          {/* Return/Exchange Policy Button */}
-          <Button
-            variant="subtle"
-            className="bg-black text-white hover:bg-gray-800 w-full py-3 mt-4"
-            radius="xs"
-            onClick={() => navigate('/legal-policies')}
-          >
-            Return/Exchange Policy
-          </Button>
-
           {/* Product Information Accordion */}
           <Accordion className="border-t border-b border-gray-200" 
             styles={{
@@ -571,13 +562,46 @@ const NecktieProductDetails = () => {
               }
             }}
           >
-            <Accordion.Item value="description">
+            <Accordion.Item value="return_policy">
+              <Accordion.Control>
+                <Text fw={500}>RETURN/EXCHANGE POLICY</Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text className="text-gray-700 leading-relaxed">
+                At Dynasty, customer satisfaction is of paramount importance. However, due to the nature of our merchandise and our commitment to maintaining product hygiene and quality, we do not offer returns or refunds. Only exchanges are permitted, subject to the following terms.
+
+An exchange request must be initiated within forty-eight (48) hours of delivery. Customers are required to email support@dynastyworld.in, providing a detailed description and photographic evidence of the defect or damage. Exchanges shall be entertained solely in cases where the product is received in a defective or damaged condition, and not for reasons of personal preference.
+                  <br /><br />
+                  Products must be unused, unworn, and returned in their original packaging. Dynasty reserves the right to deny an exchange if, upon inspection, the returned product is found to have been used, tampered with, or damaged post-delivery.
+
+The cost of shipping the product for exchange shall be borne solely by the customer. Dynasty shall not be responsible for any loss or damage incurred during the return shipping process. Exchanges shall be processed only after the returned product passes our quality checks.
+                  </Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+
+            <Accordion.Item value="display_policy">
+              <Accordion.Control>
+                <Text fw={500}>PRODUCT DISPLAY & ACCURACY POLICY </Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text className="text-gray-700 leading-relaxed">
+                Dynasty is committed to providing the most accurate visual representation and description of its products. All product images are captured using high-quality professional equipment under carefully controlled lighting conditions to reflect the true attributes of the merchandise.
+
+However, minor variations in color, texture, and appearance may occur due to factors beyond our control, including but not limited to the lighting environment during photography, device screen settings, and individual perception.<br /><br />
+Such variations shall not constitute a defect or grounds for return or exchange.
+
+By purchasing from Dynasty, you acknowledge and accept the possibility of slight discrepancies between product images and actual products.</Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+
+
+            <Accordion.Item value="features">
               <Accordion.Control>
                 <Text fw={500}>PRODUCT FEATURES</Text>
               </Accordion.Control>
               <Accordion.Panel>
                 <Text className="text-gray-700 leading-relaxed">
-                  This premium {product.color} necktie is designed with attention to detail, 
+                  This premium necktie is designed with attention to detail, 
                   adding a sophisticated touch to any formal attire. Crafted from high-quality microfiber,
                   it offers a silky finish and excellent durability for everyday wear.
                   <br /><br />
@@ -627,15 +651,15 @@ const NecktieProductDetails = () => {
           <Text className="text-2xl font-medium mb-8 text-center">View Similar Products</Text>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {(() => {
-              // Get similar products based on color or pattern
-              const similarByColorOrPattern = allNeckties
+              // Get similar products based on pattern
+              const similarByPattern = allNeckties
                 .filter(necktie => 
                   necktie.id !== Number(necktieId) && 
-                  (necktie.color === product?.color || necktie.pattern === product?.pattern)
+                  necktie.pattern === product?.pattern
                 );
               
               // Ensure we use unique products (no duplicates)
-              const uniqueSimilarProducts = [...new Map(similarByColorOrPattern.map(item => [item.id, item])).values()];
+              const uniqueSimilarProducts = [...new Map(similarByPattern.map(item => [item.id, item])).values()];
               
               // If we don't have enough similar products, get some random ones that aren't already included
               let productsToShow = [...uniqueSimilarProducts];

@@ -108,6 +108,7 @@ const GiftSetDetails = () => {
     setProduct({
       ...foundGiftSet,
       image: images[0],
+      originalPrice: 3000, // Set a fixed originalPrice for gift sets
       sku: giftSetSkus[foundGiftSet.id] || foundGiftSet.sku,
       pattern: giftSetPatterns[foundGiftSet.id] || foundGiftSet.pattern
     });
@@ -668,23 +669,9 @@ const GiftSetDetails = () => {
                   <td className="py-2 px-4 bg-black text-white border-t border-white">Pattern</td>
                   <td className="py-2 px-4 bg-black text-white border-t border-white">{product.pattern || "Unique pattern for each gift set"}</td>
                 </tr>
-                <tr>
-                  <td className="py-2 px-4 bg-black text-white border-t border-white">Color</td>
-                  <td className="py-2 px-4 bg-black text-white border-t border-white">{product.color || "Varies"}</td>
-                </tr>
               </tbody>
             </table>
           </div>
-
-          {/* Return/Exchange Policy Button */}
-          <Button
-            variant="subtle"
-            className="bg-black text-white hover:bg-gray-800 w-full py-3 mt-4"
-            radius="xs"
-            onClick={() => navigate('/legal-policies')}
-          >
-            Return/Exchange Policy
-          </Button>
 
           {/* Product Information Accordion */}
           <Accordion className="border-t border-b border-gray-200" 
@@ -706,7 +693,39 @@ const GiftSetDetails = () => {
               }
             }}
           >
-            <Accordion.Item value="description">
+            <Accordion.Item value="return_policy">
+              <Accordion.Control>
+                <Text fw={500}>RETURN/EXCHANGE POLICY</Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text className="text-gray-700 leading-relaxed">
+                At Dynasty, customer satisfaction is of paramount importance. However, due to the nature of our merchandise and our commitment to maintaining product hygiene and quality, we do not offer returns or refunds. Only exchanges are permitted, subject to the following terms.
+
+An exchange request must be initiated within forty-eight (48) hours of delivery. Customers are required to email support@dynastyworld.in, providing a detailed description and photographic evidence of the defect or damage. Exchanges shall be entertained solely in cases where the product is received in a defective or damaged condition, and not for reasons of personal preference.
+                  <br /><br />
+                  Products must be unused, unworn, and returned in their original packaging. Dynasty reserves the right to deny an exchange if, upon inspection, the returned product is found to have been used, tampered with, or damaged post-delivery.
+
+The cost of shipping the product for exchange shall be borne solely by the customer. Dynasty shall not be responsible for any loss or damage incurred during the return shipping process. Exchanges shall be processed only after the returned product passes our quality checks.
+                  </Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+
+            <Accordion.Item value="display_policy">
+              <Accordion.Control>
+                <Text fw={500}>PRODUCT DISPLAY & ACCURACY POLICY </Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text className="text-gray-700 leading-relaxed">
+                Dynasty is committed to providing the most accurate visual representation and description of its products. All product images are captured using high-quality professional equipment under carefully controlled lighting conditions to reflect the true attributes of the merchandise.
+
+However, minor variations in color, texture, and appearance may occur due to factors beyond our control, including but not limited to the lighting environment during photography, device screen settings, and individual perception.<br /><br />
+Such variations shall not constitute a defect or grounds for return or exchange.
+
+By purchasing from Dynasty, you acknowledge and accept the possibility of slight discrepancies between product images and actual products.</Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+
+            <Accordion.Item value="features">
               <Accordion.Control>
                 <Text fw={500}>PRODUCT FEATURES</Text>
               </Accordion.Control>
@@ -763,15 +782,15 @@ const GiftSetDetails = () => {
           <Text className="text-2xl font-medium mb-8 text-center">View Similar Products</Text>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {(() => {
-              // Get similar products based on color or pattern
-              const similarByColorOrPattern = allGiftSets
+              // Get similar products based on pattern
+              const similarByPattern = allGiftSets
                 .filter(giftSet => 
                   giftSet.id !== Number(giftSetId) && 
-                  (giftSet.color === product?.color || giftSet.pattern === product?.pattern)
+                  giftSet.pattern === product?.pattern
                 );
               
               // Ensure we use unique products (no duplicates)
-              const uniqueSimilarProducts = [...new Map(similarByColorOrPattern.map(item => [item.id, item])).values()];
+              const uniqueSimilarProducts = [...new Map(similarByPattern.map(item => [item.id, item])).values()];
               
               // If we don't have enough similar products, get some random ones that aren't already included
               let productsToShow = [...uniqueSimilarProducts];

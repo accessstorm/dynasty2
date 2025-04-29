@@ -15,23 +15,9 @@ const Neckties = () => {
   const [products, setProducts] = useState<ProductCardProps[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([700, 1000]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string | null>('newest');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
-  // Color filters with counts for neckties
-  const colorFilters = [
-    { color: 'blue', label: 'Blue', count: 10, colorCode: '#1e3a8a' },
-    { color: 'black', label: 'Black', count: 8, colorCode: '#000000' },
-    { color: 'grey', label: 'Grey', count: 7, colorCode: '#6b7280' },
-    { color: 'green', label: 'Green', count: 6, colorCode: '#166534' },
-    { color: 'burgundy', label: 'Burgundy', count: 4, colorCode: '#800020' },
-    { color: 'navy', label: 'Navy Blue', count: 4, colorCode: '#172554' },
-    { color: 'red', label: 'Red', count: 3, colorCode: '#b91c1c' },
-    { color: 'white', label: 'White', count: 3, colorCode: '#ffffff' },
-    { color: 'brown', label: 'Brown', count: 2, colorCode: '#8b4513' },
-  ];
   
   useEffect(() => {
     // Get products from static service
@@ -42,7 +28,6 @@ const Neckties = () => {
     const searchParams = new URLSearchParams(location.search);
     const minPrice = searchParams.get('minPrice');
     const maxPrice = searchParams.get('maxPrice');
-    const colors = searchParams.get('colors');
     const sort = searchParams.get('sort');
     
     // Set initial filters from URL if present
@@ -50,21 +35,18 @@ const Neckties = () => {
       minPrice ? parseInt(minPrice) : 700,
       maxPrice ? parseInt(maxPrice) : 1000
     ];
-    const initialColors = colors ? colors.split(',') : [];
     const initialSort = sort || 'newest';
     
     setPriceRange(initialPriceRange);
-    setSelectedColors(initialColors);
     setSortOption(initialSort);
     
     // Apply initial filters
-    applyFilters(initialPriceRange, initialColors, initialSort, neckties);
+    applyFilters(initialPriceRange, initialSort, neckties);
   }, [location.search]);
   
   // Update URL with current filter state
   const updateURLParams = (
     prices: [number, number], 
-    colors: string[], 
     sort: string | null
   ) => {
     const params = new URLSearchParams();
@@ -75,11 +57,6 @@ const Neckties = () => {
     }
     if (prices[1] !== 1000) {
       params.set('maxPrice', prices[1].toString());
-    }
-    
-    // Add color parameters if any are selected
-    if (colors.length > 0) {
-      params.set('colors', colors.join(','));
     }
     
     // Add sort parameter if not default
@@ -95,35 +72,22 @@ const Neckties = () => {
   // Handle price filter change
   const handlePriceRangeChange = (range: [number, number]) => {
     setPriceRange(range);
-    const newFiltered = applyFilters(range, selectedColors, sortOption);
-    updateURLParams(range, selectedColors, sortOption);
-    return newFiltered;
-  };
-  
-  // Handle color filter change
-  const handleColorFilterChange = (color: string) => {
-    const updatedColors = selectedColors.includes(color)
-      ? selectedColors.filter(c => c !== color)
-      : [...selectedColors, color];
-    
-    setSelectedColors(updatedColors);
-    const newFiltered = applyFilters(priceRange, updatedColors, sortOption);
-    updateURLParams(priceRange, updatedColors, sortOption);
+    const newFiltered = applyFilters(range, sortOption);
+    updateURLParams(range, sortOption);
     return newFiltered;
   };
   
   // Handle sorting option change
   const handleSortChange = (option: string | null) => {
     setSortOption(option);
-    const newFiltered = applyFilters(priceRange, selectedColors, option);
-    updateURLParams(priceRange, selectedColors, option);
+    const newFiltered = applyFilters(priceRange, option);
+    updateURLParams(priceRange, option);
     return newFiltered;
   };
   
   // Apply all filters
   const applyFilters = (
     prices: [number, number], 
-    colors: string[], 
     sort: string | null,
     productList = products
   ) => {
@@ -133,13 +97,6 @@ const Neckties = () => {
     filtered = filtered.filter(product => {
       return product.price >= prices[0] && product.price <= prices[1];
     });
-    
-    // Apply color filter if any colors selected
-    if (colors.length > 0) {
-      filtered = filtered.filter(product => 
-        product.color && colors.includes(product.color.toLowerCase())
-      );
-    }
     
     // Apply sorting
     if (sort === 'price-low') {
@@ -195,9 +152,6 @@ const Neckties = () => {
                 <FilterSidebar
                   priceRange={priceRange}
                   setPriceRange={handlePriceRangeChange}
-                  colorFilters={colorFilters}
-                  selectedColors={selectedColors}
-                  setSelectedColors={setSelectedColors}
                   sortOption={sortOption}
                   setSortOption={handleSortChange}
                   formatPrice={(val: number) => `₹${val}`}
@@ -210,9 +164,6 @@ const Neckties = () => {
               <FilterSidebar
                 priceRange={priceRange}
                 setPriceRange={handlePriceRangeChange}
-                colorFilters={colorFilters}
-                selectedColors={selectedColors}
-                setSelectedColors={setSelectedColors}
                 sortOption={sortOption}
                 setSortOption={handleSortChange}
                 formatPrice={(val: number) => `₹${val}`}

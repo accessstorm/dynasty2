@@ -76,7 +76,7 @@ const FAQ = () => {
       },
       {
         question: 'What if the product I received is damaged?',
-        answer: 'If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.'
+        answer: 'If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and we will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.'
       }
     ],
     payment: [
@@ -229,7 +229,7 @@ const FAQ = () => {
           >
             <Title order={2} className="text-3xl mb-4">Still need help?</Title>
             <Text className="text-gray-600 mb-8 max-w-xl mx-auto">
-              If you couldn't find what you're looking for, our customer service team is ready to assist you.
+              If you couldn't find what you're looking for, our customer service is ready to assist you.
             </Text>
             <Link 
               to="/contact"

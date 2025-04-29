@@ -31,26 +31,12 @@ const NecktieProducts = () => {
   const [products, setProducts] = useState<ProductCardProps[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([700, 1000]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string | null>('newest');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
-  // Color filters with counts for neckties
-  const colorFilters = [
-    { color: 'pink', label: 'Pink', count: 4, colorCode: '#FFC0CB' },
-    { color: 'orange', label: 'Orange', count: 2, colorCode: '#FFA500' },
-    { color: 'purple', label: 'Purple', count: 4, colorCode: '#800080' },
-    { color: 'green', label: 'Green', count: 1, colorCode: '#008000' },
-    { color: 'burgundy', label: 'Burgundy', count: 1, colorCode: '#800020' },
-    { color: 'yellow', label: 'Yellow', count: 2, colorCode: '#FFFF00' },
-    { color: 'navy', label: 'Navy', count: 2, colorCode: '#000080' },
-    { color: 'brown', label: 'Brown', count: 1, colorCode: '#A52A2A' },
-    { color: 'blue', label: 'Blue', count: 2, colorCode: '#0000FF' }
-  ];
   
   // Fetch neckties data
   useEffect(() => {
@@ -72,6 +58,7 @@ const NecktieProducts = () => {
           name: tie.title,
           description: tie.description,
           price: tie.price,
+          originalPrice: tie.originalPrice,
           image: tie.image,
           color: tie.color,
           isNew: tie.isNew,
@@ -99,25 +86,18 @@ const NecktieProducts = () => {
   // Handle price filter change
   const handlePriceChange = (value: [number, number]) => {
     setPriceRange(value);
-    applyFilters(value, selectedColors, sortOption);
-  };
-  
-  // Handle color filter change
-  const handleColorChange = (colors: string[]) => {
-    setSelectedColors(colors);
-    applyFilters(priceRange, colors, sortOption);
+    applyFilters(value, sortOption);
   };
   
   // Handle sort change
   const handleSortChange = (option: string | null) => {
     setSortOption(option);
-    applyFilters(priceRange, selectedColors, option);
+    applyFilters(priceRange, option);
   };
   
   // Apply all filters
   const applyFilters = (
     prices: [number, number], 
-    colors: string[], 
     sort: string | null,
     productList = products
   ) => {
@@ -127,13 +107,6 @@ const NecktieProducts = () => {
     filtered = filtered.filter(product => {
       return product.price >= prices[0] && product.price <= prices[1];
     });
-    
-    // Apply color filter if any colors selected
-    if (colors.length > 0) {
-      filtered = filtered.filter(product => 
-        product.color && colors.includes(product.color.toLowerCase())
-      );
-    }
     
     // Apply sorting
     if (sort === 'price-low') {
@@ -238,9 +211,6 @@ const NecktieProducts = () => {
             <FilterSidebar
               priceRange={priceRange}
               setPriceRange={handlePriceChange}
-              colorFilters={colorFilters}
-              selectedColors={selectedColors}
-              setSelectedColors={handleColorChange}
               sortOption={sortOption}
               setSortOption={handleSortChange}
               formatPrice={(val: number) => `₹${val}`}

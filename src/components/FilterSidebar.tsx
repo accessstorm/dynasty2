@@ -1,17 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Text, RangeSlider, NumberInput, ColorSwatch, Select } from '@mantine/core';
+import { Text, RangeSlider, NumberInput } from '@mantine/core';
 
 export interface FilterSidebarProps {
   priceRange: [number, number];
   setPriceRange: (range: [number, number]) => void;
-  colorFilters: {
-    color: string;
-    label: string;
-    count: number;
-    colorCode: string;
-  }[];
-  selectedColors: string[];
-  setSelectedColors: (colors: string[]) => void;
   sortOption: string | null;
   setSortOption: (option: string | null) => void;
   formatPrice: (value: number) => string;
@@ -23,9 +15,6 @@ export interface FilterSidebarProps {
 const FilterSidebar = ({
   priceRange,
   setPriceRange,
-  colorFilters,
-  selectedColors,
-  setSelectedColors,
   sortOption,
   setSortOption,
   formatPrice,
@@ -62,17 +51,7 @@ const FilterSidebar = ({
     }
   };
   
-  const isColorSelected = (color: string) => selectedColors.includes(color);
-  
-  const handleColorChange = (color: string) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors(selectedColors.filter(c => c !== color));
-    } else {
-      setSelectedColors([...selectedColors, color]);
-    }
-  };
-  
-  // The main sidebar content - price and color filters
+  // The main sidebar content - price filter
   const renderFilterContent = () => (
     <>
       {/* Price Filter Section */}
@@ -141,40 +120,6 @@ const FilterSidebar = ({
               />
             </div>
           </div>
-        </div>
-      </div>
-      
-      {/* Color Filter Section */}
-      <div className="mb-8">
-        <Text className="text-xl font-medium mb-6 border-b pb-2" id="color-filter-heading">Filter by color</Text>
-        <div className="space-y-3" role="group" aria-labelledby="color-filter-heading">
-          {colorFilters.map(({ color, label, count, colorCode }) => (
-            <div 
-              key={color} 
-              className="flex items-center justify-between cursor-pointer py-1 hover:bg-gray-50"
-              onClick={() => handleColorChange(color)}
-              role="checkbox"
-              aria-checked={isColorSelected(color)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleColorChange(color);
-                  e.preventDefault();
-                }
-              }}
-            >
-              <div className="flex items-center space-x-3">
-                <ColorSwatch 
-                  color={colorCode} 
-                  size={16}
-                  className={`rounded-full ${isColorSelected(color) ? "ring-2 ring-black" : "ring-1 ring-gray-300"}`}
-                  aria-hidden="true"
-                />
-                <Text className="text-base">{label}</Text>
-              </div>
-              <Text size="sm" color="dimmed" className="font-light tabular-nums">{count.toString().padStart(2, '0')}</Text>
-            </div>
-          ))}
         </div>
       </div>
     </>

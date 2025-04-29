@@ -30,32 +30,12 @@ const GiftSets = () => {
   const [products, setProducts] = useState<ProductCardProps[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([1800, 3000]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string | null>('newest');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
-  // Color filters with counts for gift sets
-  const colorFilters = [
-    { color: 'coral', label: 'Coral', count: 1, colorCode: '#FF7F50' },
-    { color: 'rosewood', label: 'Rosewood', count: 1, colorCode: '#65000B' },
-    { color: 'navy', label: 'Navy', count: 2, colorCode: '#172554' },
-    { color: 'azure', label: 'Azure', count: 1, colorCode: '#007FFF' },
-    { color: 'frosted', label: 'Frosted', count: 1, colorCode: '#E8F4F8' },
-    { color: 'blush', label: 'Blush', count: 2, colorCode: '#DE5D83' },
-    { color: 'gold', label: 'Gold', count: 1, colorCode: '#FFD700' },
-    { color: 'midnight', label: 'Midnight', count: 2, colorCode: '#191970' },
-    { color: 'emerald', label: 'Emerald', count: 1, colorCode: '#50C878' },
-    { color: 'teal', label: 'Teal', count: 2, colorCode: '#008080' },
-    { color: 'green', label: 'Green', count: 1, colorCode: '#008000' },
-    { color: 'aqua', label: 'Aqua', count: 1, colorCode: '#00FFFF' },
-    { color: 'purple', label: 'Purple', count: 1, colorCode: '#800080' },
-    { color: 'mint', label: 'Mint', count: 1, colorCode: '#3EB489' },
-    { color: 'crimson', label: 'Crimson', count: 2, colorCode: '#DC143C' },
-  ];
   
   // Fetch gift sets data
   useEffect(() => {
@@ -82,10 +62,8 @@ const GiftSets = () => {
           isNew: set.isNew,
           link: `/gift-set/${set.id}`,
           pattern: set.pattern,
-          material: "Microfiber Blend",
-          sku: set.sku,
           quantity: set.quantity,
-          category: "gift-set"
+          category: "giftset"
         }));
         
         setProducts(productCards);
@@ -104,7 +82,6 @@ const GiftSets = () => {
   // Update URL with current filter state
   const updateURLParams = (
     prices: [number, number], 
-    colors: string[], 
     sort: string | null
   ) => {
     const params = new URLSearchParams();
@@ -115,11 +92,6 @@ const GiftSets = () => {
     }
     if (prices[1] !== 3000) {
       params.set('maxPrice', prices[1].toString());
-    }
-    
-    // Add color parameters if any are selected
-    if (colors.length > 0) {
-      params.set('colors', colors.join(','));
     }
     
     // Add sort parameter if not default
@@ -135,43 +107,22 @@ const GiftSets = () => {
   // Handle price filter change
   const handlePriceRangeChange = (range: [number, number]) => {
     setPriceRange(range);
-    const newFiltered = applyFilters(range, selectedColors, sortOption);
-    updateURLParams(range, selectedColors, sortOption);
-    return newFiltered;
-  };
-  
-  // Handle color filter change
-  const handleColorFilterChange = (color: string) => {
-    const updatedColors = selectedColors.includes(color)
-      ? selectedColors.filter(c => c !== color)
-      : [...selectedColors, color];
-    
-    setSelectedColors(updatedColors);
-    const newFiltered = applyFilters(priceRange, updatedColors, sortOption);
-    updateURLParams(priceRange, updatedColors, sortOption);
-    return newFiltered;
-  };
-  
-  // Create a wrapper function that matches setSelectedColors signature
-  const handleSetSelectedColors = (colors: string[]) => {
-    setSelectedColors(colors);
-    const newFiltered = applyFilters(priceRange, colors, sortOption);
-    updateURLParams(priceRange, colors, sortOption);
+    const newFiltered = applyFilters(range, sortOption);
+    updateURLParams(range, sortOption);
     return newFiltered;
   };
   
   // Handle sorting option change
   const handleSortChange = (option: string | null) => {
     setSortOption(option);
-    const newFiltered = applyFilters(priceRange, selectedColors, option);
-    updateURLParams(priceRange, selectedColors, option);
+    const newFiltered = applyFilters(priceRange, option);
+    updateURLParams(priceRange, option);
     return newFiltered;
   };
   
   // Apply all filters
   const applyFilters = (
     prices: [number, number], 
-    colors: string[], 
     sort: string | null,
     productList = products
   ) => {
@@ -181,13 +132,6 @@ const GiftSets = () => {
     filtered = filtered.filter(product => {
       return product.price >= prices[0] && product.price <= prices[1];
     });
-    
-    // Apply color filter if any colors selected
-    if (colors.length > 0) {
-      filtered = filtered.filter(product => 
-        product.color && colors.includes(product.color.toLowerCase())
-      );
-    }
     
     // Apply sorting
     if (sort === 'price-low') {
@@ -279,9 +223,6 @@ const GiftSets = () => {
                 <FilterSidebar
                   priceRange={priceRange}
                   setPriceRange={handlePriceRangeChange}
-                  colorFilters={colorFilters}
-                  selectedColors={selectedColors}
-                  setSelectedColors={handleSetSelectedColors}
                   sortOption={sortOption}
                   setSortOption={handleSortChange}
                   formatPrice={(val: number) => `₹${val}`}
@@ -294,9 +235,6 @@ const GiftSets = () => {
               <FilterSidebar
                 priceRange={priceRange}
                 setPriceRange={handlePriceRangeChange}
-                colorFilters={colorFilters}
-                selectedColors={selectedColors}
-                setSelectedColors={handleSetSelectedColors}
                 sortOption={sortOption}
                 setSortOption={handleSortChange}
                 formatPrice={(val: number) => `₹${val}`}

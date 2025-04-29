@@ -123,7 +123,7 @@ const FeaturedProducts = () => {
     {
       image: '/images/newArrivals.png',
       title: 'NEW ARRIVALS',
-      subtitle: 'Introducing Masterpieces'
+      subtitle: 'INTRODUCING MASTERPIECES'
     },
     {
       image: '/images/yes2.jpg',
@@ -138,7 +138,7 @@ const FeaturedProducts = () => {
     {
       image: '/images/corporateOrders.jpg',
       title: 'CORPORATE ORDERS',
-      subtitle: 'PREMIUM BULK SOLUTIONS FOR BUSINESSES'
+      subtitle: 'PREMIUM SOLUTIONS FOR BUSINESSES'
     }
   ];
 

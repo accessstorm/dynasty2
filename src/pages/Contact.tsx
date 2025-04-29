@@ -12,6 +12,7 @@ const Contact = () => {
     message: '',
   });
 
+  const [formStatus, setFormStatus] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -19,22 +20,58 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
+    setFormStatus("Sending...");
     
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
+    try {
+      // Create FormData object
+      const webFormData = new FormData();
+      
+      // Append form values
+      webFormData.append("name", formData.name);
+      webFormData.append("email", formData.email);
+      webFormData.append("phone", formData.phone);
+      webFormData.append("subject", formData.subject || "Contact Form Submission");
+      webFormData.append("message", formData.message);
+      
+      // Add the Web3Forms access key
+      webFormData.append("access_key", "326ec34d-562a-41a3-90b9-b0c9b8aa6aea");
+
+      // Submit to Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: webFormData
       });
-    }, 3000);
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Form submitted successfully
+        setFormStatus("Your message has been sent successfully. We'll get back to you shortly.");
+        setSubmitted(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormStatus('');
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: '',
+          });
+        }, 5000);
+      } else {
+        // Error occurred
+        console.log("Error", data);
+        setFormStatus("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setFormStatus("An error occurred. Please try again later.");
+    }
   };
 
   // Animation variants
@@ -130,7 +167,7 @@ const Contact = () => {
                 className="bg-green-50 border border-green-200 text-green-800 p-6 text-center"
               >
                 <Title order={3} className="font-serif mb-2">Thank You!</Title>
-                <Text>Your message has been sent successfully. We'll get back to you shortly.</Text>
+                <Text>{formStatus}</Text>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -204,6 +241,20 @@ const Contact = () => {
                   >
                     SEND MESSAGE
                   </Button>
+                  
+                  {/* Form submission status during sending */}
+                  {formStatus === "Sending..." && (
+                    <div className="mt-4 p-3 text-center rounded-sm bg-blue-50 text-blue-700">
+                      {formStatus}
+                    </div>
+                  )}
+                  
+                  {/* Error messages */}
+                  {formStatus && !submitted && formStatus !== "Sending..." && (
+                    <div className="mt-4 p-3 text-center rounded-sm bg-red-50 text-red-700">
+                      {formStatus}
+                    </div>
+                  )}
                 </motion.div>
               </form>
             )}
@@ -256,16 +307,7 @@ const Contact = () => {
                   </div>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="flex items-start">
-                  <div className="bg-gray-100 p-3 mr-4 rounded-sm">
-                    <Clock size={20} className="text-gray-700" />
-                  </div>
-                  <div>
-                    <Text fw={500}>Business Hours</Text>
-                    <Text className="text-gray-600">Monday - Saturday: 10:00 AM - 7:00 PM</Text>
-                    <Text className="text-gray-600">Sunday: Closed</Text>
-                  </div>
-                </motion.div>
+                
               </div>
             </motion.div>
 

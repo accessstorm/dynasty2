@@ -209,7 +209,7 @@ const About = () => {
             className="text-center mb-16"
           >
             <div className="w-16 h-px bg-black mx-auto mb-6"></div>
-            <Title order={2} className="text-3xl font-serif mb-2">The Team Behind Dynasty</Title>
+            <Title order={2} className="text-3xl font-serif mb-2"> Behind Dynasty</Title>
             <Text className="max-w-2xl mx-auto text-gray-600">
               Our products are a reflection of the dedicated craftspeople who create them
             </Text>

@@ -63,7 +63,7 @@ const Help = () => {
         A: We do not accept returns. However, we offer exchanges in the following cases: If the product received is defective or damaged, or if the wrong product has been delivered. To request an exchange, please email us at support@dynastyworld.in within 3 days of delivery, along with photos and your Order ID. Shipping costs for exchanges must be borne by the customer.
         
         Q: What if the product I received is damaged?
-        A: If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.
+        A: If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and we will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.
         
         PAYMENT FAQs:
         Q: What payment methods do you accept?
@@ -210,7 +210,7 @@ const Help = () => {
             <IconHeadset size={36} className="mr-6" />
             <div>
               <Title order={2} className="font-serif">WAYS TO CONTACT US</Title>
-              <Text size="sm" className="text-gray-300">Our team is here to help you</Text>
+              <Text size="sm" className="text-gray-300">We is here to help you</Text>
             </div>
           </div>
           
@@ -225,7 +225,7 @@ const Help = () => {
                   <Text className="text-lg font-medium">+919820238241</Text>
                   <Text size="sm" className="text-gray-500 mb-4">Mon-Sat: 10am - 7pm</Text>
                   <Text size="sm">
-                    Speak directly with our customer service team for immediate assistance with orders, returns, or product inquiries.
+                    Speak directly with our customer service for immediate assistance with orders, returns, or product inquiries.
                   </Text>
                 </Card>
               </Grid.Col>
@@ -239,7 +239,7 @@ const Help = () => {
                   <Text className="text-lg font-medium">dynastyneckties@gmail.com</Text>
                   <Text size="sm" className="text-gray-500 mb-4">24/7 Support</Text>
                   <Text size="sm">
-                    Email us anytime for non-urgent inquiries. Our team typically responds within 24 hours to all customer emails.
+                    Email us anytime for non-urgent inquiries. We typically responds within 24 hours to all customer emails.
                   </Text>
                 </Card>
               </Grid.Col>

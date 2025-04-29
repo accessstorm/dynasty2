@@ -88,7 +88,7 @@ const ChatbotButton: React.FC = () => {
         A: We do not accept returns. However, we offer exchanges in the following cases: If the product received is defective or damaged, or if the wrong product has been delivered. To request an exchange, please email us at support@dynastyworld.in within 3 days of delivery, along with photos and your Order ID. Shipping costs for exchanges must be borne by the customer.
         
         Q: What if the product I received is damaged?
-        A: If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.
+        A: If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and we will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.
         
         PAYMENT FAQs:
         Q: What payment methods do you accept?
@@ -145,7 +145,7 @@ const ChatbotButton: React.FC = () => {
       } else if (input.includes('size')) {
         responseText = "Our standard neckties are approximately 58 inches long and 3 inches wide at the widest point. Slim ties are 2.5 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.";
       } else if (input.includes('damaged') || input.includes('defective')) {
-        responseText = "If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange.";
+        responseText = "If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and we will assist you with an exchange.";
       } else if (input.includes('payment') || input.includes('pay')) {
         responseText = "We accept the following payment methods: Credit Cards, Debit Cards, Net Banking, UPI, and Cash on Delivery (COD).";
       } else if (input.includes('secure') || input.includes('security')) {

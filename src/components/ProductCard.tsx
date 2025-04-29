@@ -9,6 +9,7 @@ export interface ProductCardProps {
   name: string;
   description: string;
   price: number;
+  originalPrice?: number;
   image: string;
   color: string;
   pattern?: string;
@@ -136,13 +137,16 @@ const ProductCard = ({
           </Text>
           
           <Button
-            component={Link}
-            to={link || `/product/${id}`}
+            component="a"
+            href="https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/checkout"
+            target="_blank"
+            rel="noopener noreferrer"
             variant="subtle"
-            className="text-gray-800 hover:bg-gray-100 text-xs uppercase tracking-wider p-0 h-auto"
+            className="text-gray-800 hover:bg-gray-100 text-xs uppercase tracking-wider p-1 h-auto whitespace-nowrap"
             radius="xs"
           >
-             Cart
+             <span className="hidden sm:inline">Add to Cart</span>
+             <span className="sm:hidden">Cart</span>
           </Button>
         </div>
       </div>
