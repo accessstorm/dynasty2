@@ -3,8 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Container, Text, Button, Badge, Accordion } from '@mantine/core';
 import { getStaticProducts } from '../services/StaticProductService';
 import { ProductCardProps } from '../components/ProductCard';
-import RazorpayButton from '../components/RazorpayButton';
-import RazorpayQRButton from '../components/RazorpayQRButton';
 import ProductCard from '../components/ProductCard';
 
 const GiftSetDetails = () => {
@@ -431,35 +429,38 @@ const GiftSetDetails = () => {
                   NEW
                 </Badge>
               )}
-              
-              {/* Navigation Arrows - only show if we have multiple images */}
-              {productImages.length > 1 && (
-                <>
-                  <button 
-                    onClick={navigateToPrevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
-                    aria-label="Previous image"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                  </button>
-                  <button 
-                    onClick={navigateToNextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md z-10 transition-all w-10 h-10 flex items-center justify-center focus:outline-none"
-                    aria-label="Next image"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
-                  </button>
-                </>
-              )}
             </div>
           </div>
           
+          {/* Navigation Buttons - Moved below image */}
+          {productImages.length > 1 && (
+            <div className="flex justify-center items-center space-x-4 mt-3">
+              <button 
+                onClick={navigateToPrevImage}
+                className="bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md transition-all w-12 h-12 flex items-center justify-center focus:outline-none border border-gray-200"
+                aria-label="Previous image"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <span className="text-gray-500 text-sm">
+                {productImages.findIndex(img => img === product.image) + 1} of {productImages.length}
+              </span>
+              <button 
+                onClick={navigateToNextImage}
+                className="bg-white hover:bg-gray-100 text-black p-2 rounded-full shadow-md transition-all w-12 h-12 flex items-center justify-center focus:outline-none border border-gray-200"
+                aria-label="Next image"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          )}
+          
           {/* Thumbnail Navigation */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 mt-2">
             {productImages.map((image, i) => {
               // Determine image label based on index for gift set products
               let imageLabel = i === 0 ? "Box View" : "Set View";

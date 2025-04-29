@@ -2,7 +2,6 @@ import { Text, Button, Badge } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import RazorpayButton from './RazorpayButton';
 
 export interface ProductCardProps {
   id: number;
@@ -87,7 +86,7 @@ const ProductCard = ({
         <div 
           className={`absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : ''}`}
         >
-          <div className="flex flex-col gap-2 sm:gap-3">
+          <div className="flex flex-col gap-2 sm:gap-3 items-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -102,21 +101,27 @@ const ProductCard = ({
               </Button>
             </motion.div>
             
-            {/* Only show Buy Now button for products that are not neckties or gift sets */}
-            {!isNecktieOrGiftSet && (
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            {/* Buy Now button - Simple link based on category */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-2"
+            >
+              <Button
+                component="a"
+                href={category === "necktie" 
+                  ? `https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbrlicfFXdt` 
+                  : category === "giftset"
+                  ? `https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/product/li_QObsbwBiP40sC5`
+                  : `https://pages.razorpay.com/stores/st_QOa81BePXBgrK3/checkout`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-xs tracking-widest px-4 sm:px-8 py-2 sm:py-3 font-medium"
+                radius="xs"
               >
-                <RazorpayButton
-                  amount={price}
-                  name={name}
-                  description={description}
-                  className="bg-black text-white hover:bg-[#D4AF37] hover:text-black transition-all uppercase text-xs tracking-widest px-4 sm:px-8 py-2 sm:py-3 font-medium"
-                  buttonText="Buy Now"
-                />
-              </motion.div>
-            )}
+                Buy Now
+              </Button>
+            </motion.div>
           </div>
         </div>
       </div>
