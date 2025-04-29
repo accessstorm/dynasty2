@@ -20,7 +20,7 @@ const Footer = () => {
   ];
 
   const contactInfo = [
-    { icon: Phone, text: '+919820238241', href: 'tel:+919820238241' },
+    { icon: Phone, text: '+91 9820238241', href: 'tel:+91 9820238241' },
     { icon: Mail, text: 'dynastyneckties@gmail.com', href: 'mailto:dynastyneckties@gmail.com' },
     { icon: MapPin, text: 'Mumbai, Maharashtra, India', href: '#' }
   ];

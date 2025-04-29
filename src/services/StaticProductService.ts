@@ -230,7 +230,8 @@ export const getStaticProducts = (): CategoryProducts => {
     console.log(`Mapping gift set ID ${item.id} to URL path`);
     return {
       ...item,
-      link: `/gift-set/${item.id}`
+      link: `/gift-set/${item.id}`,
+      originalPrice: item.price === 1899 ? 2799 : 3699
     };
   });
 

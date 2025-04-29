@@ -509,8 +509,13 @@ const GiftSetDetails = () => {
           </div>
           
           {/* Price */}
-          <div className="text-2xl md:text-3xl font-serif">
-            ₹{product?.price.toLocaleString('en-IN')}
+          <div className="flex items-center space-x-3">
+            <div className="text-2xl md:text-3xl font-serif">
+              ₹{product?.price.toLocaleString('en-IN')}
+            </div>
+            <div className="text-lg md:text-xl line-through text-gray-500">
+              ₹{product.price === 1899 ? "2799" : "3699"}
+            </div>
           </div>
 
           {/* Quantity Selector */}
