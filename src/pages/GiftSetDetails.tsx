@@ -582,33 +582,6 @@ const GiftSetDetails = () => {
                 Buy Now (Secured by Razorpay)
               </Button>
             )}
-            
-            <Button
-              className="bg-[#4CAF50] text-white hover:bg-[#45a049] transition-all uppercase text-sm tracking-widest py-4 font-medium rounded-md"
-              radius="xs"
-              onClick={() => {
-                if (!product) return;
-                if (product.quantity === 0) {
-                  setCartMessage({
-                    text: "Sorry, this product is out of stock.",
-                    type: 'error'
-                  });
-                  return;
-                }
-                
-                setCartMessage({
-                  text: "Cash on Delivery order placed successfully!",
-                  type: 'success'
-                });
-                
-                setTimeout(() => {
-                  setCartMessage(null);
-                }, 3000);
-              }}
-              disabled={product?.quantity === 0}
-            >
-              Purchase with Cash on Delivery
-            </Button>
           </div>
           
           {/* Cart Message */}
