@@ -81,7 +81,7 @@ const ChatbotButton: React.FC = () => {
         A: For silk ties and pocket squares, we recommend dry cleaning only. Cotton and linen products should be hand washed in cold water and air-dried. Please refer to the care label on your specific product for detailed instructions.
         
         Q: What are the sizes of your ties?
-        A: Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.
+        A: Our standard neckties are approximately 58 inches long and 3 inches wide at the widest point. Slim ties are 2.5 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.
         
         RETURNS & EXCHANGES FAQs:
         Q: Do you accept returns?
@@ -143,7 +143,7 @@ const ChatbotButton: React.FC = () => {
       } else if (input.includes('care') || input.includes('wash') || input.includes('clean')) {
         responseText = "For silk ties and pocket squares, we recommend dry cleaning only. Cotton and linen products should be hand washed in cold water and air-dried. Please refer to the care label on your specific product for detailed instructions.";
       } else if (input.includes('size')) {
-        responseText = "Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.";
+        responseText = "Our standard neckties are approximately 58 inches long and 3 inches wide at the widest point. Slim ties are 2.5 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.";
       } else if (input.includes('damaged') || input.includes('defective')) {
         responseText = "If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange.";
       } else if (input.includes('payment') || input.includes('pay')) {

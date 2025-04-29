@@ -5,6 +5,7 @@ import { IconPhone, IconMail, IconMapPin, IconHeadset, IconSearch, IconMessageCi
 import { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import ChatbotButton from '../components/ChatbotButton';
+import { luxuryClasses } from '../components/LuxuryTheme';
 
 // Initialize the Gemini API
 const genAI = new GoogleGenerativeAI("AIzaSyAEy_tjkGuwRVvc2OxmkI_Memqx0Rz_VrE");
@@ -55,7 +56,7 @@ const Help = () => {
         A: For silk ties and pocket squares, we recommend dry cleaning only. Cotton and linen products should be hand washed in cold water and air-dried. Please refer to the care label on your specific product for detailed instructions.
         
         Q: What are the sizes of your ties?
-        A: Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.
+        A: Our standard neckties are approximately 58 inches long and 3 inches wide at the widest point. Slim ties are 2.5 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.
         
         RETURNS & EXCHANGES FAQs:
         Q: Do you accept returns?
@@ -132,22 +133,22 @@ const Help = () => {
 
   return (
     <motion.main
-      className="bg-[#f8f8f8] py-24"
+      className="bg-[#fcfcfc] py-24"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Container size="xl">
+      <Container size="xl" className="px-8 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-8 text-center"
         >
-          <Title order={1} className="text-4xl font-serif tracking-wide mb-6">
+          <Title order={1} className={luxuryClasses.pageTitle}>
             HELP CENTER
           </Title>
-          <Text className="text-gray-600 max-w-2xl mx-auto text-center text-lg">
+          <Text className="text-lg font-light tracking-wide text-gray-700 max-w-2xl mx-auto text-center mb-8 leading-relaxed">
             Resources and support for your inquiries
           </Text>
           

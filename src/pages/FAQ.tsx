@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IconQuestionMark, IconSearch, IconPlus, IconMinus } from '@tabler/icons-react';
 import { useState } from 'react';
 import HomeWhyChooseUs from '../components/HomeWhyChooseUs';
+import { luxuryClasses } from '../components/LuxuryTheme';
 
 // Define types for our data structures
 interface FAQItem {
@@ -65,7 +66,7 @@ const FAQ = () => {
       },
       {
         question: 'What are the sizes of your ties?',
-        answer: 'Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.'
+        answer: 'Our standard neckties are approximately 58 inches long and 3 inches wide at the widest point. Slim ties are 2.5 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.'
       }
     ],
     returns: [
@@ -114,16 +115,18 @@ const FAQ = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Header Banner */}
-      <div className="bg-black text-white py-16 px-4">
-        <Container size="xl">
+      <div className="bg-[#fcfcfc] py-16 px-4">
+        <Container size="xl" className="px-8 md:px-16">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col items-center"
           >
-            <Title order={1} className="text-4xl font-serif mb-6">FREQUENTLY ASKED QUESTIONS</Title>
-            <Text size="lg" className="text-gray-300 mb-10">
+            <Title order={1} className={luxuryClasses.pageTitle}>
+              FREQUENTLY ASKED QUESTIONS
+            </Title>
+            <Text className="text-lg font-light tracking-wide text-gray-700 max-w-2xl mx-auto text-center mb-8 leading-relaxed">
               Find answers to commonly asked questions about our products, ordering process, and more
             </Text>
           </motion.div>
@@ -131,7 +134,7 @@ const FAQ = () => {
       </div>
       
       {/* FAQ Categories */}
-      <Container size="xl" className="py-16 px-4">
+      <Container size="xl" className="py-8 px-4">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
