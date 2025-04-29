@@ -121,15 +121,15 @@ const NecktieProductDetails = () => {
     console.log(`Box image path: ${boxImagePath}`);
     images.push(boxImagePath);
     
-    // Add frontback image with cache busting
-    const frontbackImagePath = `/images/Aproducts/1Necktie/frontback/${imageName}${cacheBuster}`;
-    console.log(`Frontback image path: ${frontbackImagePath}`);
-    images.push(frontbackImagePath);
-    
     // Add roll image with cache busting
     const rollImagePath = `/images/Aproducts/1Necktie/roll/${imageName}${cacheBuster}`;
     console.log(`Roll image path: ${rollImagePath}`);
     images.push(rollImagePath);
+    
+    // Add frontback image with cache busting
+    const frontbackImagePath = `/images/Aproducts/1Necktie/frontback/${imageName}${cacheBuster}`;
+    console.log(`Frontback image path: ${frontbackImagePath}`);
+    images.push(frontbackImagePath);
     
     return images;
   };
@@ -341,8 +341,8 @@ const NecktieProductDetails = () => {
               // Determine image label based on index
               let imageLabel = "View";
               if (i === 0) imageLabel = "In Box";
-              else if (i === 1) imageLabel = "Front & Back";
-              else if (i === 2) imageLabel = "Rolled";
+              else if (i === 1) imageLabel = "Rolled";
+              else if (i === 2) imageLabel = "Front & Back";
               
               return (
                 <div 

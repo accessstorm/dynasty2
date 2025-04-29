@@ -54,6 +54,51 @@ const ChatbotButton: React.FC = () => {
         Delivery takes 3-4 days for prepaid orders and 1-2 days extra for COD orders. Same-day delivery is available within Delhi NCR.
         Dynasty offers returns and exchanges within 7 days of delivery, except for sale items which are non-returnable.
         Dynasty products are crafted from premium materials like silk and microfiber and come in various colors and patterns.
+        
+        Here are some frequently asked questions you should use to help answer customer inquiries:
+        
+        ORDERS & SHIPPING FAQs:
+        Q: How long will it take to receive my order?
+        A: We aim to dispatch all orders within 1–2 working days. Delivery timelines typically range between 3–5 business days, depending on your location. In rare cases, shipping may take up to 7 business days due to unforeseen delays.
+        
+        Q: How can I track my order?
+        A: Once your order is dispatched, you will receive a tracking link on your registered email and/or mobile number. You can monitor the delivery status using the tracking number provided.
+        
+        Q: Can I cancel my order after placing it?
+        A: No. Orders once placed cannot be cancelled, especially Cash on Delivery (COD) orders. Kindly review your order carefully before confirming payment.
+        
+        Q: Do you ship internationally?
+        A: Currently, Dynasty ships orders only within India. Stay tuned — we will be announcing international shipping options soon.
+        
+        PRODUCTS FAQs:
+        Q: Why does the product look slightly different from the pictures online?
+        A: At Dynasty, we make every effort to accurately showcase the colors, textures, and details of our products through high-quality photography. However, slight variations may occur due to lighting conditions, screen settings, and the natural characteristics of fabrics. Such minor differences do not qualify as defects.
+        
+        Q: What materials are used in your products?
+        A: We use premium quality materials for all our products. Our ties and pocket squares are primarily made from silk, cotton, linen, and wool blends. Specific material information is listed on each product page.
+        
+        Q: How should I care for my Dynasty products?
+        A: For silk ties and pocket squares, we recommend dry cleaning only. Cotton and linen products should be hand washed in cold water and air-dried. Please refer to the care label on your specific product for detailed instructions.
+        
+        Q: What are the sizes of your ties?
+        A: Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.
+        
+        RETURNS & EXCHANGES FAQs:
+        Q: Do you accept returns?
+        A: We do not accept returns. However, we offer exchanges in the following cases: If the product received is defective or damaged, or if the wrong product has been delivered. To request an exchange, please email us at support@dynastyworld.in within 3 days of delivery, along with photos and your Order ID. Shipping costs for exchanges must be borne by the customer.
+        
+        Q: What if the product I received is damaged?
+        A: If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange. Please note that Dynasty reserves the right to verify the claim before approving any exchange.
+        
+        PAYMENT FAQs:
+        Q: What payment methods do you accept?
+        A: We accept the following payment methods: Credit Cards, Debit Cards, Net Banking, UPI, and Cash on Delivery (COD).
+        
+        Q: Is my payment information secure?
+        A: Yes, all payment information is processed through secure and encrypted channels. We use Razorpay, a trusted payment gateway that ensures your financial information is protected.
+        
+        Q: Is Cash on Delivery available?
+        A: Yes, Cash on Delivery (COD) is available for domestic orders within India. Please note that orders paid via COD may take 1-2 days longer to process.
       `;
       
       // Combine context with user input
@@ -87,6 +132,26 @@ const ChatbotButton: React.FC = () => {
         responseText = "We offer 3-4 day delivery for prepaid orders and 1-2 days extra for COD orders. Same-day delivery is available within Delhi NCR.";
       } else if (input.includes('return') || input.includes('exchange')) {
         responseText = "We offer returns and exchanges within 7 days of delivery, except for sale items which are non-returnable.";
+      } else if (input.includes('track') || input.includes('tracking')) {
+        responseText = "Once your order is dispatched, you will receive a tracking link on your registered email and/or mobile number. You can monitor the delivery status using the tracking number provided.";
+      } else if (input.includes('cancel')) {
+        responseText = "Orders once placed cannot be cancelled, especially Cash on Delivery (COD) orders. Kindly review your order carefully before confirming payment.";
+      } else if (input.includes('international') || input.includes('abroad')) {
+        responseText = "Currently, Dynasty ships orders only within India. Stay tuned — we will be announcing international shipping options soon.";
+      } else if (input.includes('material')) {
+        responseText = "We use premium quality materials for all our products. Our ties and pocket squares are primarily made from silk, cotton, linen, and wool blends. Specific material information is listed on each product page.";
+      } else if (input.includes('care') || input.includes('wash') || input.includes('clean')) {
+        responseText = "For silk ties and pocket squares, we recommend dry cleaning only. Cotton and linen products should be hand washed in cold water and air-dried. Please refer to the care label on your specific product for detailed instructions.";
+      } else if (input.includes('size')) {
+        responseText = "Our standard neckties are approximately 58 inches long and 3.25 inches wide at the widest point. Slim ties are 2.75 inches wide, while our bow ties come in adjustable sizes to fit neck sizes from 14.5 to 18.5 inches.";
+      } else if (input.includes('damaged') || input.includes('defective')) {
+        responseText = "If you receive a damaged or defective product, please notify us within 3 days of delivery by writing to support@dynastyworld.in. Attach clear photos showing the issue, and our team will assist you with an exchange.";
+      } else if (input.includes('payment') || input.includes('pay')) {
+        responseText = "We accept the following payment methods: Credit Cards, Debit Cards, Net Banking, UPI, and Cash on Delivery (COD).";
+      } else if (input.includes('secure') || input.includes('security')) {
+        responseText = "Yes, all payment information is processed through secure and encrypted channels. We use Razorpay, a trusted payment gateway that ensures your financial information is protected.";
+      } else if (input.includes('cod') || input.includes('cash on delivery')) {
+        responseText = "Yes, Cash on Delivery (COD) is available for domestic orders within India. Please note that orders paid via COD may take 1-2 days longer to process.";
       }
       
       setMessages(prev => [...prev, { role: 'assistant', content: responseText }]);
