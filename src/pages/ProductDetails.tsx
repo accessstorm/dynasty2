@@ -3,8 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { Container, Text, Button, Badge, Accordion } from '@mantine/core';
 import { getStaticProducts } from '../services/StaticProductService';
 import { ProductCardProps } from '../components/ProductCard';
-import RazorpayButton from '../components/RazorpayButton';
-import RazorpayQRButton from '../components/RazorpayQRButton';
 
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
